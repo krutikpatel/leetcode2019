@@ -33,6 +33,12 @@ Note:
 class Solution {
 
     //This one is relatively slower
+    /*
+    may be for faster approach :
+    https://leetcode.com/explore/learn/card/array-and-string/204/conclusion/1164/discuss/47797/In-place-Java-solution-with-comments-just-for-fun
+    
+    -reverse the whole string, and then take word by word and reverse them
+    */
     public String reverseWords(String s) {
         /*
         Two pointers"
@@ -51,7 +57,8 @@ class Solution {
         Stack<String> ss = new Stack();
         
         while(i<s.length()){
-            if(s.charAt(i)==' '){
+            if(s.charAt(i)==' '){ //This is cleaner way to do loop. rather than introducing another while loop 
+                                  //to skip all spaces for i, just do iteration by iteraiton of outer loop of i
                 i++;
             }else{
                 //now get the word
@@ -64,7 +71,7 @@ class Solution {
                 System.out.println(word);
                 ss.push(word);
                 
-                               //modify i
+                //modify i
                 i = j;
             }
         }
