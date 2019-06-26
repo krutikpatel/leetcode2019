@@ -14,6 +14,11 @@ Output:
 ]
 
 */
+/*
+Solution time complexity:
+Time Complexity: O(NKlog⁡K)O(NK \log K)O(NKlogK), where NNN is the length of strs, and KKK is the maximum length of a string in strs. 
+The outer loop has complexity O(N)O(N)O(N) as we iterate through each string. Then, we sort each string in O(Klog⁡K)O(K \log K)O(KlogK) time.
+*/
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
         List<List<String>> ret = new ArrayList<>();
