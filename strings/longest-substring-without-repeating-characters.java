@@ -61,14 +61,14 @@ public int lengthOfLongestSubstringFaster(String s) {
         
         // abba
         //window is [start,i]
-        for(int i=0; i<s.length(); i++) {
+        for(int i=0; i<s.length(); i++) { //expanding window from right
             char c = s.charAt(i);
             if (map.containsKey(c)) {
-                if (map.get(c) >= start) 
-                    start = map.get(c) + 1; //key trick. advance start to +1 from repeated char on left
+                if (map.get(c) >= start)    // Key trick. only if i > start
+                    start = map.get(c) + 1; //key trick. advance start to +1 from repeated char on left. SLIDING window from left
             }
             len = Math.max(len, i-start+1);
-            map.put(c, i);
+            map.put(c, i);    //we put char to map every time with updated index
         }
         
         return len;
