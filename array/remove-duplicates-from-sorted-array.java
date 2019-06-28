@@ -27,7 +27,7 @@ class Solution {
         //sincce we are looking for duplicates, we start j from 1
         for(int j=1;j<nums.length;j++){
             //once we find uniue/non-duplicate elem, we add it to array (same arr here lol)
-            if(nums[j] != nums[good]){
+            if(nums[j] != nums[good]){  //since arr is sorted, we can also say if nums[j] > nums[good]
                 good++; //we donw want to "replace" good num with new num                
                 nums[good] = nums[j];
             }
