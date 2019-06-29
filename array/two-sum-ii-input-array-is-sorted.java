@@ -19,10 +19,14 @@ Explanation: The sum of 2 and 7 is 9. Therefore index1 = 1, index2 = 2.
 
 */
 class Solution {
-    /* 
-    Trick : two pointer technique, but, we place them at start and end
-    */
-    public int[] twoSum(int[] numbers, int target) {    
+    public int[] twoSum(int[] numbers, int target) {
+        
+        /* 
+        Trick : two pointer technique, but, we place them at start and end
+        
+        if sum > target, we need smaller elem, so move j
+        if sum < target, we need bigger elem, so move i
+        */
         int i=0,j=numbers.length-1;
         while(i<j){
             int sum = numbers[i] + numbers[j];
