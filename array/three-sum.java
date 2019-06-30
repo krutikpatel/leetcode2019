@@ -28,6 +28,7 @@ class Solution {
         Arrays.sort(nums);
         /*
         take each elem : x, and find sum-2 for other two elem = -x
+        two pointer technique
         */
         for(int i = 0;i<nums.length-2;i++){            
             if(i > 0 && nums[i] == nums[i-1])
