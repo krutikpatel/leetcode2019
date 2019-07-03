@@ -26,7 +26,7 @@ class Solution {
             for(int j=0;j<9;j++){
                 if(board[i][j] == '.'){
                     //each nums
-                    for(char n='1';n<='9';n++){
+                    for(char n='1';n<='9';n++){ //interesting way to iterate over 1-9 chars
                         if(isValid(i,j,n,board)){
                             
                             //place elem
