@@ -32,6 +32,10 @@ class Solution {
     /*
     dont rty to use Template II
     -use Template I
+    -TemplateII is not suited to find a "particular" value in array, which is what we are exactly after. 
+    WE will end up in infinte loop if elem does not exist.
+    
+    -TemplateI is well suited for finding exact element/value.
     */
     private int findBegin(int[] nums, int target){
         int l=0;
