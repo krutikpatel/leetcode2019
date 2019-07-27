@@ -23,14 +23,16 @@ class Solution {
         memo[1] = 1;// one node
         
         //for each i, find its memo/solution
-        for(int i=2;i<=n;i++){
+        for(int nodes=2;nodes<=n;nodes++){
             //sol(i) = sum of solutions found with taking root at each val(0 to i)
-            for(int j=1;j<=i;j++){  //note: we began from 1
+            for(int root=1;root<=nodes;root++){  //note: we began from 1
                     //F(i, n) = G(i-1) * G(n-i)	1 <= i <= n 
-                memo[i] += memo[j-1] * memo[i-j];   //reason for i-j : ways to make right subtree for no. of nodes i-j. 
+                memo[nodes] += memo[root-1] * memo[nodes-root];   //reason for i-j : ways to make right subtree for no. of nodes i-j. 
                                                     //does not matter what they are as long as they are sorted-in-order. 
                                                     //it comes from observation that its same as solution for right bustree-> j+1 -> i
                                                     //no subtrees for (1,2) nodes is same as no of subtrees for (2,3)
+                
+                                                //ways to make left subtree with this as root * ways to make right subtree with this as root
             }
         }
         
