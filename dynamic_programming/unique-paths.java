@@ -39,7 +39,8 @@ class Solution {
     */
     public int uniquePaths(int m, int n) {
         int[][] dp = new int[m][n];
-        //initialize smallest problem know solutions. which is beginning point is our end point. point "itself"
+        //initialize smallest problem know solutions. 
+        //only one way to reach all points in single row/column from [0][0]
         
         //if only one row existed
         for(int i = 0;i<m;i++)
