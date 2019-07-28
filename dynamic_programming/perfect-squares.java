@@ -32,6 +32,14 @@ class Solution {
             -figure out memo[i]
             for that we need to go thru all perfect squares - smaller than i
             and get min
+            
+            // To get the value of dp[n], we should choose the min
+            // value from:
+            //     dp[n - 1] + 1,
+            //     dp[n - 4] + 1,
+            //     dp[n - 9] + 1,
+            //     dp[n - 16] + 1
+            //     and so on...
             */            
             for(int j =1;j*j<=i;j++){
                 int diff = i - (j*j);   // this is like n-1,n-4,n-9 ..
