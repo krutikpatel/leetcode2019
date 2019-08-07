@@ -22,15 +22,19 @@ IMP
     Could you come up with a one-pass algorithm using only constant space?
 
 */
+/*
+1-pass is essentially the 3-way quick partition method in quicksort. check this gret video demo from Professor Robert Sedgewick
+
+// 2 pointers
+    //gather all 0's to left. Blind swap. move iter because it was 0
+    //gather all 2's to right. Blind swap. dont move iter because it was blind swap. it will be taken care of in next iteration.
+        
+*/
 class Solution {
     public void sortColors(int[] nums) {
         if(nums == null || nums.length <= 1)
             return;
-        
-        // 2 pointers
-        //gather all 0's to left. Blind swap. move iter because it was 0
-        //gather all 2's to right. Blind swap. dont move iter because it was blind swap. it will be taken care of in next iteration.
-        
+                
         int start = 0;
         int end = nums.length-1;
         int i=0;
