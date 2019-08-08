@@ -44,6 +44,7 @@ class Solution {
         while(l<r){
             int mid = l+(r-l)/2;
             
+             // for subarray starting at mid with size k+1, we compare element of two ends to eliminate the loser
             if(Math.abs(arr[mid]-x) > Math.abs(arr[mid+k]-x)){
                 //mid+1 is closer so move right
                 l = mid+1;
