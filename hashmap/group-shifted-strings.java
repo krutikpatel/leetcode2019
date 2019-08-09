@@ -18,6 +18,15 @@ Output:
   ["a","z"]
 ]
 */
+/*
+Basically we need to form some sort of key for each word to group them. (Remember the idea of group all anagrams?)
+
+Consider acf and pru. Now notice the differnce between each characters.
+acf = 0->2->3, and pru = 0->2->3. So these two form same group. So in this case, you can simply use integers ASCII difference to form key.
+
+Now consider corner case, az and ba, where az = 0->25 and ba = 0->-1. When it goes negative, 
+just make it positive(rotate or mod equivalent) by adding 26. So it becomes, ba = 0->25, which forms same group.
+*/
 class Solution {
     public List<List<String>> groupStrings(String[] strings) {
         /*
