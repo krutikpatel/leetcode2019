@@ -19,6 +19,11 @@ Output:
 /*
 constraint is num cannot be repeated. so check if soFar already has digit, use only if its not present sofar
 For each index/slot, use all digits you can..
+
+Time complexity:
+Permute function will be called n! times. 
+   -that function does O(n) work i think,
+   so, total: O(n*n!)
 */
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
