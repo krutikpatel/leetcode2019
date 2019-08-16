@@ -16,12 +16,22 @@ Explanation: [4,-1,2,1] has the largest sum = 6.
     leetcode soln explains this as approach as well
     */
 class Solution {
+    /*
+    Greedy cum DP
+    sumSoFar is kind of memoized for DP
+    */
     public int maxSubArray(int[] nums) {
         int maxSum = nums[0];
         int sumSoFar = nums[0];
         
         for(int i=1;i<nums.length;i++){
-            sumSoFar = Math.max(nums[i], sumSoFar+nums[i]);//we pick local max at/upto index i
+            //sumSoFar = Math.max(nums[i], sumSoFar+nums[i]);//we pick local max at/upto index i
+            //discard sumSoFar, if it is -ve, because that will not help increase sum in ANY case
+            if(sumSoFar < 0) {
+                sumSoFar = nums[i];
+            } else {
+                sumSoFar = sumSoFar+nums[i];
+            }
             maxSum = Math.max(maxSum, sumSoFar); // Even if we picked nums[i] in last line, our max is still whatver max is so far..
         }
         return maxSum;
