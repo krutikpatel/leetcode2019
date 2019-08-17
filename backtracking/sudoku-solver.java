@@ -18,6 +18,12 @@ class Solution {
         solve(board);
     }
     
+    /*
+    backtrack function is little different here. rather than continuing row and col values,
+    everytime, we begin from 0,0 and go down.
+    improvement:
+    Start loop from next possible position rather than from the very beginning every time. - not done because its little convoluted.
+    */
     private boolean solve(char[][] board){
         
         //rows
