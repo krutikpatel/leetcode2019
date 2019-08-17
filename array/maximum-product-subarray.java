@@ -24,6 +24,11 @@ class Solution {
         
         for(int i=1;i<nums.length;i++){
             int temp = max;
+            /* There are only 3 things possible
+            1. nums[i] alone is greater till index i (rather than multiplying with prev product). (we ignore prev max,min)
+            2. nums[i] * min_till_i gives greater result.
+            3. nums[i] * max_till_i gives greater result.
+            */
             max = Math.max(nums[i], Math.max(max * nums[i], min * nums[i]));
             min = Math.min(nums[i], Math.min(temp * nums[i], min * nums[i]));
             
