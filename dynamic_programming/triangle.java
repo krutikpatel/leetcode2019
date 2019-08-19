@@ -26,7 +26,7 @@ class Solution {
         
         -as we move up the triangle, solution converges on memo[0] when we reach top of triangle !
         */
-        int[] memo = new int[triangle.size()+1];
+        int[] memo = new int[triangle.size()];
         
         /*
         initialize memo with know soln
