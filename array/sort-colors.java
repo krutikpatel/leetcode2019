@@ -35,19 +35,19 @@ class Solution {
         if(nums == null || nums.length <= 1)
             return;
                 
-        int start = 0;
-        int end = nums.length-1;
+        int ind1 = 0;
+        int ind2 = nums.length-1;
         int i=0;
-        while(i<=end) {
+        while(i<=ind2) { //v imp. makes sense to stop when reach ind2. if you keep going, it will messup results
             if(nums[i] == 0) {
                 //swap with start.
-                swap(i,start,nums);
-                start++;
+                swap(i,ind1,nums);
+                ind1++;
                 i++;
             } else if(nums[i] == 2) {
                 //swap with end
-                swap(i,end,nums);
-                end--;
+                swap(i,ind2,nums);
+                ind2--;
             } else {
                 //its 1
                 i++;
