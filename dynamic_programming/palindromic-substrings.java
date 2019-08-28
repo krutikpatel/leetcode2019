@@ -20,6 +20,39 @@ Explanation: Six palindromic strings: "a", "a", "a", "aa", "aa", "aaa".
 class Solution {
     public int countSubstrings(String s) {
         int n = s.length();
+        int count = 0;
+        
+        if(s==null || n==0){
+            return count;
+        }
+        
+        for(int i=0;i<n;i++) {
+            count += checkPal(s, i,i); //form palindrom string from single center char (odd length string)
+            count += checkPal(s, i,i+1);//form palindrom string from two central chars (even length string)
+        }
+        return count;
+    }
+    
+    /*
+    i goes left
+    j goes right
+    till char matches
+    */
+    private int checkPal(String s, int i, int j) {
+        int count = 0;
+        while(i>=0 && j < s.length() && s.charAt(i) == s.charAt(j)) {
+            count++;
+            i--;
+            j++;
+        }
+        return count;
+    }
+    
+    /*
+    slower than above
+    */
+    public int countSubstringsDP(String s) {
+        int n = s.length();
         boolean[][] dp = new boolean[n][n];
         
         int count = 0;
