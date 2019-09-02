@@ -35,11 +35,10 @@ class Solution {
         for every iteration we check substring(i,j)
         
         At end we would have filled up diagonally upper half matrix
-        
-        We try to fill-up max-len in dp matrix 
+        our window is [i..j]
         */
         for(int i = n-1;i>=0;i--){
-            dp[i][i] = 1; //one char, same char , str-len = 1
+            dp[i][i] = 1; //one char, same char
             
             for(int j=i+1;j<n;j++){ //Remember: we begin j=i+1 and NOT i, because dp[i+1] will break otherwise
                 if(s.charAt(i) == s.charAt(j)){
@@ -52,6 +51,7 @@ class Solution {
         }
         
         //top-right corner. last vals of i,j after loops finishes
+        //final window is whole string, i=0,j=n-1
         return dp[0][n-1];
     }
 }
