@@ -14,6 +14,12 @@ Example 2:
 Input: coins = [2], amount = 3
 Output: -1
 */
+/*
+NOTE:
+easily solvable with BFS too
+BFS used to give optimal solution
+
+*/
 class Solution {
     public int coinChange(int[] coins, int amount) {
         if (coins == null || coins.length == 0 || amount <= 0)
