@@ -21,6 +21,17 @@ From the top-left corner, there are a total of 3 ways to reach the bottom-right 
 2. Right -> Down -> Right
 3. Down -> Right -> Right
 */
+
+
+    /*
+    Similar questions:
+91. Decode Ways
+70. Climbing Stairs
+509. Fibonacci Number
+
+Practice them in a row for better understanding
+    */
+
 /*
 Classic example of solving dp problem with matrix memoization
 */
