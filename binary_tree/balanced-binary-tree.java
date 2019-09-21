@@ -47,14 +47,15 @@ Return false.
  -need external var to store result
  */
 class Solution {
-    private boolean result = true;
     
     public boolean isBalanced(TreeNode root) {
         if(root == null)
             return true;
         
-        height(root);    
-        return result;
+        if(height(root) == -1)
+            return false;
+        else
+            return true;
     }
     
     private int height(TreeNode n){
@@ -64,8 +65,11 @@ class Solution {
         int l = height(n.left);
         int r = height(n.right);
         
+        if(l == -1 || r == -1)
+            return -1;
+        
         if(Math.abs(l-r) > 1)
-            result = false;
+            return -1;
         return 1 + Math.max(l,r);
     }
 }
