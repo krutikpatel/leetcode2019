@@ -19,6 +19,8 @@ class Solution {
     If you just match what u found first, result will be wring: Think:
         "catscat"
         ["cats","cat"]
+        
+    dp[i] = dp[j] && dp[j to i]    
     */
     public boolean wordBreak(String s, List<String> wordDict) {
         if(s== null | s.length()==0)
@@ -42,7 +44,7 @@ class Solution {
                 //use memo and dict to solve this sub-string j to i
                 //memo[j] tells whether substring till j is valid
                 // 0->j-1 valid j->i valid
-                if(memo[j] && set.contains(s.substring(j,i))){
+                if(memo[j] && set.contains(s.substring(j,i))){  //till j is good, and j to i is also good
                     
                     memo[i] = true; // substring till i has solution
                     break; //so break from curr loop
