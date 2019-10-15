@@ -21,8 +21,35 @@ class Solution {
         ["cats","cat"]
         
     dp[i] = dp[j] && dp[j to i]    
+    
+    -if you think, this problem sound recursive, but good example to see how its done iteratively.
+        -2 loops and respective indexes in both loop
+        
+    Both are order of O(n^2)    
     */
+    
+    //simpler version of DP
     public boolean wordBreak(String s, List<String> wordDict) {
+        return word_Break(s, new HashSet(wordDict), 0, new Boolean[s.length()]);
+    }
+    public boolean word_Break(String s, Set<String> wordDict, int start, Boolean[] memo) {
+        if (start == s.length()) {
+            return true;
+        }
+        if (memo[start] != null) {
+            return memo[start];
+        }
+        for (int end = start + 1; end <= s.length(); end++) {
+            if (wordDict.contains(s.substring(start, end)) && word_Break(s, wordDict, end, memo)) {
+                return memo[start] = true;
+            }
+        }
+        return memo[start] = false;
+    }
+    
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    public boolean wordBreak2(String s, List<String> wordDict) {
         if(s== null | s.length()==0)
             return false;
         
@@ -55,4 +82,7 @@ class Solution {
         //if substring till s.length is good
         return memo[s.length()];
     }
+    
+    
+    
 }
