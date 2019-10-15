@@ -41,10 +41,13 @@ class Solution {
         }
         for (int end = start + 1; end <= s.length(); end++) {
             if (wordDict.contains(s.substring(start, end)) && word_Break(s, wordDict, end, memo)) {
-                return memo[start] = true;
+                memo[start] = true;
+                return true;
             }
         }
-        return memo[start] = false;
+                
+        memo[start] = false;
+        return false;
     }
     
     
