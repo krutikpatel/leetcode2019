@@ -12,3 +12,10 @@ Combination: order does not matter
 1. Permutation : n!
 2. Picking m out of n (Permutations) : n!/(n − r)!
 3. Picking m out of n (combinations) : n!/r!(n − r)!
+
+
+Note:
+For any int array, to avoid duplicates:
+a. Sort array
+b. if i>0 && A[i] == A[i-1] , skip
+
