@@ -20,17 +20,27 @@ A solution set is:
 ]
 */
 class Solution {
+
+    /*
+    IMP - for this problem : number can be re-used.
+    That is why we did not increase "i" in our recursive call
+    */
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> ret = new ArrayList();
         if(candidates == null || candidates.length == 0 || target == 0)
             return ret;
         
         helper(0, new ArrayList(), candidates, target, ret, 0);
-        
         return ret;
     }
     
+    /*
+    Our choice: pickPos or index for number
+    Constraint: can be done before adding or afrer adding :
+        whether sum > target or not
+    */
     private void helper(int pickPos, List<Integer> soFar, int[] nums, int target, List<List<Integer>> ret, int sumSoFar){
+
         if(sumSoFar == target){
             ret.add(new ArrayList(soFar));
             return;
