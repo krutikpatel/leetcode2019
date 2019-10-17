@@ -19,3 +19,12 @@ For any int array, to avoid duplicates:
 a. Sort array
 b. if i>0 && A[i] == A[i-1] , skip
 
+
+Another way to think about choices look and loop begin index:
+-Just think of one round, and that should help figure out loops needed and loop begin index
+Example:
+  combinations :
+    -for digit 0, choices i = 1 to n
+    -for digit 1, choices i = 2 to n
+    
+    That concludes "loop begin index" is variable, and needs to be passed to function
