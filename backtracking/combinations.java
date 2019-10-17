@@ -31,27 +31,36 @@ class Solution {
     //each nums 1 to 4 (non repetetive in any order)
 	public static void combine(List<List<Integer>> combs, List<Integer> sofar, int start, int n, int k) {
 		//maintaining k helps to reduce k's count loop from this method.
-		if(sofar.size()==k) {
+        if(sofar.size()==k) {
 			combs.add(new ArrayList<Integer>(sofar));
 			return;
 		}
 
-		//how to makre sure 1,2 and 2,1 both dont get added ? - clever choice of index/nums remaining
-		//at any given point, our remaining choices already skips 1 to start-1 digits. Choices reduce as we move down the nums
-		//so once 1,2, 1,3, 1,4 are added
-		//that inherently avoids : 2,1 because 2's choices are 3 and 4 only
-		//3's choices only 4
-		//4's choices - none other
-		for(int i=start;i<=n;i++) {
-				//curr choice
-		    sofar.add(i);
+        //how to makre sure 1,2 and 2,1 both dont get added ? - clever choice of index/nums remaining
+        //at any given point, our remaining choices already skips 1 to start-1 digits. Choices reduce as we move down the nums
+        //so once 1,2, 1,3, 1,4 are added
+        //that inherently avoids : 2,1 because 2's choices are 3 and 4 only
+        //3's choices only 4
+        //4's choices - none other
+        
+        /*        
+        Choices : 
+            -n . order does not matter, so it its in list, done.
+         
+        NOT choice: 
+            -index 0-k -> since order does not matter, this is not really a choice ! we just care about size=k for sofar
 
-		    //recuraively make next choice(s)
-		    combine(combs, sofar, i+1, n, k);
-
-		    //backtrack. Not only helps undo wrong elems, also helps figure out all other possible solutions.
-		    //on some points we remove both nums from list and list becomes empty and we try new first num
-				sofar.remove(sofar.size()-1);
+        */
+        for(int i=start;i<=n;i++) {
+			//curr choice
+            sofar.add(i);
+            
+            //recuraively make next choice(s)
+			combine(combs, sofar, i+1, n, k);
+            
+            //backtrack. Not only helps undo wrong elems, also helps figure out all other possible solutions.
+            //on some points we remove both nums from list and list becomes empty and we try new first num
+			sofar.remove(sofar.size()-1);
 		}
 	}
 }
