@@ -23,6 +23,9 @@ Input:
 
 Output: 3
 */
+/*
+    Time complexity is O(m x n) because each cell is visited only once
+*/
 class Solution {
     int m,n;
     public int numIslands(char[][] grid) {
