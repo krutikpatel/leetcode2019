@@ -51,9 +51,9 @@ class Solution {
             Need to skip ith num
             a. if index i is used OR
             b.
-                ith and i-1th nums same. AND i-1th index is not used yet
+                ith and i-1th nums same. AND i-1th index is already used
             */
-            if(usedIndices[i] == true || (i>0 && nums[i] == nums[i-1] && usedIndices[i-1] == false)) //we need last condn, because otherwise we will end up avoiding ALL duplicate i and i-1 !
+            if(usedIndices[i] == true || (i>0 && nums[i] == nums[i-1] && usedIndices[i-1] == true)) //we need last condn, because otherwise we will end up avoiding ALL duplicate i and i-1 !
                 
                 continue;
             
