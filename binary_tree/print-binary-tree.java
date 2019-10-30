@@ -47,6 +47,15 @@ Output:
  *     TreeNode(int x) { val = x; }
  * }
  */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
 /*
 understand the pattern
 width is always odd num
@@ -60,6 +69,7 @@ heigt =3, width = 7
  
 =>see spaces rep as underscores above 
 
+//think recursive at every node. as if that node is root, how wud u do.
 */
 class Solution {
     public List<List<String>> printTree(TreeNode root) {
@@ -91,14 +101,18 @@ class Solution {
         return Math.pow(2,height)-1;
     }
     
+    //think recursive at every node. as if that node is root, how wud u do.
     private void fill(List<List<String>> result, TreeNode root, int row, int left, int right) {
         if (root == null) 
             return;
+        
+        //think recursive at every node. as if that node is root, how wud u do.
         int center = (left + right) / 2;//root at any level goes to center, as if that is the start of tree
         
         result.get(row).set(center, String.valueOf(root.val));
         
         
+        //think recursive at every node. as if that node is root, how wud u do.
         fill(result, root.left, row + 1, left,center);
         fill(result, root.right, row + 1, center + 1, right);
     }
