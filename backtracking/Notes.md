@@ -12,7 +12,7 @@ Combination: order does not matter
 1. Permutation : n!
 2. Picking m out of n (Permutations) : n!/(n − r)!
 3. Picking m out of n (combinations) : n!/r!(n − r)!
-
+4. No of subsets for n elems = 2^n
 
 Note:
 For any int array, to avoid duplicates:
