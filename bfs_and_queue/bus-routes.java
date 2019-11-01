@@ -27,7 +27,7 @@ class Solution {
         
         if (S==T) return 0; 
         
-        //create adj list. <node,<neightbors>> => all stops in same route are neighbors by 1 hop
+        //create adj list. <node,<busindexthat_can_go_there>> => all stops in same route are neighbors by 1 hop
         //so we just need to track diff routes. Each route is one bus, so we can say we map buses
         HashMap<Integer, List<Integer>> adjList = new HashMap<>();
         
