@@ -47,6 +47,7 @@ Return false.
  -need external var to store result
  */
 /*
+    Lesson
     Key:
     using heightOfBTree() helper method,
     but using -1 as return value for non-balanced case.
