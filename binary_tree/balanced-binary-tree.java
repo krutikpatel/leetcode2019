@@ -52,6 +52,8 @@ Return false.
     but using -1 as return value for non-balanced case.
     
     This avoids complexity to whether return boolean or height
+    
+    O(n) complexity, each node visited once, post order
     */
 class Solution {
     
