@@ -46,6 +46,13 @@ Return false.
  Bottom up problem
  -need external var to store result
  */
+/*
+    Key:
+    using heightOfBTree() helper method,
+    but using -1 as return value for non-balanced case.
+    
+    This avoids complexity to whether return boolean or height
+    */
 class Solution {
     
     public boolean isBalanced(TreeNode root) {
