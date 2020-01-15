@@ -43,3 +43,26 @@ class Solution {
         return ret;
     }
 }
+/*
+Related problem:
+https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/description/
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+        List<Integer> ret = new ArrayList<>();
+        
+        //use bucket val as arr index
+        for(int i=0;i<nums.length;i++) {
+            int index = Math.abs(nums[i]) - 1;
+            
+            //do it only if its not done before by aany duplicate elem
+            if(nums[index] > 0)
+                nums[index] = -nums[index];
+        }
+        
+        for(int i=0;i<nums.length;i++) {
+            if(nums[i] > 0)
+                ret.add(i+1);
+        }
+        
+        return ret;
+    }
+*/
