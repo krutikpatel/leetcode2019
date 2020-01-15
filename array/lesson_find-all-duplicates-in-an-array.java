@@ -20,7 +20,7 @@ Output:
 class Solution {
     /*
     Key to optimal soultion is:
-    -using elem value as index in array
+    -using elem value as index in array ie, use bucket val as arr index
     -And that only works if range of nums in array is "1 to n" (length of array). And that is given here.
         -that itself gives hint to the solution :)
     */
