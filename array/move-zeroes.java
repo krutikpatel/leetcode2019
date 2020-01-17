@@ -18,6 +18,8 @@ class Solution {
     /*
     Two pointers
     -slow and fast
+    
+    see how you would do it visually, we pick non zero elem, and start putting them from 0th index.
     */
     public void moveZeroes(int[] nums) {
         if(nums == null || nums.length == 0)
