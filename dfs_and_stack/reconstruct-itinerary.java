@@ -56,6 +56,6 @@ class Solution {
         while (dests != null && !dests.isEmpty()) {
             dfs(dests.poll());
         }            
-        path.addFirst(departure);//imp
+        path.addFirst(departure);//imp - because its DFS, first one will get added last(recursive calls)
     }
 }
