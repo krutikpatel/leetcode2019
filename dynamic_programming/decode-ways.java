@@ -31,11 +31,20 @@ class Solution {
         
     Think: 202 (ans 1)    
     303 (ans 0)
+    
+    at -i: way1 = just that char
+            way2 = i-1,i (if that is betn 10 to 26)
+            
+    way1 = dp[i-1] , just continuiing that string
+    way2 = dp[i-2] , just continuiing that string
+    
+    so dp[i] = way1 + way2
     */    
     public int numDecodings(String s) {
         if(s == null || s.length() == 0) {
             return 0;
         }
+        /*
         int n = s.length();
         int[] dp = new int[n+1];
         
@@ -66,5 +75,32 @@ class Solution {
             dp[i] = way1 + way2;
         }
         return dp[n];
+        */
+        
+        int n = s.length();
+        int[] dp = new int[n];
+        
+        dp[0] = s.charAt(0) != '0' ? 1 : 0;
+        
+        for(int i = 1; i < n; i++) {
+            int first = Integer.valueOf(s.substring(i, i+1));
+            int second = Integer.valueOf(s.substring(i-1, i+1));
+
+            //consider curr one char
+            if(first >= 1 && first <= 9) {
+                dp[i] += dp[i-1];
+            }
+            
+            //consider curr and prev char to form a-z if possible
+            if(second >= 10 && second <= 26) {
+                if(i>=2)
+                    dp[i] += dp[i-2];
+                else
+                    dp[i] += 1;
+                                
+            }
+        }
+        
+        return dp[n-1];
     }
 }
