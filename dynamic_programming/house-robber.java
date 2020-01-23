@@ -22,10 +22,12 @@ Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (m
 class Solution {
     public int rob(int[] nums) {
         if(nums.length==0)
-            return 0;        
+            return 0;
+        if(nums.length == 1)
+            return nums[0];
              
         int[] memo = new int[nums.length+1];
-        
+/*        
         //base case that we know solution to is nums[0] of f(0) ONLY.
         //because f(n) needs n-1 and n-2 we add them to memo
         memo[0] = 0;//this is like -1
@@ -36,13 +38,23 @@ class Solution {
             -Also, we try to fill up memo (arr of answers). So we keep to maintain our correlation function for memo
             memo : 0, nums[0], ?
         */
-        for(int i=1;i<nums.length;i++){
+        
+/*        for(int i=1;i<nums.length;i++){
             //we have two choices, wither we take index 0 and 2 or 1. this choices valid at any place.
             memo[i+1] = Math.max(nums[i] + memo[i-1], memo[i]);//memo[i] = max(nums[i] + nums[i-2], nums[i-1])
-            System.out.println(memo[i+1]);
+            //System.out.println(memo[i+1]);
+        }        
+*/
+
+        //no need to begin with 0-1 elem (elem before 0th)
+        memo[0] = nums[0];
+        memo[1] = Math.max(nums[0],nums[1]);
+        for(int i=2;i<nums.length;i++) {
+            memo[i] = Math.max(nums[i] + memo[i-2], memo[i-1]);
         }
-                
-        return memo[nums.length];//last elem of memo
+        
+        return memo[nums.length-1];
+        //return memo[nums.length];//last elem of memo
         
         /*
         Note: in reality we only need last 2 max sums.
