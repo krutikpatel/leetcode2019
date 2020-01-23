@@ -19,6 +19,9 @@ Given n = 3, there are a total of 5 unique BST's:
 */
 /*
 Trick Memoization/DP question
+
+brute force recursive way:
+https://www.geeksforgeeks.org/construct-all-possible-bsts-for-keys-1-to-n/
 */
 class Solution {
     public int numTrees(int n) {
