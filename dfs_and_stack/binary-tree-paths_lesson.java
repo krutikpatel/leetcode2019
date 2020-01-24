@@ -36,8 +36,11 @@ class Solution {
         return ret;
     }
     private void dfs(TreeNode n, List<String> ret, String sofar) {
-        if(n==null)
+        if(n==null){
+           //if you add sofar to ret list here, you will end up adding same sofar twice, at leaf, because this will be called for both left and right null children of leaf
             return;
+        }
+       
         sofar +=n.val+"->";
         if(n.left == null && n.right == null) {
             System.out.println(sofar);
