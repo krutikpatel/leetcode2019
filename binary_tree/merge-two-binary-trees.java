@@ -37,23 +37,16 @@ class Solution {
     public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
         if(t1==null && t2 == null)
             return null;
+        else if(t1 == null) 
+            return t2;
+        else if(t2 == null) 
+            return t1;
         
-        TreeNode curr = null;
-        if(t1 == null){
-            curr = t2;
-            //curr.left = mergeTrees(null, t2.left);
-            //curr.right = mergeTrees(null, t2.right);
-        } else if(t2 == null){
-            curr = t1;
-            //curr.left = mergeTrees(t1.left, null);
-            //curr.right = mergeTrees(t1.right, null);
-        } else{
-            curr = t1;
-            t1.val += t2.val;
-            curr.left = mergeTrees(t1.left, t2.left);
-            curr.right = mergeTrees(t1.right, t2.right);
-        }
-                
-        return curr;
+        //both non-null, create new node to return
+        TreeNode n = new TreeNode(t1.val+t2.val);
+        n.left=mergeTrees(t1.left, t2.left);
+        n.right=mergeTrees(t1.right, t2.right);
+        
+        return n;        
     }
 }
