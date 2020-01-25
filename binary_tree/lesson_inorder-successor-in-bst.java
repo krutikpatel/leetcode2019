@@ -25,7 +25,7 @@ Explanation: 1's in-order successor node is 2. Note that both p and the return v
  * }
  */
 class Solution {
-    
+    /*
     public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
         if(root == null)
             return null;
@@ -40,19 +40,24 @@ class Solution {
                 return l;
         }
     }
-    
-    public TreeNode inorderSuccessorItr(TreeNode root, TreeNode p) {
+    */
+        
+    /*
+    Leverage BST property.
+    iteration with conditions suites binary search, deciding whether go left or right
+    */
+    public TreeNode inorderSuccessor(TreeNode root, TreeNode target) {
         
         TreeNode ret = null;
         
         //just traverse top to bottom in right direction.
         while(root!=null){
-            if(root.val <= p.val){
-                //ret = root;
+            if(target.val >= root.val){                            
                 //go right
                 root = root.right;
             }else{
-                ret = root; // why ????? anytime you go left, save the node first, because left of it might be null
+                
+                ret = root; // why ????? anytime you go left, save the node first (as parent/bigger elem), because left of it might be null, so parent becomes successor
                 //go left
                 root = root.left;
             }
