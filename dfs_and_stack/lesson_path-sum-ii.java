@@ -70,7 +70,8 @@ class Solution {
         dfsHelper(root.left,sum,sofarSum,sofar);
         dfsHelper(root.right,sum,sofarSum,sofar);
         
-        //remove curr node
+        //remove curr node - backtrack
+        //BUT notice, we dont decrement/backtrack on sofarSum, that value is i htink preserved correctly by callstack itself. same with String parameter  
         sofar.remove(sofar.size()-1);
     }
 }
