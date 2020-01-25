@@ -62,7 +62,7 @@ class Solution {
         //check for leaf and return to avoid duplicate ans, that may result by calling with left and right as null roots
         if(root.left == null && root.right == null && sofarSum == sum) {
             ret.add(new ArrayList<>(sofar));   
-            sofar.remove(sofar.size()-1);//imp to remove last elem in this case too
+            sofar.remove(sofar.size()-1);//imp to remove last elem in this case too - backtrack
             return;
         }
         
