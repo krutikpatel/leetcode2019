@@ -24,6 +24,13 @@ Explanation: The answer is "wke", with the length of 3.
 
 */
 class Solution {
+  /*
+    dont think about HashMap to store substrning data, we just need to know if char gets repeated,
+    so simply use set
+    
+    we always slide from left side when we see duplicate, reagardless of where the duplicate is within the window.
+    -when we fin duplicate, we just move i++ (j remains same, so next time we still see that duplicate, we keep doing this until we dont see duplicate, which would be when i crosses that duplicate char)
+    */
     public int lengthOfLongestSubstring(String s) {
         if(s==null || s.length() == 0)
             return 0;
