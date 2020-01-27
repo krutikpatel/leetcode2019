@@ -38,6 +38,11 @@ class Solution {
     https://leetcode.com/explore/learn/card/array-and-string/204/conclusion/1164/discuss/47797/In-place-Java-solution-with-comments-just-for-fun
     
     -reverse the whole string, and then take word by word and reverse them
+    
+     Note:
+        solution wihtour using stack is fast.
+        -reverse whole string
+        -then reverse each word.
     */
     public String reverseWords(String s) {
         /*
