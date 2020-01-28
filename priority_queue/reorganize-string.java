@@ -36,6 +36,13 @@ class Solution {
             }
         }
 
+        /*
+        we keep track of prev used char, and add to PQ after fetching curr
+        then update prev to curr.
+        basically we keep alternating top 2 elems in PQ until PQ is empty
+        
+        if Q is empty ans we still have some char left in prev, no solution possible
+        */
         int[] prev = new int[] {-1,0};
         StringBuilder sb = new StringBuilder();
         while(!q.isEmpty()) {
