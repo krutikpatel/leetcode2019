@@ -24,6 +24,8 @@ class Solution {
     
     /*
     Note: this cant be solved with two pointer technique due to corner cases
+    
+    remember to mention Robin Karps's rolling hash, meanign still form correct hash by removing and adding chars as you slide.
     */
     public int strStr(String haystack, String needle) {
         
