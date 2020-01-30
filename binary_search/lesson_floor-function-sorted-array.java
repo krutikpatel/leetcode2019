@@ -6,6 +6,12 @@ https://www.geeksforgeeks.org/floor-in-a-sorted-array/
 
 */
 /*
+IMP note: TreeMap in java has map.floorEntry(key_x)
+and map.floorKey()
+functions readily available
+
+*/
+/*
 linear slower way
 */
 /* An inefficient function to get index of floor  
