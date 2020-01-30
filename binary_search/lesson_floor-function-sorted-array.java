@@ -38,23 +38,46 @@ static int floorSearch(int arr[], int n, int x)
 }  
 
 /*
-Binary search way
+Binary search way - template -2
+notice l and r
 */
 static int floorBianrySearch(int arr[], int n, int x) {
     int l = 1;//begin with 1, like we do for linear search, because we are lookign for elem smaller
-    int r = n-1;
+    int r = n;//since we are not after particular elem
     
     while(l<r) {
         int mid = l+(r-l)/2;
         if(arr[mid] == x)
             return mid;
-        else if(x < arr[mid]) {
-            r = mid;
+        else if(x > arr[mid]) {
+            l = mid+1;            
         } else {
-            //arr[mid] < x
-            l = mid+1;
+            //x < arr[mid]
+            r = mid;
         }
     }
     //by this time l will be just one above x
     return l-1;
+}
+
+/*
+template 1 - easier
+-normal bianry search function : if val not found, it ends up at smaller closest !
+*/
+static int floorBianrySearch_easy(int arr[], int n, int x) {
+{
+    int start = 0;
+        int end = array.length - 1;
+
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            if (array[mid] == target) {
+                return mid;
+            } else if (array[mid] < target) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+        return start;
 }
