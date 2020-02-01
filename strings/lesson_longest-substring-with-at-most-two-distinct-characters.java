@@ -21,6 +21,17 @@ class Solution {
     v good inout test case: "abaccc"
     
     Lesson: go with HashMap<char, int> . here we store index, sometimes we store count
+    
+    Note:
+    -we might be tempted to <char.lastindex>
+    -and when we find 3rd char, just remove/disard leftmost char and everything till lastIndex of leftmost char. 
+    But that is flawed. example: abbbbbac
+        -as soon as we c, we cant just jump iorleft pointer to c.
+    
+    -so we need to remove leftmost (from right, ie, "finished")  character (that is min entry in map)    
+    
+    Lesson: for sliding window, dont get ambitious and greedy, while sliding. Only slide minimum, conservatively.    
+    
     */
     public int lengthOfLongestSubstringTwoDistinct(String s) {
         //char and latest(right most) index for that char
