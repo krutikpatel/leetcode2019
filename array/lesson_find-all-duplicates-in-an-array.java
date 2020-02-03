@@ -23,6 +23,8 @@ class Solution {
     -using elem value as index in array ie, use bucket val as arr index
     -And that only works if range of nums in array is "1 to n" (length of array). And that is given here.
         -that itself gives hint to the solution :)
+        
+    -mark num/bucket -ve so that next time if we see -ve, we know its been touched before and thus appeared twice   
     */
     public List<Integer> findDuplicates(int[] nums) {
         /*
