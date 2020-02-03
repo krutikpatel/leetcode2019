@@ -26,9 +26,8 @@ keep count of elem, and reset when diff
 */
 class Solution {
     public int removeDuplicates(int[] nums) {
-        int good = 1;
+        int goodIndexToOverwrite = 1;
         int count = 1;
-        
         for(int j=1;j<nums.length;j++) {
             if(nums[j] == nums[j-1]) {
                 count++;
@@ -38,10 +37,10 @@ class Solution {
                         
             if(count<=2) {                
                 //slide, this overwirtes 3rd duplicate too                
-                nums[good] = nums[j];                
-                good++;
+                nums[goodIndexToOverwrite] = nums[j];                
+                goodIndexToOverwrite++;
             }
         }
-        return good;
+        return goodIndexToOverwrite;
     }
 }
