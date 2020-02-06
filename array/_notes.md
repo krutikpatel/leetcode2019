@@ -12,3 +12,12 @@ Idea: we know 2sum solution using 2 pointers (left and right)
     For each elem [i], solve k-1 problem recursively, at k=2, solve 2sum problem
     
     Time complexity is O(N^(K-1)).
+
+#Note
+2sum problem is binary move, BUT Not binary search which involves "mid"
+
+Related questions:
+https://leetcode.com/problems/two-sum-less-than-k/description/
+3 sum
+https://leetcode.com/problems/3sum-smaller/description/
+https://leetcode.com/problems/3sum-closest/description/
