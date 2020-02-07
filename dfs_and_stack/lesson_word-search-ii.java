@@ -36,6 +36,7 @@ class Solution {
     Note: same char can be used by other words? Yes    
     
     DFS+Trie
+    we need constant time lookup to check ANY possibility, AS WE PROGRESS - Trie fits that
     */
     public List<String> findWords(char[][] board, String[] words) {
         List<String> res = new ArrayList<>();
@@ -50,11 +51,16 @@ class Solution {
 
     public void dfs(char[][] board, int i, int j, TrieNode p, List<String> res) {
         char c = board[i][j];
-        if (c == '#' || p.next[c - 'a'] == null) return;
+        if (c == '#' || p.next[c - 'a'] == null) //no words down this route
+            return;
+        
+        //next ptr in trie
         p = p.next[c - 'a'];
-        if (p.word != null) {   // found one
+        
+        //we dont return back, once we found one.
+        if (p.word != null) {  // found one
             res.add(p.word);
-            p.word = null;     // de-duplicate
+            p.word = null;     // de-duplicate, we can use set to add completed words too.
         }
 
         board[i][j] = '#';
