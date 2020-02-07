@@ -65,57 +65,77 @@ class Solution {
    
  */
     
+    class Solution {
+    
+    //solution followed: 
+    //https://github.com/mission-peace/interview/blob/master/src/com/interview/binarysearch/MedianOfTwoSortedArrayOfDifferentLength.java
+    
+    /**
+ * There are two sorted arrays nums1 and nums2 of size m and n respectively.
+ * Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
+ *
+ * Solution
+ * Take minimum size of two array. Possible number of partitions are from 0 to m in m size array.
+ * Try every cut in binary search way. When you cut first array at i then you cut second array at (m + n + 1)/2 - i
+ * Now try to find the i where a[i-1] <= b[j] and b[j-1] <= a[i]. So this i is partition around which lies the median.
+ *
+ * Time complexity is O(log(min(x,y))
+ * Space complexity is O(1)
+ *
+ * https://leetcode.com/problems/median-of-two-sorted-arrays/
+ * https://discuss.leetcode.com/topic/4996/share-my-o-log-min-m-n-solution-with-explanation/4
+ */
+    
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         //we want nums1 as smaller array where we will do binary search
         if(nums1.length > nums2.length)
             return findMedianSortedArrays(nums2,nums1);
         
-        int x = nums1.length;
-        int y = nums2.length;
+        int len_x= nums1.length;
+        int len_y = nums2.length;
         
         int low = 0;
-        int high = x;
+        int high = len_x;
         
         while(low<=high){
             //find partition points in bith
             
-            //partition points/indices that makes count of combined left same as count of combined right
-            // ix + iy = (x+y+1)/2
-            int ix = (low+high)/2;
-            //adjust point in y accordingly of ix
-            int iy = (x+y+1)/2 - ix;    //REMEMBER the magic of adding 1, to make this formula work for both even and odd sum-lengths
+            //partition points/indices - partition point is first elem of right half though
+            int halfx = (low+high)/2;
+            int totalhalf = (len_x + len_y +1)/2; //(Sum of both lengths - elems taken from x) REMEMBER the magic of adding 1, to make this formula work for both even and odd sum-lengths
+            int halfy = totalhalf - halfx;    
                     
             /*
             now check if this is the correct point.
                 -4 points of interest are:
-                    ix,ix-1     REMEMBER -1 NOT +1
-                    iy,iy-1
+                    halfx-1,halfx     REMEMBER -1 NOT +1
+                    halfy-1,halfy
             */
             
             //get 4 elems around partition/cut
             //for min: check lower bound
             //for max: check upper bound
-            int maxLeftX = (ix == 0) ? Integer.MIN_VALUE : nums1[ix-1]; 
-            int minRightX = (ix == x) ? Integer.MAX_VALUE : nums1[ix];
-            int maxLeftY = (iy == 0) ? Integer.MIN_VALUE : nums2[iy-1];
-            int minRightY = (iy == y) ? Integer.MAX_VALUE : nums2[iy];
+            int maxLeftX = (halfx == 0) ? Integer.MIN_VALUE : nums1[halfx-1]; 
+            int minRightX = (halfx == len_x) ? Integer.MAX_VALUE : nums1[halfx];
+            int maxLeftY = (halfy == 0) ? Integer.MIN_VALUE : nums2[halfy-1];
+            int minRightY = (halfy == len_y) ? Integer.MAX_VALUE : nums2[halfy];
             
             if(maxLeftX <= minRightY && minRightX >=maxLeftY){
                 //we found correct partition point
-                if ((x + y) % 2 == 0) { //if even
+                if ((len_x + len_y) % 2 == 0) { //if even
                     return ((double)Math.max(maxLeftX, maxLeftY) + Math.min(minRightX, minRightY))/2;
                 } else {
                     return (double)Math.max(maxLeftX, maxLeftY);
                 }
             } 
-            //REMEMBER : binary moves not inclusive of ix. - Template I of binary search
+            //REMEMBER : binary moves not inclusive of ix.
             else if(maxLeftX > minRightY){
                 //too many elems in Y right, so move x left, which will move y right
-                high = ix - 1;
+                high = halfx - 1;
                 
             } else {
                 //go right in x and left in y
-                low = ix + 1;
+                low = halfx + 1;
             }
         }
         
