@@ -71,3 +71,21 @@ class Solution {
         A[j] = tmp;				
     }
 }
+/*
+lesson:
+iterative quck sort
+public int[][] kClosest(int[][] points, int K) {
+    int len =  points.length, l = 0, r = len - 1;
+    while (l <= r) {
+        int mid = partition(points, l, r);//returns index of elem after partition
+        if (mid == K) break;
+        if (mid < K) {
+            l = mid + 1;
+        } else {
+            r = mid - 1;
+        }
+    }
+    //sorted array till k
+    return Arrays.copyOfRange(points, 0, K);
+}
+*/
