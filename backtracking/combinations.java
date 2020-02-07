@@ -17,6 +17,13 @@ Output:
 */
 /*
 once we found one pair, we need to backtrack, remove all elems one by one to find other solutions.
+
+
+    Note:
+    iterative is possible if we know k.
+    k=2, we need two loops, and combinations are just various i,j
+    k=3 we need 3 loops, that gives all combinations of 3 nums
+    
 */
 class Solution {
 
