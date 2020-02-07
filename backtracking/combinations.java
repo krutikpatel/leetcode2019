@@ -24,6 +24,8 @@ once we found one pair, we need to backtrack, remove all elems one by one to fin
     k=2, we need two loops, and combinations are just various i,j
     k=3 we need 3 loops, that gives all combinations of 3 nums
     
+    since we have k as variable,
+    that loop number is variable, thus "start"/pickPos arg in rec function, which is used to begin the loop, serves replcaement to that loop.
 */
 class Solution {
 
