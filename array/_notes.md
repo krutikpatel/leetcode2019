@@ -13,12 +13,16 @@ Idea: we know 2sum solution using 2 pointers (left and right)
     
     Time complexity is O(N^(K-1)).
 
-# Note
+## Note
 2sum problem is binary move, BUT Not binary search which involves "mid"
 
-# Related questions
+## Related questions
 https://leetcode.com/problems/two-sum-less-than-k/description/
+
 3 sum
+
 https://leetcode.com/problems/3sum-smaller/description/
+
 https://leetcode.com/problems/3sum-closest/description/
+
 https://leetcode.com/problems/two-sum-less-than-k/description/
