@@ -40,6 +40,9 @@ class Solution {
         return ret;
     }
     
+    /*
+    each position needs each num, so need of position argument.
+    */
     private void backtrackPermute(List<Integer> soFar, int[] nums, List<List<Integer>> ret){
         if(soFar.size() == nums.length){
             ret.add(new ArrayList(soFar));
