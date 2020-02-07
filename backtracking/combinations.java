@@ -26,6 +26,14 @@ once we found one pair, we need to backtrack, remove all elems one by one to fin
     
     since we have k as variable,
     that loop number is variable, thus "start"/pickPos arg in rec function, which is used to begin the loop, serves replcaement to that loop.
+    
+-Just think of one round, and that should help figure out loops needed and loop begin index 
+Example: combinations : 
+-for digit 0, choices i = 1 to n 
+-for digit 1, choices i = 2 to n
+
+That concludes/means "loop begin index :i" is variable, and needs to be passed to function
+
 */
 class Solution {
 
