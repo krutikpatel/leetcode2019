@@ -70,7 +70,7 @@ static int floorBianrySearch_easy(int arr[], int n, int x) {
         int end = array.length - 1;
 
         while (start <= end) {
-            int mid = (start + end) / 2;
+            int mid = (start + end) / 2;    //notice it is not l+(r-l)/2
             if (array[mid] == target) {
                 return mid;
             } else if (array[mid] < target) {
@@ -81,3 +81,22 @@ static int floorBianrySearch_easy(int arr[], int n, int x) {
         }
         return start;
 }
+
+static int floorBianrySearch_easy2(int arr[], int n, int x) {
+{
+    int start = 0;
+        int end = array.length - 1;
+    int ret = 0;
+        while (start <= end) {
+            int mid = start +(end-start) / 2;
+            
+            if (array[mid] <= target) {
+                ret = mid;//keep recording each time and return at end
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+        return ret;
+}
+    
