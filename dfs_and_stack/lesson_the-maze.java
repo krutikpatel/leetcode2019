@@ -33,6 +33,10 @@ class Solution {
     NOTE:
     we do DFS, BUT NOT at every cell. we try to roll in each direction as much as we can. 
         -normal DFS with 1 cell movement each time is  Bruteforce DFS. and gives TLE and memory limit exceeded as well
+    ==
+    lesson: BFS from start to end is shorted distance route between them
+    if queue ended and we did not encounter end, there is no route
+    
     */
     
     private static final int[][] DIRECTIONS = { {0,1},{0,-1},{1,0},{-1,0}};
