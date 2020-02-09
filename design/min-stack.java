@@ -32,8 +32,9 @@ class MinStack {
     /*
     Maintain additional stack for mins
     1. easy to just store min for every entry made in main stack
-    2. or just add to min stack when its lesser-or-equal to existing min
-    
+    2. or just add to min stack when its lesser-"or-equal" to existing min
+        -so if we see "x" 2 times, we push it to mis stack 2 times
+        -so that its easier when pop, as soon as peek == mistack.peek, we remove from mistack
     so, we add to min stack when x<= peek
     we remove from min stack when x == peek
     */
