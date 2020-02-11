@@ -48,12 +48,21 @@ Given tree t:
  *     TreeNode(int x) { val = x; }
  * }
  */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
 class Solution {
     /*
     node by node comparision
     -just go all directions - bruteforce
     */
-    public boolean isSubtree(TreeNode s, TreeNode t) {
+    public boolean isSubtree2(TreeNode s, TreeNode t) {
         if (s == null) return false;
         if (isSame(s, t)) 
             return true;
@@ -95,10 +104,13 @@ class Solution {
     
     private String inorder(TreeNode n) {
         if(n==null)
-            return "";
+            return "x";
+        /*
         String l = Integer.toString(n.val);
          l = l +inorder(n.left);        
         String r = inorder(n.right);
         return l+r;
+        */
+        return Integer.toString(n.val) + inorder(n.left) + inorder(n.right);
     }
 }
