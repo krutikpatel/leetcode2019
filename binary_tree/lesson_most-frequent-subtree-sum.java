@@ -52,6 +52,8 @@ class Solution {
     /*
     lesson - imp - we dont call do sum for every node separately, we only call it once and record it in map before returning from method
     Also, we dont care about with node had what sum, but even then it wud be same method
+    
+    lesson - DFS - gives state of all smaller trees, it goes thru all smaller trees from bottom
     */
     private int dfs(TreeNode root) {
         if (root == null) 
