@@ -51,7 +51,7 @@ class Solution {
             ret.add(sofar);
 
         //choices: try to get one segment at a time, with 1 to 3 digits
-        for (int i=1; i<4; i++) {
+        for (int i=1; i<4; i++) {   //i represents length of segment/substring
             if (begin_idx+i > given.length()) 
                 break;
             String s = given.substring(begin_idx,begin_idx+i);
