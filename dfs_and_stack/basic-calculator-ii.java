@@ -34,7 +34,9 @@ class Solution {
             if(Character.isDigit(s.charAt(i))){
                 num = num*10+s.charAt(i)-'0';
             }
-            if((!Character.isDigit(s.charAt(i)) &&' '!=s.charAt(i)) || i==len-1){
+            //if not digit, AND its not space OR its last char
+            if((!Character.isDigit(s.charAt(i)) && s.charAt(i) != ' ') || i==len-1){
+                //process last sign and generate one operand, because we have new sign now
                 if(sign=='-'){
                     stack.push(-num);
                 }
@@ -47,6 +49,8 @@ class Solution {
                 if(sign=='/'){
                     stack.push(stack.pop()/num);
                 }
+                
+                //take new sign for next iteration
                 sign = s.charAt(i);
                 num = 0;
             }
