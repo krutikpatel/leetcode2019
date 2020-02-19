@@ -45,6 +45,67 @@ class Solution {
         -then reverse each word.
     */
     public String reverseWords(String s) {
+        int i=0;
+        int j = s.length()-1;
+        
+        //trim from left
+        while(i<=j && s.charAt(i)==' ')
+            i++;
+        s = s.substring(i);
+        
+        //trim from right
+        j = s.length()-1;
+        while(j>=0 && s.charAt(j)==' ')
+            j--;
+        s = s.substring(0,j+1);
+
+        //reverse s 
+        s = reverse(s);
+        
+        //reverse words, ocnsider multiple spaces, so in case of space move one by one
+        i=0;
+        j=0;
+        StringBuilder sb = new StringBuilder();
+        while(i<s.length()){
+            if(s.charAt(i) == ' ')
+                i++;
+            else {
+                
+                //now get the word
+                j=i;
+                while(j<s.length() && s.charAt(j) != ' '){
+                    j++;
+                }
+                //not get that word
+                String word = s.substring(i,j);
+                
+                if(sb.length()!=0)
+                    sb.append(" ");
+                sb.append(reverse(word));
+
+                j++;
+                i=j;                
+            }
+        }
+        
+        return sb.toString();
+    }
+    
+    //private void reverse(char[] c, int i, int j){
+    private String reverse(String s){
+        char[] c = s.toCharArray();
+        int i = 0;
+        int j = s.length()-1;
+        while(i<j){
+            char temp = c[i];
+            c[i] = c[j];
+            c[j] = temp;
+            i++;
+            j--;
+        }
+        return new String(c);
+    }
+    public String reverseWords2(String s) {
         /*
         Two pointers"
         -settle i at beginning of word (skip all spaces)
