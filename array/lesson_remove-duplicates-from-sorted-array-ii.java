@@ -26,7 +26,7 @@ keep count of elem, and reset when diff
 */
 class Solution {
     public int removeDuplicates(int[] nums) {
-        int goodIndexToOverwrite = 1;//this would be index of additional array, if used to put unique elems only
+        int goodIndexToOverwrite = 0;//this would be index of additional array, if used to put unique elems only
         int count = 1;
         for(int j=1;j<nums.length;j++) {
             if(nums[j] == nums[j-1]) {
@@ -37,10 +37,10 @@ class Solution {
                         
             if(count<=2) {                
                 //slide, this overwirtes 3rd duplicate too                
-                nums[goodIndexToOverwrite] = nums[j];                
                 goodIndexToOverwrite++;
+                nums[goodIndexToOverwrite] = nums[j];                                
             }
         }
-        return goodIndexToOverwrite;
+        return goodIndexToOverwrite+1;
     }
 }
