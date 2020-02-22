@@ -26,3 +26,10 @@ https://leetcode.com/problems/3sum-smaller/description/
 https://leetcode.com/problems/3sum-closest/description/
 
 https://leetcode.com/problems/two-sum-less-than-k/description/
+
+## Some additional lesson questions
+find second highest or lowest elem in array
+https://www.geeksforgeeks.org/find-second-largest-element-array/
+
+-one pass possible with tracking 2 max vals
+-same thing we can do with binary tree too
