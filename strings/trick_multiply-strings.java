@@ -32,6 +32,34 @@ products[i + j + 1] += d1 * d2;
 */
 class Solution {
     public String multiply(String num1, String num2) {
+        
+        int m = num1.length(), n = num2.length();
+        int[] pos = new int[m + n];
+
+        //doing everything in same loop
+        for(int i = m - 1; i >= 0; i--) {
+            for(int j = n - 1; j >= 0; j--) {
+                int mul = (num1.charAt(i) - '0') * (num2.charAt(j) - '0'); 
+                int carry = i + j;
+                int sum_pos = i + j + 1;
+                int sum = mul + pos[sum_pos];
+
+                pos[carry] += sum / 10;
+                pos[sum_pos] = (sum) % 10;
+            }
+        }  
+
+        StringBuilder sb = new StringBuilder();
+        for(int p : pos){ 
+            sb.append(p);
+        }
+        //remove zeros from front
+        while (sb.length() != 0 && sb.charAt(0) == '0') 
+            sb.deleteCharAt(0);
+        
+        return sb.length() == 0 ? "0" : sb.toString();
+        
+        /*
         int n1 = num1.length(), n2 = num2.length();
         int[] products = new int[n1 + n2];//res len can max be sum of both lengths
         
@@ -62,5 +90,6 @@ class Solution {
             sb.deleteCharAt(0);
         
         return sb.length() == 0 ? "0" : sb.toString();
+        */
     }
 }
