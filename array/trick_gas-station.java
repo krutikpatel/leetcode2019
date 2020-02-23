@@ -55,7 +55,7 @@ class Solution {
             if(remainingGas<0){
                 nextItrReqdFuel += remainingGas;//remainingGas is -ve. imagine burning it in next loop for this move, when we start again from i+1
                 remainingGas=0;
-                res=i+1;
+                res=i+1;//its definitely not ith node, so may be i+1. later we check leftover fuel
             }
         }
         int leftover = nextItrReqdFuel + remainingGas;
