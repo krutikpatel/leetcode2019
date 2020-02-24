@@ -30,6 +30,59 @@ class Solution {
     1 2 3 4 5 6 7 -> ans  
     */
     public int leastInterval(char[] tasks, int n) {
+        if (tasks == null || tasks.length == 0)
+            return -1;
+        
+        //build map to sum the amount of each task
+        HashMap<Character,Integer> map = new HashMap<>();
+        for (char ch:tasks){
+            map.put(ch,map.getOrDefault(ch,0)+1);
+        }
+        
+        // build queue, sort from descending
+        PriorityQueue<Map.Entry<Character,Integer>> queue = new PriorityQueue<>((a,b)->(b.getValue()-a.getValue()));
+        queue.addAll(map.entrySet());
+        
+        int time = 0;
+        // when queue is not empty, there are remaining tasks
+        while (!queue.isEmpty()){
+            // for each interval
+            int interval = n+1;
+            // list used to update queue. tasks used to fill n intervals, we take them out of PQ so save here
+            List<Map.Entry<Character, Integer>> list = new ArrayList<>();
+    
+            // fill the intervals with the next high freq task
+            while (interval > 0 && !queue.isEmpty()){
+                Map.Entry<Character,Integer> entry = queue.poll();
+                entry.setValue(entry.getValue()-1);
+                
+                //save in list so that we can put back in PQ
+                list.add(entry);
+                // interval shrinks
+                interval --;
+                // one slot is taken
+                time++;
+            }
+            
+            // update the value in the map and add to PQ if > 0
+            for (Map.Entry<Character,Integer> entry:list){
+                // when there is left task
+                if (entry.getValue() > 0)
+                    queue.offer(entry);
+            }
+            
+            // job done
+            if (queue.isEmpty())
+                break;
+            // if interval is > 0, then the machine can only be idle, no tasks to interweave
+            time += interval;
+        }
+        
+        return time;
+    }
+    
+    /////////////////////////////////////////////////
+    public int leastInterval2(char[] tasks, int n) {
         int[] map = new int[26];
         for (char c: tasks)
             map[c - 'A']++;
