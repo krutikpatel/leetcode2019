@@ -24,19 +24,23 @@ class Solution {
     -for each node, we need neighbors and weight of that edge. Best way to do that is Map<neightboer,weigth> for each node
     */
     public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
-        Map<String, Map<String, Double>> map = new HashMap<>();//char as node, and value: map of edge wigthts, from that char
+        Map<String, Map<String, Double>> adj = new HashMap<>();//char as node, and value: map of edge wigthts, from that char
         
         //create graph and weigths for eadges
         for(int i=0; i<equations.size();i++) {
             List<String> pair = equations.get(i);
             
-            //create nodes for both strings/chars in pair
-            map.putIfAbsent(pair.get(0), new HashMap<String, Double>());
-            map.putIfAbsent(pair.get(1), new HashMap<String, Double>());
+            String a = pair.get(0);
+            String b = pair.get(1);
             
+            //create nodes for both strings/chars in pair
+            adj.putIfAbsent(a, new HashMap<>());
+            adj.putIfAbsent(b, new HashMap<>());
+
             //set weights for both directions of this edge
-            map.get(pair.get(0)).put(pair.get(1), values[i]);
-            map.get(pair.get(1)).put(pair.get(0), 1/values[i]);
+            adj.get(a).put(b,values[i]);
+            adj.get(b).put(a,1/values[i]);
+            
         }
         
         double[] ret = new double[queries.size()];
@@ -45,7 +49,7 @@ class Solution {
             
             Set<String> visited = new HashSet<>();
             //DFS
-            ret[i] = dfs(query.get(0), query.get(1), map,visited, 1);
+            ret[i] = dfs(query.get(0), query.get(1), adj,visited, 1);
         }
         
         return ret;
