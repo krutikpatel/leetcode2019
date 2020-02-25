@@ -29,15 +29,18 @@ class Solution {
         
         //create adj list. <node,<busindexthat_can_go_there>> => all stops in same route are neighbors by 1 hop
         //so we just need to track diff routes. Each route is one bus, so we can say we map buses
+        //station to busIndex/route map
         HashMap<Integer, List<Integer>> adjList = new HashMap<>();
         
         for(int i = 0; i < routes.length; i++){
+            //each route[] is one bus, ith bus
             for(int j = 0; j < routes[i].length; j++){
-                List<Integer> buses = adjList.getOrDefault(routes[i][j], new ArrayList<>());
+                int currStation = routes[i][j];
+                List<Integer> buses = adjList.getOrDefault(currStation, new ArrayList<>());
                 
                 //all buses on this route goes/represents i route
                 buses.add(i);
-                adjList.put(routes[i][j], buses);                
+                adjList.put(currStation, buses);                
             }       
         }
                 
