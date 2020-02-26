@@ -51,11 +51,12 @@ class Solution {
             cost[0][i] = i;
         
         //now start filling 
+        //IMP- dp[i+1][j+1] is smaller/substring 
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 //if same char, ans is same as below
                 if(word1.charAt(i) == word2.charAt(j))
-                    cost[i + 1][j + 1] = cost[i][j];
+                    cost[i + 1][j + 1] = cost[i][j];    //IMP- dp[i+1][j+1] is smaller/substring 
                 else {
                     //we are standing at (i+1, j+1)
                     int a = cost[i][j]; //replace
