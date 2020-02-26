@@ -43,10 +43,12 @@ class NumMatrix {
     public NumMatrix(int[][] matrix) {
         if (matrix.length == 0 || matrix[0].length == 0) return;
         
+        //notice col+1 size for each row, we do that so that when col = 0 is given we dont run into trouble by doing col1-1
+        //the whole row if offset to +1 in dp array
         dp = new int[matrix.length][matrix[0].length + 1];
         
         for (int r = 0; r < matrix.length; r++) {
-            for (int c = 0; c < matrix[0].length; c++) {
+            for (int c = 1; c < matrix[0].length; c++) {
                 dp[r][c + 1] = dp[r][c] + matrix[r][c];
             }
         }
