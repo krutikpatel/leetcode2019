@@ -65,3 +65,37 @@ class Solution {
         return s.substring(begin,end+1);//because end is not-inclsive in java substring
     }
 }
+
+/*
+non DP more space efficient solution
+
+public class Solution {
+
+private int lo, maxLen;
+
+public String longestPalindrome(String s) {
+	int len = s.length();
+	if (len < 2)
+		return s;
+	
+    for (int i = 0; i < len-1; i++) {
+     	extendPalindrome(s, i, i);  //assume odd length, try to extend Palindrome as possible
+     	extendPalindrome(s, i, i+1); //assume even length.
+    }
+    return s.substring(lo, lo + maxLen);
+}
+
+private void extendPalindrome(String s, int j, int k) {
+	while (j >= 0 && k < s.length() && s.charAt(j) == s.charAt(k)) {
+		j--;
+		k++;
+	}
+    
+    //every time we see palindrome, record start position and length of palindrome, record maxLen so far
+	if (maxLen < k - j - 1) {
+		lo = j + 1;
+		maxLen = k - j - 1;
+	}
+}}
+
+*/
