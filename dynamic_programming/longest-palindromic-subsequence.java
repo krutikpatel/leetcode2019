@@ -44,6 +44,14 @@ class Solution {
             max(longestPalindromeSubseq(l+1,r, s),longestPalindromeSubseq(l,r-1, s)); 
     }
     
+    --
+    so
+    window/string is: i,j
+    if(c[i] == c[j]){
+        dp[i][j] = 2 + dp[i+1][j-1]
+    } else {
+        dp[i][j] = Math.max(dp[i+1][j], dp[i][j-1]);
+    }
     */
     public int longestPalindromeSubseq(String s) {
         if(s==null || s.length()==0)
