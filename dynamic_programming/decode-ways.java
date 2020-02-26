@@ -86,20 +86,22 @@ class Solution {
             int first = Integer.valueOf(s.substring(i, i+1));   //1th char
             int second = Integer.valueOf(s.substring(i-1, i+1));//0,1 chars
             
+            int currWays = 0;//dp[i], creating var for more clarity
             //consider curr one char
             if(first!=0){
                 //continue same sentense/way
-                dp[i] = dp[i-1];
+                currWays = dp[i-1];
             }
             
             //consider curr and prev char to form a-z if possible
             if(second >= 10 && second <= 26) {
                 if(i>=2)
-                    dp[i] = dp[i] + dp[i-2];//we found another way to create string at ith position.
+                    currWays = currWays + dp[i-2];//we found another way to create string at ith position.
                 else
-                    dp[i] += 1;
+                    currWays += 1;
                                 
             }
+            dp[i] = currWays;
         }
         
         return dp[n-1];
