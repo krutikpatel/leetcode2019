@@ -36,7 +36,7 @@ class RandomizedSet {
 
     /*
     -use 
-    1. HashMap<val, indexInArrayList>
+    1. HashMap<val, indexInArrayList> - we need to map indexes, because when remove is called, we dont know where that elem is in arraylist.
     2. ArrayList - as main place for nums - we will use ArrayList so that we can use Math.random(list.size) to get random index.
         -that creates problem of removel from ArrayList. for that do following:
         -to remove from ArrayList: swap with last num, and remove last one. so that we dont messup indexes of remaining elems in list
