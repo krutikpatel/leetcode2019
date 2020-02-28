@@ -27,6 +27,8 @@ class Solution {
     create adjacency list for each node
     DFS from 0
     backtrack
+    
+    -imp : we are not tracking visited nodes, BECAUSE its given that the graph is acyclic
     */
     HashMap<Integer,List<Integer>> adjList;
     public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
