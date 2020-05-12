@@ -29,6 +29,7 @@ Example:
     
     That concludes "loop begin index" is variable, and needs to be passed to function
     
-For recursive calls,
+### For recursive calls
+
 primitive data types and immutable classes (String, Integer etc), will not have to be backtracked. Each call stack preserves their own value,
 so we dont have to manually revert it.
