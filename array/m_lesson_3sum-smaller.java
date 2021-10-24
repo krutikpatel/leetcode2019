@@ -1,4 +1,4 @@
-/*
+/* Medium
 259. 3Sum Smaller
 DescriptionHintsSubmissionsDiscussSolution
 
