@@ -1,4 +1,4 @@
-/*
+/* Medium
 this is Dutch national flag problem
 
 Sort Colors
