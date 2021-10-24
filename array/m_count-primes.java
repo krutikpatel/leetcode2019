@@ -1,4 +1,4 @@
-/*
+/* Medium
 trick
 
 204. Count Primes
