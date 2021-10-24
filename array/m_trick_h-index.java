@@ -1,4 +1,4 @@
-/*
+/* Medium
 274. H-Index
 DescriptionHintsSubmissionsDiscussSolution
 
