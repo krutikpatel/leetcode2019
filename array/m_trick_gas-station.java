@@ -1,4 +1,4 @@
-/*
+/* Medium
 Gas Station
 DescriptionHintsSubmissionsDiscussSolution
 
