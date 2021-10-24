@@ -1,4 +1,4 @@
-/*
+/* Medium
 Product of Array Except Self
 DescriptionHintsSubmissionsDiscussSolution
 
