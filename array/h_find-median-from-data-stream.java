@@ -1,4 +1,4 @@
-/*
+/* Hard
 Find Median from Data Stream
 DescriptionHintsSubmissionsDiscussSolution
 
