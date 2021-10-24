@@ -1,4 +1,4 @@
-/*
+/* Medium
 223. Rectangle Area
 DescriptionHintsSubmissionsDiscussSolution
 
