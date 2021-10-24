@@ -1,4 +1,4 @@
-/*
+/* Hard
 trick
 and intelligent use of stack
 
