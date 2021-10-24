@@ -1,4 +1,4 @@
-/*
+/* Medium
 986. Interval List Intersections
 DescriptionHintsSubmissionsDiscussSolution
 
