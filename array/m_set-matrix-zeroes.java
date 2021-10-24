@@ -1,4 +1,4 @@
-/*
+/* Medium
 73. Set Matrix Zeroes
 DescriptionHintsSubmissionsDiscussSolution
 
