@@ -1,4 +1,4 @@
-/*
+/* Medium
 052. Grumpy Bookstore Owner
 DescriptionHintsSubmissionsDiscussSolution
 
