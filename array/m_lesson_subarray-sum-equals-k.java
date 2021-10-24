@@ -1,4 +1,4 @@
-/*
+/* Medium
 560. Subarray Sum Equals K
 DescriptionHintsSubmissionsDiscussSolution
 
