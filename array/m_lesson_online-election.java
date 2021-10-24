@@ -1,4 +1,4 @@
-/*
+/* Medium
 intelligent use of 
   -binary search
   -map<id,count>
