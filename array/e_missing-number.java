@@ -1,4 +1,4 @@
-/*
+/* Easy
 268. Missing Number
 DescriptionHintsSubmissionsDiscussSolution
 
