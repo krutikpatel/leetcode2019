@@ -1,4 +1,4 @@
-/*
+/* Easy
 1243. Array Transformation
 DescriptionHintsSubmissionsDiscussSolution
 
