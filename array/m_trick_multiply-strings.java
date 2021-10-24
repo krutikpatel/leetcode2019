@@ -1,4 +1,4 @@
-/*
+/* Medium
 43. Multiply Strings
 DescriptionHintsSubmissionsDiscussSolution
 
