@@ -37,9 +37,10 @@ class Solution {
     */
     public List<Integer> transformArray(int[] arr) {
         
-        boolean changed = false;
-        //while(changed){
-        do{
+        boolean changed = true;
+        while(changed){
+        //boolean changed = false;
+        //do{
             changed = false;
             int[] temp = new int[arr.length];
             //first and last never change so need to copy
@@ -60,14 +61,18 @@ class Solution {
             
             //reassign result for next operation
             arr = temp;
+            
             //for(int i:arr)
             //    System.out.print(i);
             //System.out.println(changed);
-        } while(changed);
+        //} while(changed);
+        
+        }    
         
         List<Integer> ret = new ArrayList<>();
         for(int i:arr)
             ret.add(i);
+        // Arrays.stream(a).boxed().collect(Collectors.toList());
         return ret;
     }
 }
