@@ -32,7 +32,7 @@ class Solution {
         */
         List<Integer> ret = new ArrayList<>();
         for(int i=0;i<nums.length;i++) {
-            int index = Math.abs(Math.abs(nums[i]) -1);
+            int index = Math.abs(Math.abs(nums[i]) -1);// -1 because num 8 in array size 8 cant go in index8, but at index 7
             
             if(nums[index] < 0) {
                 //we have already touched this num, so it is duplicate
