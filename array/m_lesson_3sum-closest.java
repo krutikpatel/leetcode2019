@@ -17,7 +17,7 @@ class Solution {
         //Imp operation for int array
         Arrays.sort(nums);
         
-        int closest = nums[0] + nums[1] + nums[2]; //numsInteger.MAX_VALUE; wont work
+        int closest = nums[0] + nums[1] + nums[2]; //numsInteger.MAX_VALUE; wont work   //to track min/closest
         
         /*
         take each elem : x, and find sum2 for other two elem = target-x
@@ -37,9 +37,9 @@ class Solution {
                 if(Math.abs(target - sum) < Math.abs(target - closest))
                     closest = sum;
                    
-                if(nums[j] + nums[k] < local_target){                    
+                if(nums[j] + nums[k] < local_target){  // in simple words:  if(nums[i] + nums[j] + nums[k] < target)                 
                     j++;
-                } else if(nums[j] + nums[k] > local_target){
+                } else if(nums[j] + nums[k] > local_target){ // in simple words: if(nums[i] + nums[j] + nums[k] > target)
                     k--;
                 }else                         
                     return target;                    
