@@ -35,17 +35,32 @@ class Solution {
     }
 
     private int twoSumSmaller(int[] nums, int startIndex, int target) {
-        int sum = 0;
+        int pairCount = 0;
         int left = startIndex;
         int right = nums.length - 1;
         while (left < right) {
             if (nums[left] + nums[right] < target) {
-                sum += right - left;
+                /* trick
+                // IF THREESUM < TARGET, THEN BECAUSE THEE ARRAY IS SORTED
+                // ALL NUMBERS IN BETWEEN WILL ALSO BE LESS OR EQUAL TO K
+                // AND THEREFORE BE VALID ANSWERS
+                0, 1, 2, 3, 4 target=6
+                first iteration:
+                i, low, x, y, high
+                pairCount = high-low =3
+
+                the combinations are
+                i,low,high(obvious) =0,1,4
+                i,low,x = 0,1,2
+                i,low,y = 0,1,3
+
+                */
+                pairCount += right - left;
                 left++;
             } else {
                 right--;
             }
         }
-        return sum;
+        return pairCount;
     }
 }
