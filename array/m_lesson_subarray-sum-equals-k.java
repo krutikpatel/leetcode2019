@@ -25,7 +25,8 @@ Solution 2. From solution 1, we know the key to solve this problem is SUM[i, j].
     To achieve this, we just need to go through the array, calculate the current sum and save number of all seen PreSum to a HashMap. 
     Time complexity O(n), Space complexity O(n).
 
-Explanation:
+Explanation: 
+Sliding window cannot be used, because array contains negative number
 -Its prefix sum problem.
 -HashMap can store sum till index i
 -But we take that concept one level up, since we are asked to count HOW many times we see the sum, and store the <sumseen_sofar, count>
