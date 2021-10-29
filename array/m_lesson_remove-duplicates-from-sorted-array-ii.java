@@ -38,7 +38,7 @@ class Solution {
             if(count<=2) {                
                 //slide, this overwirtes 3rd duplicate too                
                 goodIndexToOverwrite++;
-                nums[goodIndexToOverwrite] = nums[j];                                
+                nums[goodIndexToOverwrite] = nums[j];     //for right elements, its nums[x] = nums[x]; --> redundant operation, but easier to code by generalizing                           
             }
         }
         return goodIndexToOverwrite+1;
