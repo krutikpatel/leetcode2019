@@ -25,25 +25,30 @@ Solution 2. From solution 1, we know the key to solve this problem is SUM[i, j].
     To achieve this, we just need to go through the array, calculate the current sum and save number of all seen PreSum to a HashMap. 
     Time complexity O(n), Space complexity O(n).
 
+Explanation:
+-Its prefix sum problem.
+-HashMap can store sum till index i
+-But we take that concept one level up, since we are asked to count HOW many times we see the sum, and store the <sumseen_sofar, count>
+
     */
     public int subarraySum(int[] nums, int k) {
         
         int ret = 0;
         //<sum till i , how many times sum_i occurred> --> this will be used to know how many times we can sum "k"
-        HashMap<Integer,Integer> map = new HashMap<>();
+        HashMap<Integer,Integer> sumCountmap = new HashMap<>();
         
-        //imp to count sum including 0th elem
-        map.put(0,1);
+        //imp to count sum including before 0th elem
+        sumCountmap.put(0,1);
         
         int sum = 0;
         for(int i=0;i<nums.length;i++) {
             sum += nums[i];
             
             //check if sum - k exists in map
-            if(map.containsKey(sum-k)) {    //this means, some [j,i] window has sum = k. i is current index
-                ret += map.get(sum-k);                
+            if(sumCountmap.containsKey(sum-k)) {    //this means, some [j,i] window has sum = k. i is current index
+                ret += sumCountmap.get(sum-k);                
             }
-            map.put(sum, map.getOrDefault(sum,0)+1);
+            sumCountmap.put(sum, sumCountmap.getOrDefault(sum,0)+1);
         }
         
         return ret;
