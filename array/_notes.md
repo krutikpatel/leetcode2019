@@ -1,5 +1,10 @@
 # Useful notes on Array problems
 
+## Imp problem categories
+    - Two pointers
+    - Sliding window
+    - Prefix sum
+    
 ## generalized solution for kSums in JAVA
 https://leetcode.com/problems/4sum/discuss/8609/My-solution-generalized-for-kSums-in-JAVA
 
@@ -13,10 +18,10 @@ Idea: we know 2sum solution using 2 pointers (left and right)
     
     Time complexity is O(N^(K-1)).
 
-## Note
+### Note
 2sum problem is binary move, BUT Not binary search which involves "mid"
 
-## Related questions
+### Related questions
 https://leetcode.com/problems/two-sum-less-than-k/description/
 
 3 sum
@@ -33,3 +38,7 @@ https://www.geeksforgeeks.org/find-second-largest-element-array/
 
 -one pass possible with tracking 2 max vals
 -same thing we can do with binary tree too
+
+-Brute force : Looking at all possible subarrays is always O(n^2). Two loops are sufficient to look at all possible subarrays.
+    -i from 0 to n
+        -j from 1 to n
