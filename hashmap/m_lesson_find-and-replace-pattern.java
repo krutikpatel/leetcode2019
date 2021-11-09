@@ -1,4 +1,4 @@
-/*
+/* medium
 890. Find and Replace Pattern
 DescriptionHintsSubmissionsDiscussSolution
 
