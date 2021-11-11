@@ -1,4 +1,4 @@
-/*
+/* medium
 215. Kth Largest Element in an Array
 DescriptionHintsSubmissionsDiscussSolution
 
