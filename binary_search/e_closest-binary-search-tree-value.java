@@ -1,4 +1,4 @@
-/*
+/* easy
 Closest Binary Search Tree Value
 DescriptionHintsSubmissionsDiscussSolution
 
