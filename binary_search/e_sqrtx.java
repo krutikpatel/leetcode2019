@@ -1,4 +1,4 @@
-/*
+/* easy
 Sqrt(x)
 Implement int sqrt(int x).
 
