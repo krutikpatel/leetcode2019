@@ -1,4 +1,6 @@
-/*
+/* medium
+https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+
 Search for a Range
 https://leetcode.com/explore/learn/card/binary-search/135/template-iii/944
 
