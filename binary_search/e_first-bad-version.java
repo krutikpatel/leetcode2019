@@ -25,6 +25,8 @@ public class Solution extends VersionControl {
     better solution - not obvious: navigating right or left based on true or false can lead us to first bad vesion.
         key: end up at valid index and thats our answer
     we dont have to look for next elem to see where it shifted
+    
+    IMP method in binary search - narrow down on the desired node. left ptr can lead to right answer
     */
     public int firstBadVersion(int n) {
         int l = 1;
