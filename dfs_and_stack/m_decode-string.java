@@ -1,4 +1,4 @@
-/*
+/* medium
 Decode String
 DescriptionHintsSubmissionsDiscussSolution
 
