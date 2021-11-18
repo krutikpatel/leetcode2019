@@ -1,4 +1,4 @@
-/*
+/* medium
 227. Basic Calculator II
 DescriptionHintsSubmissionsDiscussSolution
 
