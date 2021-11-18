@@ -1,4 +1,4 @@
-/*
+/* medium
 Daily Temperatures
 DescriptionHintsSubmissionsDiscussSolution
 
