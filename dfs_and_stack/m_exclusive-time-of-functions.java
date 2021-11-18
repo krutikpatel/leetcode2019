@@ -1,4 +1,4 @@
-/*
+/* medium
 Exclusive Time of Functions
 DescriptionHintsSubmissionsDiscussSolution
 On a single threaded CPU, we execute some functions.  Each function has a unique id between 0 and N-1.
