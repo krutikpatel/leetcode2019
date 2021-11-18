@@ -1,4 +1,4 @@
-/*
+/* medium
 Copy List with Random Pointer
 DescriptionHintsSubmissionsDiscussSolution
 
