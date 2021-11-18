@@ -1,4 +1,4 @@
-/*
+/* easy
 257. Binary Tree Paths
 DescriptionHintsSubmissionsDiscussSolution
 
