@@ -1,4 +1,4 @@
-/*
+/* medium
 490. The Maze
 DescriptionHintsSubmissionsDiscussSolution
 
