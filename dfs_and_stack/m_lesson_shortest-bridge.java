@@ -1,4 +1,4 @@
-/*
+/* medium
 934. Shortest Bridge
 DescriptionHintsSubmissionsDiscussSolution
 
