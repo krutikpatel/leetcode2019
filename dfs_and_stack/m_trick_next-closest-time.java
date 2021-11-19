@@ -1,4 +1,4 @@
-/*
+/* medium
 681. Next Closest Time
 DescriptionHintsSubmissionsDiscussSolution
 
