@@ -1,4 +1,4 @@
-/*
+/* easy
 20. Valid Parentheses
 DescriptionHintsSubmissionsDiscussSolution
 
