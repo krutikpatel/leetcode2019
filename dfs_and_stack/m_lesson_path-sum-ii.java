@@ -1,4 +1,4 @@
-/*
+/* medium
 113. Path Sum II
 DescriptionHintsSubmissionsDiscussSolution
 
