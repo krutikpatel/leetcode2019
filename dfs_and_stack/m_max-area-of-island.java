@@ -1,4 +1,4 @@
-/*
+/* medium
 695. Max Area of Island
 DescriptionHintsSubmissionsDiscussSolution
 
