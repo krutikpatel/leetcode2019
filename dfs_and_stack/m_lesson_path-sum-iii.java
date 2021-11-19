@@ -1,4 +1,4 @@
-/*
+/* medium
 437. Path Sum III
 DescriptionHintsSubmissionsDiscussSolution
 
