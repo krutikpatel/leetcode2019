@@ -1,4 +1,4 @@
-/*
+/* hard
 212. Word Search II
 DescriptionHintsSubmissionsDiscussSolution
 
