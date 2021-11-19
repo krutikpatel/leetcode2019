@@ -1,4 +1,4 @@
-/*
+/* medium
 Lesson problem
 
 797. All Paths From Source to Target
