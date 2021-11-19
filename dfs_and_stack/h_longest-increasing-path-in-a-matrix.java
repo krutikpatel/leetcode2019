@@ -1,4 +1,4 @@
-/*
+/* hard
 Longest Increasing Path in a Matrix
 DescriptionHintsSubmissionsDiscussSolution
 
