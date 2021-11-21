@@ -41,6 +41,27 @@ Explanation: By calling next repeatedly until hasNext returns false,
 /*
 Stack is better : suits more for "next" operation of itertor.
 but for that, we have to push in stack from last.
+
+-> dont flatten whole list in advance using queue, that is space wastage.
+->rather flatten whenever hasNext is called.
+
+pesudocode:
+define function iterativeDepthFirstSearch(nestedList):
+    result = []
+
+    stack = a new Stack
+    push all items in nestedList onto stack, in reverse order
+
+    while stack is not empty:
+        nestedInteger = pop top of stack
+        if nestedInteger.isInteger():
+            append nestedInteger.getInteger() to result
+        else:
+            list = nestedInteger.getList()
+            push all items in list onto stack, in reverse order
+
+    return result
+    
 */
 public class NestedIterator implements Iterator<Integer> {
 
@@ -83,3 +104,33 @@ public class NestedIterator implements Iterator<Integer> {
  * NestedIterator i = new NestedIterator(nestedList);
  * while (i.hasNext()) v[f()] = i.next();
  */
+
+/*
+Queue based iterative solution:
+--> but downside is, we create new storage for entire nestedList again, rather that going thru given input.
+
+Queue<Integer> queue;
+
+public NestedIterator(List<NestedInteger> nestedList) {
+    queue = new LinkedList<Integer>();
+    flatten(nestedList);
+}
+
+public Integer next() {
+    return queue.poll();
+}
+
+public boolean hasNext() {
+    return !queue.isEmpty();
+}
+
+public void flatten(List<NestedInteger> nestlst){
+    for(NestedInteger i:nestlst){
+        if(i.isInteger())
+            queue.add(i.getInteger());
+        else
+            flatten(i.getList());
+    }
+}
+
+*/
