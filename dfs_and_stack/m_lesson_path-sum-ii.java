@@ -56,13 +56,14 @@ class Solution {
         if(root == null)
             return;
         
+        //add curr elem to path  
         sofar.add(root.val);
         sofarSum+=root.val;
         
         //check for leaf and return to avoid duplicate ans, that may result by calling with left and right as null roots
         if(root.left == null && root.right == null && sofarSum == sum) {
             ret.add(new ArrayList<>(sofar));   
-            sofar.remove(sofar.size()-1);//imp to remove last elem in this case too - backtrack
+            //sofar.remove(sofar.size()-1);//imp to remove last elem in this case too - backtrack //dont need to do here since doing below
             return;
         }
         
@@ -70,7 +71,7 @@ class Solution {
         dfsHelper(root.left,sum,sofarSum,sofar);
         dfsHelper(root.right,sum,sofarSum,sofar);
         
-        //remove curr node - backtrack
+        //remove curr node from path - backtrack
         //BUT notice, we dont decrement/backtrack on sofarSum, that value is i htink preserved correctly by callstack itself. same with String parameter  
         sofar.remove(sofar.size()-1);
     }
