@@ -1,4 +1,4 @@
-/*
+/* medium
 lesson:
 two pointers,
 some good observation trick
