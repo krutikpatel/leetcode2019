@@ -1,4 +1,4 @@
-/*
+/* medium
 165. Compare Version Numbers
 DescriptionHintsSubmissionsDiscussSolution
 
