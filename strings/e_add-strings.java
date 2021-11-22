@@ -1,4 +1,4 @@
-/*
+/* easy
 415. Add Strings
 DescriptionHintsSubmissionsDiscussSolution
 
