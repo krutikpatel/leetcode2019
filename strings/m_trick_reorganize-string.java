@@ -1,4 +1,4 @@
-/*
+/* medium
 767. Reorganize String
 DescriptionHintsSubmissionsDiscussSolution
 
