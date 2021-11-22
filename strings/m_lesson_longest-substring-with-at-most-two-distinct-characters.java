@@ -1,4 +1,4 @@
-/*
+/* medium
 159. Longest Substring with At Most Two Distinct Characters
 DescriptionHintsSubmissionsDiscussSolution
 
