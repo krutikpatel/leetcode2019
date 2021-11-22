@@ -1,4 +1,4 @@
-/*
+/* easy
 819. Most Common Word
 DescriptionHintsSubmissionsDiscussSolution
 
