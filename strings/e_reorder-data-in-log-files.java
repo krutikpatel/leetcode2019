@@ -1,4 +1,4 @@
-/*
+/* easy
 937. Reorder Data in Log Files
 DescriptionHintsSubmissionsDiscussSolution
 
