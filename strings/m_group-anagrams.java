@@ -1,4 +1,4 @@
-/*
+/* medium
 group anagrams
 
 Given an array of strings, group anagrams together.
