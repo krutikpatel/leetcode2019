@@ -1,4 +1,4 @@
-/*
+/* medium
 166. Fraction to Recurring Decimal
 DescriptionHintsSubmissionsDiscussSolution
 
