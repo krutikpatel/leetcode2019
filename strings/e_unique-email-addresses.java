@@ -1,4 +1,4 @@
-/*
+/* easy
 Unique Email Addresses
 
 Every email consists of a local name and a domain name, separated by the @ sign.
