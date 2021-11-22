@@ -1,4 +1,4 @@
-/*
+/* medium
 String to Integer (atoi)
 
  Take care of following constraints:
