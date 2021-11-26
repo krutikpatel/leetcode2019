@@ -11,7 +11,11 @@ For each log, the first word in each log is an alphanumeric identifier.  Then, e
 
 We will call these two varieties of logs letter-logs and digit-logs.  It is guaranteed that each log has at least one word after its identifier.
 
-Reorder the logs so that all of the letter-logs come before any digit-log.  The letter-logs are ordered lexicographically ignoring identifier, with the identifier used in case of ties.  The digit-logs should be put in their original order.
+Reorder these logs so that:
+
+The letter-logs come before all digit-logs.
+The letter-logs are sorted lexicographically by their contents. If their contents are the same, then sort them lexicographically by their identifiers.
+The digit-logs maintain their relative ordering.
 
 Return the final order of the logs.
 
