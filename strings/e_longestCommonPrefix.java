@@ -24,7 +24,25 @@ All given inputs are in lowercase letters a-z.
 */
 
 class Solution {
+    
+    /*
+    vertical scan, or scan beginning with 1st car in 1st string. use 1st string as ref for rest to compare with, char by char
+    */
     public String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length == 0) return "";
+        
+        //i is char index, j is word index
+        for (int i = 0; i < strs[0].length() ; i++){
+            char c = strs[0].charAt(i);
+            for (int j = 1; j < strs.length; j ++) {
+                if (i == strs[j].length() || strs[j].charAt(i) != c)
+                    return strs[0].substring(0, i);             
+            }
+        }
+        return strs[0];
+    }
+    
+    public String longestCommonPrefix2(String[] strs) {
         
         /*
         -find min and max "value" . we dont need to sort them just for this        
