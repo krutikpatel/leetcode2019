@@ -1,0 +1,174 @@
+2021_lc_coding
+===================
+1st round progress:
+Every topic sorted by difficulty: easy to hard
+
+Topics to cover:
+-------------------
+1. Binary Tree 
+2. Binary Search
+3. Array
+4. bfs and queue
+5. dfs and stack
+6. Graph, topological sort 
+7. HashMap
+8. Strings
+9. LinkedList
+10. Dynamic Programming (many arrays and string problems here)
+11. backtracking, recursion
+12. Priority Queue
+13. Greedy - nice to have
+
+Practice by technique
+-----------------------
+-Sliding window
+-2 pointers
+-fast and slow pointers 
+-DP
+-interval type problems 
+-cyclic sort?
+-modified binary search 
+-top-k elements
+
+===================
+===================
+===================
+
+1. Binary tree : 
+---------------------
+To remember-redo-practice:
+	lesson_binary-tree-postorder-traversal.java	-> there are mutiple ways to iterate using stack. see which one suites me.
+	
+Continue from:
+	102 Binary Tree Level Order Traversal
+
+
+
+2. Binary search : 
+---------------------
+To remember-redo-practice:
+
+Continue from:
+	1099	Two Sum Less Than K
+
+3. Array:
+----------------------
+github
+
+Continue from:m_set-matrix-zeroes.java
+	[hard remaining]
+
+to remember:
+	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_daily-temperatures.java	-> stack the indices rather than temp vals, because we need index diff. -> start from end -> monotonic stack.
+	4 sum
+	cherry pick algo
+	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_3sum-closest.java
+	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_3sum-smaller.java
+	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_find-all-duplicates-in-an-array.java
+	https://leetcode.com/problems/remove-duplicates-from-sorted-array/ - remember the basic trick, write ptr, read ptr. no need to run fast pointer all at once
+	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_sliding-window_grumpy-bookstore-owner.java
+	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_sort-colors.java
+	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_subarray-sum-equals-k.java
+	m_set-matrix-zeroes - work on memory efficient soln
+		=> use this soln: https://leetcode.com/problems/set-matrix-zeroes/discuss/26008/My-AC-java-O(1)-solution-(easy-to-read)
+	
+	product-of-array-except-self -> need to do without division. -> realize that product except self = product(on left) + product (right)
+		-> that can be achieved without creating extra arrays for left and right.
+		->iterate left to right skiping sefl
+		->iterate right to left skipping self. both times record res in same array. that will be ans
+	
+4. 	BFS and queue:
+
+There are 2 aspects to BFS.
+-some problems, first figure out which all nodes need bfs and add them in queue.
+-some problems, just start with one node in queue as starting point.
+
+-level order traversal.
+-iterate thru all neighbors?
+
+Continue from: https://leetcode.com/problems/perfect-squares/
+
+to remember:
+	https://leetcode.com/problems/evaluate-division/solution/
+	https://leetcode.com/problems/the-maze/solution/
+	https://leetcode.com/problems/rotting-oranges/
+
+
+5. HashMaps
+Continue from: github
+	https://github.com/krutikpatel/leetcode2019/blob/master/hashmap/m_insert-delete-getrandom-o1.java
+to remember:
+	-log rate limiter - study various approaches IMP
+	https://leetcode.com/problems/next-greater-element-i/
+	https://leetcode.com/problems/isomorphic-strings/
+	https://leetcode.com/problems/find-duplicate-subtrees/
+			https://github.com/krutikpatel/leetcode2019/blob/master/hashmap/m_group-shifted-strings.java --> key forming math
+	https://leetcode.com/problems/time-based-key-value-store/		
+
+6. Binary Search 
+continue from:
+	h_median-of-two-sorted-arrays.java
+	
+to remember:
+	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/e_valid-perfect-square.java - use long instead of division technique. because division will lead to false true. (2 = 5/2 - but its not perfect square)
+	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_find-first-and-last-position-of-element-in-sorted-array.java
+		-dont use while(l<r) template - problem narrow downing the end
+		-use while(l<=r) template 
+	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_find-k-closest-elements.java - template III mid+k widnow
+	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_lesson_search-a-2d-matrix-ii.java - TODO binary search way. currently doing narrowing down method, beginning bottom left corner.
+	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_find-minimum-in-rotated-sorted-array.java
+	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_search-in-rotated-sorted-array.java
+	
+todo:
+h_median-of-two-sorted-arrays.java	
+https://leetcode.com/problems/time-based-key-value-store/
+
+7. DFS
+continue from:
+	TODO: hards
+	
+to remember:
+	m_basic-calculator-ii.java -> little not intuitive. keep putting + and - operands in stack. * and / calculate in run time.
+	m_copy-list-with-random-pointer.java -> need to use HashMap<origNode,newNode> as visited record, instead of set, because we need to retrieve new node to reuse (from given visited node)
+	m_decode-string.java -> when encounter [, we need to push stringSoFar on stack -> because there can be multiple/nested layers (just like num/count nesting), we we wont be able to store it directly in final result
+		->k[string k[string k[string]
+	
+	m_exclusive-time-of-functions.java -> see as time intervals. Since its logs, its already in chronological order/sorted, so no need to sort by start time. -> now imp to realize use of stack. push started tasks in stack (like actual call stack !) -> stack<taskId> only. calculate exclusive time during iteration itself.
+		-> when see end log, pop.
+		->result can be array and taskId serves as index. so no hashmap required
+		->when end log comes, taskid will alway match to top of stack. ()
+	m_flatten-nested-list-iterator.java -> imp to realize the recursive nature. since its rec, we can use stack.
+		-> during constructore, flatten there itself.
+		-> then only provide iteration.
+		-> needs practice.
+		-> imp: next will not be called without calling hsNext
+	m_lesson_all-paths-from-source-to-target.java -> realize that we need to backtrack (remove curr neighbor from path) before next iteration to other neighbor. (after recursive dfs call)
+Note: dfs helper function normally will not return anything, its just dfs sweeper. result will be recorded in some class var.
+
+	m_lesson_path-sum-iii.java -> see each root to leaf path as array, and we are looking for subarray that sums to target. for that we use "prefix-sum" technique. so thats what we will do.
+		-> imp : consider two nodes having same num (also -ve nums are allowed), so our prefix sum map will need <sumSoFar, frequency>
+	
+	
+	m_word-search.java -> dfs+backtracking -> again exhaustive dfs. whenever there is exhaustive dfs, dont forget to clear/backtrack visited node if word not found here. if the path does not lead to a solution, we then revert the change (i.e. backtracking) and try another path.
+		-> also this dfs helper needs to return boolena for whether word found or not. -> so need to OR all dfs directions.
+		-> time complexity: Time Complexity: O(N. 3^L) where N is the number of cells in the board and L is the length of the word to be matched.
+	
+	
+8. Strings 
+continue from:
+
+to remember:
+	e_lesson_most-common-word.java -> good practice of string iteration by chars, and corner cases. -> character.isLetter and stringbuilder are enough to make word. we dont need start and end pointer to make word.
+		how do we iterate char by char and derive each word?
+		a. use two ptrs -> start and end
+		b. use stringbuilder, build it up to one word, usinng just one ptr.
+		
+	longest-common-prefix - > there are many ways to solve. ->pick 1st string, and compare char by char in rest of strings. stop when dont match and return prefix.
+		-> divide and conquer, binary search are possible.
+		-> find min and max strings, then compare..
+	reorder-data-in-log-files.java -> use String x = a.substring(a.indexOf(' ')+1,a.length());		
+		-> also note: comparator for pq -> strA.compareTo(strB)
+	reverse-words-in-a-string-iii -> how do we iterate char by char and derive each word?
+		a. use two ptrs -> start and end
+		b. use stringbuilder, build it up to one word, usinng just one ptr.
+	
