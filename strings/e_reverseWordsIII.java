@@ -15,27 +15,28 @@ Note: In the string, each word is separated by single space and there will not b
 class Solution {
     /*
     Another nice application of 2 pointers, similar to reverseWords
+    -no extra space needed
     */
     public String reverseWords(String s) {
         if(s == null || s.length() == 0)
             return s;
         
-        int i=0;
-        int j=0;
+        int start=0;
+        int end=0;
         
         char[] arr = s.toCharArray();
         
-        while(i<s.length()){
-            if(arr[i] == ' '){
-                i++;
+        while(start<s.length()){
+            if(arr[start] == ' '){
+                start++;
             }else{
-                j=i+1;
-                while(j<s.length() && arr[j] != ' '){
-                    j++;                    
+                end=start+1;
+                while(end<s.length() && arr[end] != ' '){
+                    end++;
                 }
                 //now reverse that word
-                reverse(arr,i,j-1);
-                i=j;
+                reverse(arr,start,end-1);
+                start=end;
             }
         }
         
