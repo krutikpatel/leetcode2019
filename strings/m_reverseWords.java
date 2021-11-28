@@ -63,28 +63,28 @@ class Solution {
         s = reverse(s);
         
         //reverse words, ocnsider multiple spaces, so in case of space move one by one
-        i=0;
-        j=0;
+        int begin=0;
+        int end=0;
         StringBuilder sb = new StringBuilder();
-        while(i<s.length()){
-            if(s.charAt(i) == ' ')
-                i++;
+        while(begin<s.length()){
+            if(s.charAt(begin) == ' ')
+                begin++;
             else {
                 
                 //now get the word
-                j=i;
-                while(j<s.length() && s.charAt(j) != ' '){
-                    j++;
+                end=begin;
+                while(end<s.length() && s.charAt(end) != ' '){
+                    end++;
                 }
                 //not get that word
-                String word = s.substring(i,j);
+                String word = s.substring(begin,end);
                 
                 if(sb.length()!=0)
                     sb.append(" ");
                 sb.append(reverse(word));
 
-                j++;
-                i=j;                
+                end++;
+                begin=end;
             }
         }
         
