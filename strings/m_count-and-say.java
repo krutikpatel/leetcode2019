@@ -2,7 +2,8 @@
 Count and Say
 
 The count-and-say sequence is the sequence of integers with the first five terms as following:
-
+n      result
+---------
 1.     1
 2.     11
 3.     21
@@ -23,23 +24,23 @@ class Solution {
         if(n==0)
             return "";
         
-        String prev = "1";
+        String result = "1";
         for(int i = 2;i<=n;i++){
-            //form curr String using prev
+            //form curr String using result
             StringBuilder sbCurr = new StringBuilder();
             
-            for(int j = 0;j<prev.length();){
+            //convert result into next string result
+            //for(int j = 0;j<result.length();){
+            int j = 0;
+            while(j < result.length()){
                 //get count for this char
-                char digit = prev.charAt(j);
-                int count = 1;
+                char digit = result.charAt(j);
+                int count = 0;
                 
-                int k=j+1;
-                while(k<prev.length() && digit == prev.charAt(k)){  //Note: realize the convenience of while loop in such situation rather than for loop
+                while(j<result.length() && digit == result.charAt(j)){  //Note: realize the convenience of while loop in such situation rather than for loop
                     count++;
-                    k++;
+                    j++;
                 }
-                
-                j = k; //IMP j will be incremented here
                 
                 //now make string
                 sbCurr.append(Integer.toString(count));
@@ -47,10 +48,10 @@ class Solution {
             }
             
             //once done
-            prev = sbCurr.toString();
+            result = sbCurr.toString();
             //System.out.println("i = "+ i + " and string = " + prev );
         }
         
-        return prev;
+        return result;
     }
 }
