@@ -22,8 +22,70 @@ Input: numerator = 2, denominator = 3
 Output: "0.(6)"
 
 */
+/*
+Approach:
+-explained well by diagram in leetcode.
+		-> main trick : if remainder starts repeating, we know its repeating and finish
+		-> we need to know where the repeating part starts. index of each digit in fraction -> do it by hashMap<Long, index>
+		-> we use Long for all calculations to cover int overflows 
+		-> how do we keep reducing remainder? -> this is just plain division operation.
+			long remainder = dividend % divisor;
+			-> while(ramainder ! = 0){
+				ramainder *= 10; --> whi mult by 10? that is how we proceed manunal division
+				remainder %= divisor;
+			}
+	
+Edgecases:
+0/1
+1/0
+-1/-1
+-1/1
+-ve and +ve int overflows
+*/
 class Solution {
     public String fractionToDecimal(int numerator, int denominator) {
+        if (numerator == 0) {
+            return "0";
+        }
+        StringBuilder fraction = new StringBuilder();
+
+        // If either one is negative (not both)
+        if (numerator < 0 ^ denominator < 0) {
+            fraction.append("-");
+        }
+
+        // Convert to Long or else abs(-2147483648) overflows
+        long dividend = Math.abs(Long.valueOf(numerator));
+        long divisor = Math.abs(Long.valueOf(denominator));
+
+        fraction.append(String.valueOf(dividend / divisor));
+        long remainder = dividend % divisor;
+        if (remainder == 0) {
+            return fraction.toString();
+        }
+        
+        fraction.append(".");
+        Map<Long, Integer> map = new HashMap<>();//fraction digit and its index
+        while (remainder != 0) {
+            //we have seen this digit in fraction/result before, so its repeating now
+            if (map.containsKey(remainder)) {
+                fraction.insert(map.get(remainder), "(");
+                fraction.append(")");
+                break;
+            }
+            
+            map.put(remainder, fraction.length());
+            
+            //division process
+            remainder *= 10;
+            fraction.append(String.valueOf(remainder / divisor));
+            remainder %= divisor;
+        }
+        return fraction.toString();
+    }
+    
+///////////////////
+    public String fractionToDecimalOld(int numerator, int denominator) {
         if (numerator == 0) {
             return "0";
         }
