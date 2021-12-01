@@ -1,4 +1,4 @@
-/*
+/* easy
 https://leetcode.com/problems/maximum-depth-of-binary-tree/description/
 
 try to solve iterativesly and recursively
