@@ -1,4 +1,4 @@
-/*
+/* medium
 250. Count Univalue Subtrees
 DescriptionHintsSubmissionsDiscussSolution
 
