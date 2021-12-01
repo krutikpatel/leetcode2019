@@ -1,4 +1,4 @@
-/*
+/* easy
 572. Subtree of Another Tree
 DescriptionHintsSubmissionsDiscussSolution
 
