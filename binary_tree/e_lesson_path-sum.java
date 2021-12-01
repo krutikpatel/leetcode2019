@@ -1,4 +1,4 @@
-/*
+/* easy
 Path Sum
 DescriptionHintsSubmissionsDiscussSolution
 
