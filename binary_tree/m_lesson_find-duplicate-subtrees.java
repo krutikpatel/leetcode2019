@@ -1,4 +1,4 @@
-/*
+/* medium
 652. Find Duplicate Subtrees
 DescriptionHintsSubmissionsDiscussSolution
 
