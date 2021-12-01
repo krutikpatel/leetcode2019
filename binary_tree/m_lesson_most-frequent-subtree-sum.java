@@ -1,4 +1,4 @@
-/*
+/* medium
 508. Most Frequent Subtree Sum
 DescriptionHintsSubmissionsDiscussSolution
 
