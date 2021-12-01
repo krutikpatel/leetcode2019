@@ -1,4 +1,4 @@
-/*
+/* medium
 285. Inorder Successor in BST
 DescriptionHintsSubmissionsDiscussSolution
 
