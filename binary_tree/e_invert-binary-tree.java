@@ -1,4 +1,4 @@
-/*
+/* easy
 nvert Binary Tree
 DescriptionHintsSubmissionsDiscussSolution
 
