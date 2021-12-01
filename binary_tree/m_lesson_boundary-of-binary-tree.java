@@ -1,4 +1,4 @@
-/*
+/* medium
 545. Boundary of Binary Tree
 DescriptionHintsSubmissionsDiscussSolution
 
