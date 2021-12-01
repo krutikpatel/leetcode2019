@@ -156,7 +156,8 @@ Note: dfs helper function normally will not return anything, its just dfs sweepe
 	
 8. Strings 
 continue from:
-
+	m_trick_multiply-strings
+	
 to remember:
 	e_lesson_most-common-word.java -> good practice of string iteration by chars, and corner cases. -> character.isLetter and stringbuilder are enough to make word. we dont need start and end pointer to make word.
 		how do we iterate char by char and derive each word?
@@ -169,6 +170,61 @@ to remember:
 	reorder-data-in-log-files.java -> use String x = a.substring(a.indexOf(' ')+1,a.length());		
 		-> also note: comparator for pq -> strA.compareTo(strB)
 	reverse-words-in-a-string-iii -> how do we iterate char by char and derive each word?
-		a. use two ptrs -> start and end
+		a. use two ptrs -> start and end -> in place operations. no extra space needed.
 		b. use stringbuilder, build it up to one word, usinng just one ptr.
+	e_strstr.java -> brute force match at every char position in bigger string.
+	e_trick-greatest-common-divisor-of-strings.java -> GCD for string is the biggest common substring. so we need to keep cutting substrings from begin point until we cant.
+		-> if one string is empty, other is the answer to return.
+	e_unique-email-addresse -> to replace occurences of . in string:  id = id.replaceAll("\\.","");   //remember this utility and \\ for before .
+	m_atoi.java -> there are corner cases to be covered:
+		0. remove spaces from front and back - trim
+		1. sign in front - may or may not be present
+		2. Integer overflow min and max. Store temp result on "long"
+		3. look for non digit chars. once encounter, break/stop
+		-> use long to store intermediate result to check int overflow. converting string to int, char/digit by digit. 
+	m_group-shifted-strings ->
+		 key += String.format("%2d", (s.charAt(i) - s.charAt(i-1) + 26) % 26);//Difference from the previous char.
+		 ->circular shifted strs in same group
+	m_lesson_compare-version-numbers.java -> 
+		-need to consider various corner cases: Following are equal:
+			1.0 and 1.000
+			1.0 and 1.0.0
+			1.01 and 1.001
+		->split string by dots
+		->create utility to convert string to int.
+		-key to make soln easy-for diff length, we can use 0 for whichever finished.
+	m_lesson_longest-substring-with-at-most-two-distinct-characters.java -> need to store HashMap<char, latestIndex> -> we store latest/last index because, if we were to remove that char, we need to remove till right most occurence of that char.
+		-> only use of left ptr is to cal len of substring. not for remove char from left side.
+		-> but leftmost cant be tracked with ptr, each time need to go over map and find leftMost char to remove from sliding window
+		-> note: it is possible to solve with lft and right ptrs and slide from left one by one and map<char,freq>, but as straight as above.
+	m_lesson_partition-labels.java ->
+		it sounds complicated, recursive and dp problem, but its not !
+		->2 pass solution:
+        -Record the last occurence of each letter in map
+        -Second pass can be done in way that we will get max partitions.
+			-Keep current interval window marked by begin and end pointers
+            -keeptrack of furthest most index of occurence for any letter in current interval.
+            -if that is = i, we dont have anymore repeating in future, so partition window ends here. add it to result.
+                Note: We END it here rather than including more unique chars because we want as many unique intervals as we can.
+	m_longest-substring-without-repeating-characters.java -> set is enough with sliding window. map not required here.
+		-> when we slide from left, we dont increment the right ptr. because duplicate might just be right -1 ! eg: abcdee -> when we sit at right = 2nd e.
+	m_palindromic-substrings.java -> 
+		-count palindrom from odd center. (i)
+		-count palindrom from even center. (i,i+1)
+			-to cehck palindrome, run loop to expand from center.
+		-do this for every i from 0 to len 
+	m_reverseWords.java
+		->trim both ends first 
+		->now rever the string then reverse each word. -> wo do this to avoid extra space. if we dont reverse, we will store each word in array/stack. ->then build string with words in reverse order.
+	m_trick_fraction-to-recurring-decimal.java
+		-explained well by diagram in leetcode.
+		-> main trick : if remainder starts repeating, we know its repeating and finish
+		-> we need to know where the repeating part starts. index of each digit in fraction -> do it by hashMap<Long, index>
+		-> we use Long for all calculations to cover int overflows 
+		-> how do we keep reducing remainder? -> this is just plain division operation.
+			long remainder = dividend % divisor;
+			-> while(ramainder ! = 0){
+				ramainder *= 10; --> whi mult by 10? that is how we proceed manunal division
+				remainder %= divisor;
+			}
 	
