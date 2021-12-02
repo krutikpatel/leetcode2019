@@ -1,4 +1,4 @@
-/*
+/* easy
 Merge Two Binary Trees
 DescriptionHintsSubmissionsDiscussSolution
 
