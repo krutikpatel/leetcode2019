@@ -1,4 +1,4 @@
-/*
+/* medium
 Unique Binary Search Trees
 DescriptionHintsSubmissionsDiscussSolution
 
