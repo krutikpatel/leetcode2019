@@ -35,16 +35,16 @@ class Solution {
         
         pq.offer(intervals[0]);
         for(int i=1;i<intervals.length;i++){
-            int[] curr = pq.poll();
-            if(intervals[i][0] >= curr[1]){ //if new start-time >= end-time from pq, re-use room
-                curr[1] = intervals[i][1];
+            int[] prev = pq.poll();
+            if(intervals[i][0] >= prev[1]){ //if new start-time >= end-time from pq, re-use room
+                prev[1] = intervals[i][1];
             }else{
-                //new room, ie, add this new interval to PQ
+                //new room needed, ie, add this new interval to PQ
                 pq.offer(intervals[i]);
             }
             
             //add curr back to pq in either case
-            pq.offer(curr);
+            pq.offer(prev);
         }
         
         return pq.size();
