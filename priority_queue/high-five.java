@@ -27,6 +27,8 @@ class Solution {
     n students, m scores
     O(n*mlongm) + (O(n)*5)    
     
+    ->there is no way to bound PQ to size 5 and still store mx 5 without extra data structures.
+    
     -More clever this:
     just sort items array beforehand, by score. 
     then for any candidate, we are bound to have scrore in descending order. take 1st five and average
