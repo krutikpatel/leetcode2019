@@ -27,6 +27,7 @@ class Solution {
         });
         
         //Make PQ min heap by end-time to access earaliest expiring room to re-use.
+        //actually we are only using end time from intervals in pq. so we only need pq<Integer>
         PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>(){
             public int compare(int[] a, int[] b){
                 return a[1] - b[1];
@@ -34,19 +35,29 @@ class Solution {
         });
         
         pq.offer(intervals[0]);
+        
+        //simpler
         for(int i=1;i<intervals.length;i++){
-            int[] prev = pq.poll();
-            if(intervals[i][0] >= prev[1]){ //if new start-time >= end-time from pq, re-use room
-                prev[1] = intervals[i][1];
+            if(intervals[i][0] >= pq.peek()[1]){ //if new start-time >= end-time from pq, re-use room
+                pq.poll();//remove this interval - room can be reused
+            }
+            pq.offer(intervals[i]);
+        }
+        
+        /*
+        for(int i=1;i<intervals.length;i++){
+            int[] curr = pq.poll();
+            if(intervals[i][0] >= curr[1]){ //if new start-time >= end-time from pq, re-use room
+                curr[1] = intervals[i][1];
             }else{
-                //new room needed, ie, add this new interval to PQ
+                //new room, ie, add this new interval to PQ
                 pq.offer(intervals[i]);
             }
             
             //add curr back to pq in either case
-            pq.offer(prev);
+            pq.offer(curr);
         }
-        
+        */
         return pq.size();
     }
 }
