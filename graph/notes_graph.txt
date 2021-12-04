@@ -8,7 +8,7 @@
     rather than:
       adj.put(curr[0], adj.getOrDefault(curr[0], new ArrayList<Integer>()).add(curr[1]));
  
- -> How to handle visited and add to visited?
+=> How to handle visited and add to visited?
   -in this order:
       if(visited.contains(start))
             return;  
@@ -17,3 +17,9 @@
   -then add curr node to visited, because now we are visiting it
   
 =>> Uniod-find method seems faster than dfs
+
+=>> find path between 2 given nodes in graph
+  -union find is fastet
+  -then BFS -> seems more natural to find path between 2 given nodes
+  -then DFS
+  
