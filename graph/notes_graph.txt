@@ -1,0 +1,19 @@
+
+=> imp and easier to just create each entry beforehand. 
+  1. avoids bugs on getOrDefault, adding entry while creating adj list, 
+  2. as well as null check on adj list duing dfs
+        for(int i=0;i<n;i++) {
+            adj.put(i,new ArrayList<>());
+        }
+    rather than:
+      adj.put(curr[0], adj.getOrDefault(curr[0], new ArrayList<Integer>()).add(curr[1]));
+ 
+ -> How to handle visited and add to visited?
+  -in this order:
+      if(visited.contains(start))
+            return;  
+      visited.add(start);
+  -first check if visited
+  -then add curr node to visited, because now we are visiting it
+  
+=>> Uniod-find method seems faster than dfs
