@@ -50,3 +50,10 @@
   -DFS, and BFS both works
   -time complexity: O(M+N), M = nodes, N = edges
       -that is simply total no of connections
+
+==>reconstruct-itinerary
+  -we need to consume all nodes, as given tickets will go thru all nodes
+  -good explanation:
+  https://leetcode.com/problems/reconstruct-itinerary/discuss/78768/Short-Ruby-Python-Java-C%2B%2B
+  -soln is not plain DFS. its eulerian path algo
+  
