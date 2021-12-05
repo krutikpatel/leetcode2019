@@ -41,20 +41,20 @@ class Solution {
         int ind1 = 0;
         int ind2 = nums.length-1;
         
-        int i=0;//this is iterator
-        while(i<=ind2) { //v imp. makes sense to stop when reach ind2. if you keep going, it will messup results
-            if(nums[i] == 0) {
+        int curr=0;//this is iterator
+        while(curr<=ind2) { //v imp. makes sense to stop when reach ind2. if you keep going, it will messup results
+            if(nums[curr] == 0) {
                 //swap with start.
-                swap(i,ind1,nums);
+                swap(curr,ind1,nums);
                 ind1++;
-                i++;
-            } else if(nums[i] == 2) {
+                curr++;
+            } else if(nums[curr] == 2) {
                 //swap with end
-                swap(i,ind2,nums);
+                swap(curr,ind2,nums);
                 ind2--;
             } else {
                 //its 1
-                i++;
+                curr++;
             }
         }
     }
