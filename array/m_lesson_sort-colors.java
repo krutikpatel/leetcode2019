@@ -37,9 +37,11 @@ class Solution {
         if(nums == null || nums.length <= 1)
             return;
                 
+        //ptrs to 0 and 2, inbetween these two is 1s
         int ind1 = 0;
         int ind2 = nums.length-1;
-        int i=0;
+        
+        int i=0;//this is iterator
         while(i<=ind2) { //v imp. makes sense to stop when reach ind2. if you keep going, it will messup results
             if(nums[i] == 0) {
                 //swap with start.
