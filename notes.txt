@@ -61,17 +61,47 @@ Continue from:m_set-matrix-zeroes.java
 to remember:
 	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_daily-temperatures.java	-> stack the indices rather than temp vals, because we need index diff. -> start from end -> monotonic stack.
 	4 sum
-	cherry pick algo
 	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_3sum-closest.java
 	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_3sum-smaller.java
 	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_find-all-duplicates-in-an-array.java
-	https://leetcode.com/problems/remove-duplicates-from-sorted-array/ - remember the basic trick, write ptr, read ptr. no need to run fast pointer all at once
-	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_sliding-window_grumpy-bookstore-owner.java
-	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_sort-colors.java
-	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_subarray-sum-equals-k.java
-	m_set-matrix-zeroes - work on memory efficient soln
-		=> use this soln: https://leetcode.com/problems/set-matrix-zeroes/discuss/26008/My-AC-java-O(1)-solution-(easy-to-read)
 	
+	cherry pick algo:
+	https://leetcode.com/problems/remove-duplicates-from-sorted-array/ - remember the basic trick, write ptr, read ptr. no need to run fast pointer all at once
+		-write/good ptr. ptr to track index to unique elems. (slow, write location) => this of this ptr as if we had new empty array where we store desired elems for return. ptr in that array where we can write new elem.
+		-iterator ptr (fast, read ptr)
+		=>similar qns: (in place array operations - single iteration solutions)
+			https://leetcode.com/problems/remove-element/
+			https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/
+			
+		-write ptr and iterator will diverge as we start seeing duplicates to be removed.
+		
+	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_sliding-window_grumpy-bookstore-owner.java
+	
+	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_sort-colors.java
+		-ptr to color 0, at 0
+		-ptr to color 2, at len-1
+		-iterate over array using i => while(i<=p2)
+		
+	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_subarray-sum-equals-k.java
+		-Sliding window cannot be used, because array contains negative number
+		-Its "prefix sum" problem.
+		-Solution 1. Brute force. We just need two loops (i, j) and test if SUM[i, j] = k. Time complexity O(n^2), Space complexity O(1). 
+		-Solution 2. From solution 1, we know the key to solve this problem is SUM[i, j]. 
+			-we need faster way to find SUM[i, j]
+			-So if we know SUM[0, i] and SUM[0, j], then we can easily get SUM[i, j]
+				SUM[i, j] = SUM[0, i] - SUM[0, j]
+			
+		-since we are asked to count HOW many times we see the sum, we need to store the Map<sumseen_sofar, count>
+		-keep recording sum so far in map.
+			-if we have seen  ( SUM[0, i] - target ) -> add this to answer.
+			
+	m_set-matrix-zeroes 
+		-A straight forward solution using O(mn) space is probably a bad idea. track 0 converted elems/visited elems. so that we dont consider them original 0s.
+		-improvement: only track col and row nums which needs to be zeroed. PAss1: record these rows and cols. PAss2: zero down those rows and cols. 2*O(mn)
+		- work on memory efficient soln
+			-> use this soln: https://leetcode.com/problems/set-matrix-zeroes/discuss/26008/My-AC-java-O(1)-solution-(easy-to-read)
+			-They are using the first row and column as a memory to keep track of all the 0's in the entire matrix.
+			-only problem with that is : if 0th row or col is 0.
 	product-of-array-except-self -> need to do without division. -> realize that product except self = product(on left) + product (right)
 		-> that can be achieved without creating extra arrays for left and right.
 		->iterate left to right skiping sefl
@@ -133,7 +163,7 @@ to remember:
 	m_decode-string.java -> when encounter [, we need to push stringSoFar on stack -> because there can be multiple/nested layers (just like num/count nesting), we we wont be able to store it directly in final result
 		->k[string k[string k[string]
 	
-	m_exclusive-time-of-functions.java -> see as time intervals. Since its logs, its already in chronological order/sorted, so no need to sort by start time. -> now imp to realize use of stack. push started tasks in stack (like actual call stack !) -> stack<taskId> only. calculate exclusive time during iteration itself.
+	m_exclusive-time-of-functions.java -> see as time intervals. Since its logs, its already in chronological order/sorted, so no need to sort by start time. -> now imp to realize use of stack. We dont use PQ here like interval problems (because already sorted by start time). push started tasks in stack (like actual call stack !) -> stack<taskId> only. calculate exclusive time during iteration itself.
 		-> when see end log, pop.
 		->result can be array and taskId serves as index. so no hashmap required
 		->when end log comes, taskid will alway match to top of stack. ()
@@ -227,4 +257,85 @@ to remember:
 				ramainder *= 10; --> whi mult by 10? that is how we proceed manunal division
 				remainder %= divisor;
 			}
+
+9. Priority Queue - Interval types
+Note:
+if we need top -k elem 
+	-we can do it with PQ size of k+1
+	-for max, make min heap. add k+1 elems. if (pq size >k)->poll top elem.
+		-this will end up in top k elems in pq.
+		
+todo:
+	lesson_car-pooling.java
+	task-scheduler.java
 	
+to remember:
+	m_exclusive-time-of-functions.java -> see as time intervals. Since its logs, its already in chronological order/sorted, so no need to sort by start time using PQ. 
+		-> now imp to realize use of stack. We dont use PQ here like interval problems (because already sorted by start time). 
+		->push started tasks in stack (like actual call stack !) -> stack<taskId> only. calculate exclusive time during iteration itself.
+			-> when see end log, pop.
+			->result can be array and taskId serves as index. so no hashmap required
+			->when end log comes, taskid will alway match to top of stack. (first to end will be last to start - because its single threaded - V Imp - this is why we are able to use stack only)
+	
+	m_interval-list-intersections.java 
+		->iterate with ptrs over both arrays together
+		->overlap interval = [biggerStart,smallerEnd]
+			->then which ptr to move ?
+			move minEnd
+		->since we are looking for overlap - nothing to do after loop exits
+	
+	m_meeting-rooms-ii.java
+		->first sort intervals by start time.
+		->use pq to store intervals - sort by end time - min heap - so we get roo first to finish.
+			-actually we are only using end time from intervals in pq. so we only need pq<Integer>
+		->if new start-time >= end-time from pq, re-use room
+			->remove this pq top interval - room can be reused.
+		->add new interval to pq.
+
+	merge-intervals.java
+		->sort them by start time 
+		->iterate and merge
+			->while its possible to add loop inside to merge till we can with curr elem. since we are not doing it in place - not modifying given array, returning new arr, we wont do it. 
+			->thats not good idea, complicates loop
+			->just merge one at a time. while keeping track of prev interval.
+	
+	reorganize-string.java
+		->map chars by count.
+		->store int[charASCII, count] in pq -> max heap
+		->now keep polling pq and interleave.
+			->poll one, append in stringBuilder, reduce its count 
+			->that is now prev
+			-> use prev to keep track of char we just used in result in last iteration. -> because we need to add it back to pq if count >0
+			aab 
+				1->remove a from pq 
+				2->next time remove b, 
+				-> prev is a. put back in pq.
+				->add b in result -> ab -> then prev becomes b 
+				3->prev = b but count == 0, so dont add in pq.
+					->add a to result -> aba 
+			->so, if (pq is empty && prev count > 0	) -> eg: aaab
+				->then we can find elems/char to separate all "a". so return false 
+				
+	merge-k-sorted-lists.java
+		->add 1st elem of all lists to pq (min sorted)
+		->now link nodes to create new ordered/merged list
+		->now till pq is empty
+			->poll, 
+			->make linkage -> curr.next = polled -> curr = curr.next 
+			->add curr's/polled's list's next elem to pq (if non null ie, list has not ended)
+
+10. Graph 
+continue from:
+todo:
+	-All Paths from Source Lead to Destination
+	-remaining from done probs on LC
+	
+11. Sliding window:
+
+to remember:
+	->https://designgurus.org/path-player?courseid=grokking-the-coding-interview&unit=grokking-the-coding-interview_1628541055153_6Unit	
+		-we dont have to worry about consecutiveness of window for pattern anagram/permutation
+		-the matchCharCount combined with checking at each char, will take care of it.
+		-so, just store <char,count> map for pattern, and decrement,increment it as we slide char by char.
+		
+		
