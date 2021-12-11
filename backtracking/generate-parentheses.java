@@ -23,7 +23,8 @@ class Solution {
     //our choices are n '(' and n ')'
     //call takes care of looping it n times. remember rec call arg is our first loop. and we need only one loop.
     public void arrange(List<String> list, String str, int open, int close, int max){
-        //check invalid conditionas
+        //check invalid conditions
+        //In a parenthesis balanced string, count of ')' must be less than equal to count of '(' for every prefix of the string
         if(open > max || close > open) // think putting ) before putting ( at beginning
             return;
         
