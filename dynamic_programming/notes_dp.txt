@@ -1,0 +1,20 @@
+==> Top-Down
+-top-down ineherently means recursive if u think.
+-then we can add memoisation to it to make it DP
+-memo 2D/1D array will be 2or1 params that we pass to recursive funtion
+
+==>Bottom-up
+-since we build up solution its bottom-up and iterative
+-start with sol(0) => this is something we know as base case, and use that to build up to sol(n)
+
+==>Memo Array size 
+-always [n][size/count/profit whatever param is + 1]
+n is given array's length
+
+==>time complexity for recursive calls:
+if we make 2 calls is 2^n
+because calling tree will have 2^n nodes
+
+
+Knapsack/Subset problems
+=============================
