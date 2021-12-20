@@ -1,4 +1,14 @@
 /*
+/**
+ * don't need to actually place the queen,
+ * instead, for each row, try to place without violation on
+ * col/ diagonal1/ diagnol2.
+ * 
+ * trick: to detect whether 2 positions sit on the same diagnol:
+ * if delta(col, row) equals, same diagnol1;
+ * if sum(col, row) equals, same diagnal2.
+ */
+/*
 N-Queens II
 
 The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
