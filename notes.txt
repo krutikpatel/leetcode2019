@@ -140,6 +140,10 @@ continue from:
 	h_median-of-two-sorted-arrays.java
 	
 to remember:
+	m_Search_for_a_Range.java 
+		-> use template-1 (l<=r) and record target index each time. Sicne we are looking for exact match - template1 is suitable.
+		- template 2 (l<r) has issues - might get into endless loop.
+	
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/e_valid-perfect-square.java - use long instead of division technique. because division will lead to false true. (2 = 5/2 - but its not perfect square)
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_find-first-and-last-position-of-element-in-sorted-array.java
 		-dont use while(l<r) template - problem narrow downing the end
@@ -325,6 +329,8 @@ to remember:
 			->add curr's/polled's list's next elem to pq (if non null ie, list has not ended)
 
 10. Graph 
+notes under graph directory.
+
 continue from:
 todo:
 	-All Paths from Source Lead to Destination
@@ -338,4 +344,53 @@ to remember:
 		-the matchCharCount combined with checking at each char, will take care of it.
 		-so, just store <char,count> map for pattern, and decrement,increment it as we slide char by char.
 		
+
+12. Backtracking/recursion
+-starting from leetcode 
+
+todo:
+	https://leetcode.com/problems/restore-ip-addresses/
+	n-queens
+	https://leetcode.com/problems/remove-invalid-parentheses/
+		-doable both DFS and BFS.
+		-trick for validity : 
+			if ( count++
+			if ) count--
+			if(count <0) -> invalid/false
+		-no need to worry about char inbetween. parantheses validity will be same regardless of chars between them.
+	
+	https://leetcode.com/problems/remove-invalid-parentheses/
+		-DFS+trie
+		-need of trie comes from the fact that we need to know that we have a prefix match so that we can keep continue down this route. otherwise waste of runtime.
 		
+		
+continue from:
+	-sudoku solver
+	
+Note:
+-think recursive prob as solving subproblem. eg: 
+	-Permutation: abc -> a + permutations of (bc)
+	-subset: abc -> a + subsets of (bc)
+	-so we solve subproblem first, as a result output will be in that order.
+
+-permutations output order for swap based recursive algo
+	Input: nums = [1,2,3]
+	Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+	
+-duplicates: 
+	-the first call at any level is i=beginIndex: so we need to allow i=beginIndex but avoid duplicates.
+		so: if(i!=beginIndex && twoNumsAreStillsame)
+	-we normally sort entries so that duplicates are together. we might get away without sorting for permutation because of swap, but for subsets we need to.
+
+-subsets output order will be:
+	Input: nums = [1,2,2]
+	Output: [[],[1],[1,2],[1,2,2],[2],[2,2]]
+	if(soFar.size() > 0){
+		ret.add(new ArrayList(soFar));//we make new cipy of list to add in result because this copy will keep modifying.
+	}
+
+-https://leetcode.com/problems/word-search/solution/
+	-combintion of DFS and backtracking - super problem.
+	-backtracking is during each DFS for visited nodes.
+	-NOTE: visited boolean[][] does not have to be created fresh for every DFS starting point x,y. since we are backtracking and clearing flags, same map can be reused as is dugin next x,y DFS check.
+	
