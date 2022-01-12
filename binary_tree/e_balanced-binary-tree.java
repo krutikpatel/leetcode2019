@@ -49,6 +49,8 @@ Return false.
 /*
     Lesson
     Key:
+    bottom-up OR post order way - helper method checks height AND imabalance
+    
     using heightOfBTree() helper method,
     but using -1 as return value for non-balanced case.
     
@@ -75,11 +77,15 @@ class Solution {
         int l = height(n.left);
         int r = height(n.right);
         
+        //if imbalance in children, this node also imbalanced
         if(l == -1 || r == -1)
             return -1;
-        
+    
+        //check for tree imbalance
         if(Math.abs(l-r) > 1)
             return -1;
+     
+        //return height of this node
         return 1 + Math.max(l,r);
     }
 }
