@@ -80,7 +80,7 @@ https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/descripti
             
             //do it only if its not done before by aany duplicate elem
             if(nums[index] > 0)
-                nums[index] = -nums[index];
+                nums[index] = *= -1;
         }
         
         for(int i=0;i<nums.length;i++) {
