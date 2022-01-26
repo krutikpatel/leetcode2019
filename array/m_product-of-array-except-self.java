@@ -30,6 +30,7 @@ class Solution {
         int soFarFromLeft = 1;
         for(int i=0;i<n;i++) {
             //first store res
+            //skipping nums[i] in the product
             res[i] = soFarFromLeft;
             
             //update product for next iteration
@@ -37,8 +38,10 @@ class Solution {
         }
         
         int soFarFromRight = 1;
+        //at this point res[i] is product of left side. res[i] = product of i-1 elems
         for(int i=n-1;i>=0;i--) {
             //first store res
+            //skipping nums[i] in the product
             res[i] = res[i] * soFarFromRight;
             
             //update product for next iteration
