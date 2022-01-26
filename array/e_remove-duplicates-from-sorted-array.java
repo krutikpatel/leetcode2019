@@ -17,19 +17,20 @@ It doesn't matter what you leave beyond the returned length.
 class Solution {
   /*
   Two pointers : slow and fast
+  -think u have empty extra array which u use to put unique nums. how would u use ptrs. u will use "write" ptr to indicate where unique elem goes
   */
     public int removeDuplicates(int[] nums) {
         if(nums == null || nums.length == 0)
             return 0;
         
-        int good = 0;
+        int write = 0;
         
         //sincce we are looking for duplicates, we start j from 1
         for(int j=1;j<nums.length;j++){
             //once we find uniue/non-duplicate elem, we add it to array (same arr here lol)
-            if(nums[j] != nums[good]){  //since arr is sorted, we can also say if nums[j] > nums[good]
-                good++; //we donw want to "replace" good num with new num                
-                nums[good] = nums[j];
+            if(nums[j] != nums[write]){  //since arr is sorted, we can also say if nums[j] > nums[write]
+                write++; //we donw want to "replace" good num with new num                
+                nums[write] = nums[j];
             }
         }
         
