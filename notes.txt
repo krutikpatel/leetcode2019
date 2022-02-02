@@ -36,12 +36,105 @@ Practice by technique
 
 1. Binary tree : 
 ---------------------
-To remember-redo-practice:
-	lesson_binary-tree-postorder-traversal.java	-> there are mutiple ways to iterate using stack. see which one suites me.
+Tree:
+			1
+		2		3
+	4		5
+Depth First Traversals: 
+(a) Inorder (Left, Root, Right) : 4 2 5 1 3 
+(b) Preorder (Root, Left, Right) : 1 2 4 5 3 
+(c) Postorder (Left, Right, Root) : 4 5 2 3 1
 	
+to remember:
+	-lesson_binary-tree-postorder-traversal.java	-> there are mutiple ways to iterate using stack. see which one suites me.
+	-balanced binary tree - 
+		-top-down -check each node is balanced with helper method of height. O(n^2)
+		-botttom up O(N) - needs node to store info - whether its balanced or not. build up on that.
+			-even without storing info - bottom up is O(n)
+			-visit eaach node once - Post order - call both children first.
+			-this O(n) method to look for heigh difference called once only. store result in class var OR propagate in ret val.
+		-THERE IS SUBTLE DIFFERENE BETWEEN THESE TWO IMPLEMENTATIONS THAT I DID NOT UNDERSTAND YET
+		-same technique is used here for O(n):
+			https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/e_diameter-of-binary-tree.java
+	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/e_lesson_subtree-of-another-tree.java
+		-checking at each node is O(n^2)
+		-converting tree to string - but order matters
+		IMP - order matters. inorder will not work.
+		ONLY preorder will work. its node by node comarision from top.
+		ALSO: we need to count null leafs in string too, to avoid wrong comparisions, which gives false true.
+        -to avoid returning true for example 2 above
+	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_binary-search-tree-iterator.java
+		-next returns min elem - thus its in order retrival
+		-we can use stack to store in-order sequence
+	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_count-univalue-subtrees.java
+		-check for corner case: before calling curr node as univalue 
+			if(n.right !=null && n.right.val != n.val)
+                return false;
+            if(n.left !=null && n.left.val != n.val)
+                return false;
+	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_find-duplicate-subtrees.java
+		-convert tree in string (INCLUDING NULL NODES) 
+		-only certain order will work - POST order 
+		-ONLY add dplicate trees to result once
+			-For people who are curious about why in-order doesn't work, here's a simple example:
+			TreeA:
+			0
+			/
+			0
+
+			TreeB:
+			0
+			\
+			0
+
+			They both have same in-order serialization "#0#0#" if we just use "#" to represent null.
+
+	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_flatten-binary-tree-to-linked-list.java
+		TODO 
+	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_lesson_boundary-of-binary-tree.java
+		-i think can be done with level order traversal.
+		-store 1st in left and last in right lists.
+	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_lesson_inorder-successor-in-bst.java
+		-successor will be right of x -> once u go right it can be n or n.left
+		-keep going left and right as per BST, whenever go left (record n as return value first)
+	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_lesson_insufficient-nodes-in-root-to-leaf-paths.java
+		-good one with regards to passing vals and returning node and making links
+		-pass down sum sofar
+		-if sum < target at leaf, return null 
+		-if n.l and n.r both becomes null, return null. -delete this node.
+	
+	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_lesson_kth-smallest-element-in-a-bst.java
+		-in-order tarversal and counter k 
+		-iterative using stack, recursive usual. 
+		-recursive - if we dont want class var - pass arr [counter,retVal]
+	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_lesson_lowest-common-ancestor-of-a-binary-tree.java
+		-first thought comes is helper method to find 2 elems under given node 
+		-BUT we dodnt need that extra method O(n^2)
+		-//if root is p or q, that is LCA
+        if( root == p || root == q || root == null)
+            return root;
+	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_lesson_most-frequent-subtree-sum.java
+		-dont need to calculate sum at each node separately
+		-traverse tree once and record sums in map. map<sum,count>
+		-sum = left+right+curr
+	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_serialize-and-deserialize-binary-tree.java
+		-serialie - tree to array/string 
+			-DFS pre-order traversal suits prob - bcoz that will make deser job easy. need to put null indicator in string 
+		-desrialize - split string with delimiter ',' to get array 
+			-use Queue , insert array in Queue - to get level ordered nodes 
+			-remove them one by one and just link them recursively
+	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/h_binary-tree-maximum-path-sum.java
+		-DFS/Post order traversal helps with O(n) path sum cal
+		-imp to think which all paths are valid, and can possibly max . nodes can have -ve values 
+		-maintain class level max 
+		-helper: return currPathMaxSum - so that upper level can be max 
+						-that is currPathMaxSum = n.val + Math.max(l,r);
+				-for l and r, important to take 0 if return val is negative, so that currPath does not become less due to -ve children.
+		
 Continue from:
 	102 Binary Tree Level Order Traversal
-
+	and githun from:
+	https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_trim-a-binary-search-tree.java
 
 
 2. Binary search : 
@@ -60,11 +153,41 @@ Continue from:m_set-matrix-zeroes.java
 
 to remember:
 	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_daily-temperatures.java	-> stack the indices rather than temp vals, because we need index diff. -> start from end -> monotonic stack.
-	4 sum
+	
+	4 sum:
+		-For each elem [i], solve k-1 problem recursively, at k=2, solve 2sum problem
+			-2sum loop/sweep shud not end as soon as we find pair, because we need to find ALL pairs to continue till (l<r)
+		
+		-Time complexity is O(N^(K-1)).
+		-generalize as :
+		private List<List<Integer>> kSum(int[] nums, int target, int k, int leftBegin)
+		-run loop till it becomes 2 sum prob OR k=2
+			-that k loop looks like :
+			for (int i = left; i < len - (k - 1); i++) {
+                //use current number to reduce ksum into k-1sum
+				//arr[i] will be part of sol list
+                List<List<Integer>> curr = kSum(nums, target - nums[i], k-1, i+1);
+				=> then add arr[i] to each lists returned
+				
+		-duplicate check has to be done in 2 sum as well as other loop too 
+		
 	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_3sum-closest.java
 	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_3sum-smaller.java
+		-tricky - there is more than just counting at each 2 sum sweep.
+		-at any given 2sum sweep : if(localsum<target)
+			-we need to count all combinations keeping "low or l". 
+			x,l,r
+			x,l,r-1 
+			x,l,r-2 etc
+		-that will not be covered in next iteration. bcoz if localsum<target, we will move to l++
+			
 	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_find-all-duplicates-in-an-array.java
-	
+		-nums are 1 to n -> convert that to index/bucket as arr[i]-1
+		-every time we see num, we do x * -1
+		-so if num seen only once, it will be -ve 
+		-second loop can catch this 
+		-use Math.abs while calculting index, because num can be -ve as done by us only 
+		
 	cherry pick algo:
 	https://leetcode.com/problems/remove-duplicates-from-sorted-array/ - remember the basic trick, write ptr, read ptr. no need to run fast pointer all at once
 		-write/good ptr. ptr to track index to unique elems. (slow, write location) => this of this ptr as if we had new empty array where we store desired elems for return. ptr in that array where we can write new elem.
@@ -101,12 +224,33 @@ to remember:
 		- work on memory efficient soln
 			-> use this soln: https://leetcode.com/problems/set-matrix-zeroes/discuss/26008/My-AC-java-O(1)-solution-(easy-to-read)
 			-They are using the first row and column as a memory to keep track of all the 0's in the entire matrix.
-			-only problem with that is : if 0th row or col is 0.
+			-only problem with that is : if 0th row or col is 0. - >becaues if so : if 0throw is 0, we need to make 0th col zero as well. as same for cols 
+			-so use 2 more flags to indicate if fr or fc is zero.
+			
 	product-of-array-except-self -> need to do without division. -> realize that product except self = product(on left) + product (right)
 		-> that can be achieved without creating extra arrays for left and right.
 		->iterate left to right skiping sefl
 		->iterate right to left skipping self. both times record res in same array. that will be ans
 	
+	m_interval-list-intersections
+		-iterate over both together 
+		-find out if there is intersection 
+		-then decide which arr to proceed 
+	
+	m_prison-cells-after-n-days
+		-in-place modification of arr not possible, coz we need orig values of cell till end.
+		-so create new arr to store the result. create hlper method to do this and return new arr 
+		Optimization:
+		-there is possibility of cycles if we change values N times.
+		-in that case we can store result in hashSet and see if we have seen this before. if so, dont continue N days loop. its cyclic 
+		-record at which iteration we got cycle 
+			if(hasCycle){
+				N%=cycle;
+				for(int i=0;i<N;i++){
+					cells = nextDay(cells);
+				}   
+			}
+		
 4. 	BFS and queue:
 
 There are 2 aspects to BFS.
@@ -121,9 +265,34 @@ Continue from: https://leetcode.com/problems/perfect-squares/
 to remember:
 	https://leetcode.com/problems/evaluate-division/solution/
 	https://leetcode.com/problems/the-maze/solution/
+		-DFS is more natural here. But BFS has advantage of less heap space.
+		-need to keep track of visited nodes 
+		-for(4 directions) {
+			newpos = roll()
+			if(dfs(newPos))
+				return true;
+		}
+		
+		BFS
+		-add start pt in Q
+		-poll Q 
+		-add to visited 
+		-check if its dest
+		for(4 dirs) {
+			newpos = roll(dir);
+			if(not visited newPos)
+				Q.add(newpos)
+				
+		}
+		
 	https://leetcode.com/problems/rotting-oranges/
-
-
+	-first need to cound good oranges, because its possible that whole sweep cannot reach all good oranges, so we need to return -1 in that case.
+	-we dont need to store visited nodes.
+	-i think because we already recorded all rotten oranges first.
+		-we only add nodes to Q once, 
+		1. initially
+		2. when we convert them to rotten in loop 
+	
 5. HashMaps
 Continue from: github
 	https://github.com/krutikpatel/leetcode2019/blob/master/hashmap/m_insert-delete-getrandom-o1.java
@@ -131,8 +300,29 @@ to remember:
 	-log rate limiter - study various approaches IMP
 	https://leetcode.com/problems/next-greater-element-i/
 	https://leetcode.com/problems/isomorphic-strings/
+		-go char by char 
+		-need 2 maps. a to b char mapping and b to a chars mapping. because both sides can break the mapping done earlier.
+		-if entry does not exist add (a to b) and (b to a)
+		-if either side map entries dont match - false.
+		
 	https://leetcode.com/problems/find-duplicate-subtrees/
-			https://github.com/krutikpatel/leetcode2019/blob/master/hashmap/m_group-shifted-strings.java --> key forming math
+		representation of tree(segment) can be in terms os String with all nodes in some order (post order here is must)
+		-also include null nodes
+		-ONLY add dplicate trees to result once
+		-we use HashMap<String,Integer> , because we want to know how many times we have seen current path, so that we dont add it to result more than once
+		-For people who are curious about why in-order doesn't work, here's a simple example:
+			TreeA:
+			0
+			/
+			0
+
+			TreeB:
+			0
+			\
+			0
+			They both have same in-order serialization "#0#0#" if we just use "#" to represent null.
+
+	https://github.com/krutikpatel/leetcode2019/blob/master/hashmap/m_group-shifted-strings.java --> key forming math
 	https://leetcode.com/problems/time-based-key-value-store/		
 
 6. Binary Search 
@@ -149,6 +339,9 @@ to remember:
 		-dont use while(l<r) template - problem narrow downing the end
 		-use while(l<=r) template 
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_find-k-closest-elements.java - template III mid+k widnow
+		if(Math.abs(arr[mid]-x) > Math.abs(arr[mid+k]-x)){
+		-we are comparing mid and mid+k to decide which side to go.
+			
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_lesson_search-a-2d-matrix-ii.java - TODO binary search way. currently doing narrowing down method, beginning bottom left corner.
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_find-minimum-in-rotated-sorted-array.java
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_search-in-rotated-sorted-array.java
@@ -393,4 +586,8 @@ Note:
 	-combintion of DFS and backtracking - super problem.
 	-backtracking is during each DFS for visited nodes.
 	-NOTE: visited boolean[][] does not have to be created fresh for every DFS starting point x,y. since we are backtracking and clearing flags, same map can be reused as is dugin next x,y DFS check.
-	
+
+
+========
+TODO:
+quick sort and related probs	
