@@ -44,7 +44,7 @@ class Solution {
         
         //store last taskId that got STARTED. Chronological list of task started
         Stack<Integer> st = new Stack<>();
-        int lastStart = 0; // pre means the start of prev task
+        int lastStartTime = 0; // pre means the start of prev task
         
         for(String log: logs) {
             String[] arr = log.split(":");
@@ -53,15 +53,15 @@ class Solution {
             
             if(arr[1].equals("start")) {
                 if(!st.isEmpty())  
-                    result[st.peek()] += timestamp - lastStart;//accumulate exclusive time
+                    result[st.peek()] += timestamp - lastStartTime;//accumulate exclusive time
                                 
                 st.push(taskId);
-                lastStart = timestamp;
+                lastStartTime = timestamp;
             } else {
                 //its end - we dont try to match taskId with stack, it has to be it..
-                result[st.pop()] += timestamp - lastStart + 1;
+                result[st.pop()] += timestamp - lastStartTime + 1;
                 
-                lastStart = timestamp + 1;//this will be marker for exclusive time for next task
+                lastStartTime = timestamp + 1;//this will be marker for exclusive time for next task
                 
             }
         }
