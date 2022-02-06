@@ -30,10 +30,18 @@ as "[1,2,3,null,null,4,5]"
  * }
  */
 /*
-Both ser and de-ser will follow same order.
+Both ser and de-ser will follow same order - AND Recursion
 Visually looking: pre-order fits this problem.
 
+Ser:
+pre-roder, # for null and ',' as delimiter
+
+Deser:
+Queue + preorder resursion
 Use Queue<> for deser, put all nodes in Q and just recreate tree in Pre-order fashion
+-Use Queue as FIFO, because thats the order in which we want to remove elems from list
+-IMP thing is deser is done in recursive fashion, just like pre-order, and elem taken from Queue every time in FIFO order
+
 */
 public class Codec {
 
