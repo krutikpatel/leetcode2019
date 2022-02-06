@@ -104,9 +104,11 @@ to remember:
 		-if n.l and n.r both becomes null, return null. -delete this node.
 	
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_lesson_kth-smallest-element-in-a-bst.java
-		-in-order tarversal and counter k 
-		-iterative using stack, recursive usual. 
+		-in-order tarversal and counter k (incement/decrement happens in-order, on current node. so counting does not start til lwe reach left most) - we dont have to worry about reaching left most elem and then start counting exclusively. that is part of "in order" processing.
+		-that needs helper method (and class var for result ). cant be done in-place otherwise.
 		-recursive - if we dont want class var - pass arr [counter,retVal]
+		-iterative using stack, recursive usual. 
+		
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_lesson_lowest-common-ancestor-of-a-binary-tree.java
 		-first thought comes is helper method to find 2 elems under given node 
 		-BUT we dodnt need that extra method O(n^2)
@@ -118,11 +120,20 @@ to remember:
 		-traverse tree once and record sums in map. map<sum,count>
 		-sum = left+right+curr
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_serialize-and-deserialize-binary-tree.java
+		Ser:
+		pre-roder, # for null and ',' as delimiter
+		
+		Deser:
+		Queue + preorder resursion
+		Use Queue<> for deser, put all nodes in Q and just recreate tree in Pre-order fashion
+		-Use Queue as FIFO, because thats the order in which we want to remove elems from list
+		-IMP thing is deser is done in recursive fashion, just like pre-order, and elem taken from Queue every time in FIFO order
+
 		-serialie - tree to array/string 
 			-DFS pre-order traversal suits prob - bcoz that will make deser job easy. need to put null indicator in string 
 		-desrialize - split string with delimiter ',' to get array 
-			-use Queue , insert array in Queue - to get level ordered nodes 
-			-remove them one by one and just link them recursively
+			-use Queue , insert array in Queue - to get FIFO order
+			-remove them one by one and just link them recursively (pre-order recursion)
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/h_binary-tree-maximum-path-sum.java
 		-DFS/Post order traversal helps with O(n) path sum cal
 		-imp to think which all paths are valid, and can possibly max . nodes can have -ve values 
@@ -229,6 +240,7 @@ to remember:
 			
 	product-of-array-except-self -> need to do without division. -> realize that product except self = product(on left) + product (right)
 		-> that can be achieved without creating extra arrays for left and right.
+		->use same arr for both loops. and that will be our ans 
 		->iterate left to right skiping sefl
 		->iterate right to left skipping self. both times record res in same array. that will be ans
 	
@@ -250,6 +262,20 @@ to remember:
 					cells = nextDay(cells);
 				}   
 			}
+	
+	https://leetcode.com/problems/rectangle-area/
+		-calc both rectangle areas (x2-x1) * (y2-y1)
+		-find overlap points
+			-find overlap points and apply formula like above 
+	
+	m_trick_gas_station
+		-tricky yet simple algebra
+		-we dont have to try each position exclusively, single iteration is enough 
+		-gas[] - gas_available
+		-cost[] -gas_needed ( cost or dist )
+		-track gasAvailable after each node 
+		-if gasAvailable  -ve, that node is not answer 
+		-at end if gas_needed+gas_available > 0 we are in surplus and can make it.
 		
 4. 	BFS and queue:
 
@@ -355,20 +381,41 @@ continue from:
 	TODO: hards
 	
 to remember:
-	m_basic-calculator-ii.java -> little not intuitive. keep putting + and - operands in stack. * and / calculate in run time.
-	m_copy-list-with-random-pointer.java -> need to use HashMap<origNode,newNode> as visited record, instead of set, because we need to retrieve new node to reuse (from given visited node)
-	m_decode-string.java -> when encounter [, we need to push stringSoFar on stack -> because there can be multiple/nested layers (just like num/count nesting), we we wont be able to store it directly in final result
+	m_basic-calculator-ii.java -> 
+		-little not intuitive. keep putting + and - operands (nums created so far) in stack. * and / calculate in run time.
+		=>Addition (+) or Subtraction (-): We must evaluate the expression later based on the next operation. So, we must store the currentNumber to be used later. Let's push the currentNumber in the Stack.
+		=>Multiplication (*) or Division (/): Pop the top values from the stack and evaluate the current expression. Push the evaluated value back to the stack.
+		-buffer currentNum AND last sign seen (because after sign, we need RHS to evaluate expression. so when we are after RHS(whcih is next sign or end of string) ,we evaluate last sign )
+		-if char is digit, keep forming currentNumber 
+		-if char is not digit, and its not space, -> operate. and reset currentNumber = 0 at end
+		-we are not forming final result in iteration, we keep putting each result back in stack . at the end, we iterate over stack and add them all 
+		
+	m_copy-list-with-random-pointer.java 
+		-> need to use HashMap<origNode,newNode> as visited record, instead of set, because we need to retrieve new node to reuse (from given visited node)
+	
+	m_decode-string.java 
+		-maintain 2 stacks, one for nums , one for string 
+		-> when encounter [, we need to push stringSoFar on stack -> because there can be multiple/nested layers (just like num/count nesting), we we wont be able to store it directly in final result
 		->k[string k[string k[string]
+		-when see ], calculate string (suing both stack pop vals)
+		-at the end result with be last string formed
 	
 	m_exclusive-time-of-functions.java -> see as time intervals. Since its logs, its already in chronological order/sorted, so no need to sort by start time. -> now imp to realize use of stack. We dont use PQ here like interval problems (because already sorted by start time). push started tasks in stack (like actual call stack !) -> stack<taskId> only. calculate exclusive time during iteration itself.
 		-> when see end log, pop.
 		->result can be array and taskId serves as index. so no hashmap required
 		->when end log comes, taskid will alway match to top of stack. ()
-	m_flatten-nested-list-iterator.java -> imp to realize the recursive nature. since its rec, we can use stack.
-		-> during constructore, flatten there itself.
-		-> then only provide iteration.
-		-> needs practice.
+	m_flatten-nested-list-iterator.java 
+		-> imp to realize the recursive nature. since its rec, we can use stack. BUT we want them in FIFO order, so push items to stack with reverse loop on list given
+		-> during constructore, put curernt list as is on stack (no deep flattening, that will be done while hasNext call)
+		-> hasNext - if item is list, reuse the "insert" method, to flatten/insert that list on stack (just 1 list)
+			-while(!st.isEmpty()) { //flatten each elem of curr stack , BUT if we see int , we stop} //we have to do this till st is empty, because there is possibility of nested lists without seeing any int. also list can be empty 
+			
+		->next - just pop item.
 		-> imp: next will not be called without calling hsNext
+	
+		-->Queue based iterative solution:
+		--> but downside is, we create new storage for entire nestedList again, rather that going thru given input.
+
 	m_lesson_all-paths-from-source-to-target.java -> realize that we need to backtrack (remove curr neighbor from path) before next iteration to other neighbor. (after recursive dfs call)
 Note: dfs helper function normally will not return anything, its just dfs sweeper. result will be recorded in some class var.
 
@@ -389,7 +436,7 @@ to remember:
 	e_lesson_most-common-word.java -> good practice of string iteration by chars, and corner cases. -> character.isLetter and stringbuilder are enough to make word. we dont need start and end pointer to make word.
 		how do we iterate char by char and derive each word?
 		a. use two ptrs -> start and end
-		b. use stringbuilder, build it up to one word, usinng just one ptr.
+		b. use stringbuilder, build it up to one word, usinng just one ptr. after loop - check if strinbuilder is non empty (when whole string is 1 word or also for last word)
 		
 	longest-common-prefix - > there are many ways to solve. ->pick 1st string, and compare char by char in rest of strings. stop when dont match and return prefix.
 		-> divide and conquer, binary search are possible.
@@ -398,7 +445,7 @@ to remember:
 		-> also note: comparator for pq -> strA.compareTo(strB)
 	reverse-words-in-a-string-iii -> how do we iterate char by char and derive each word?
 		a. use two ptrs -> start and end -> in place operations. no extra space needed.
-		b. use stringbuilder, build it up to one word, usinng just one ptr.
+		b. use stringbuilder, build it up to one word, usinng just one ptr. - after loop - check if strinbuilder is non empty (when whole string is 1 word or also for last word)
 	e_strstr.java -> brute force match at every char position in bigger string.
 	e_trick-greatest-common-divisor-of-strings.java -> GCD for string is the biggest common substring. so we need to keep cutting substrings from begin point until we cant.
 		-> if one string is empty, other is the answer to return.
@@ -406,24 +453,29 @@ to remember:
 	m_atoi.java -> there are corner cases to be covered:
 		0. remove spaces from front and back - trim
 		1. sign in front - may or may not be present
-		2. Integer overflow min and max. Store temp result on "long"
+		2. Integer overflow min and max. Store temp result on "long". if temp result = max or min, return max of min, because its overflow.
 		3. look for non digit chars. once encounter, break/stop
 		-> use long to store intermediate result to check int overflow. converting string to int, char/digit by digit. 
 	m_group-shifted-strings ->
-		 key += String.format("%2d", (s.charAt(i) - s.charAt(i-1) + 26) % 26);//Difference from the previous char.
-		 ->circular shifted strs in same group
+		key += String.format("%2d", (s.charAt(i) - s.charAt(i-1) + 26) % 26);//positive Difference from the previous char.
+		->circular shifted strs in same group
+		->TODO need to understand the logic ((a-z)+26)%26 -> %26 so that we get circular position. +26 because we want +ve num in case of "az"
+		
 	m_lesson_compare-version-numbers.java -> 
 		-need to consider various corner cases: Following are equal:
 			1.0 and 1.000
 			1.0 and 1.0.0
 			1.01 and 1.001
 		->split string by dots
-		->create utility to convert string to int.
-		-key to make soln easy-for diff length, we can use 0 for whichever finished.
-	m_lesson_longest-substring-with-at-most-two-distinct-characters.java -> need to store HashMap<char, latestIndex> -> we store latest/last index because, if we were to remove that char, we need to remove till right most occurence of that char.
+		->create utility to convert string to int. ->skip prefix zeros
+		-key to make soln easy-for diff length, we can use 0 for whichever finished. ===> IMP TRICK FOR ANY 2 ARR OPERATIONS
+	m_lesson_longest-substring-with-at-most-two-distinct-characters.java 
+		-> need to store HashMap<char, latestIndex> -> we store latest/last index because, if we were to remove that char, we need to remove till right most occurence of that char. we cannot just remove left most char and be sure that that char is not present in window anuymore. eg abcccbdddddd
+		
 		-> only use of left ptr is to cal len of substring. not for remove char from left side.
 		-> but leftmost cant be tracked with ptr, each time need to go over map and find leftMost char to remove from sliding window
-		-> note: it is possible to solve with lft and right ptrs and slide from left one by one and map<char,freq>, but as straight as above.
+		->when window/map size ==3, FIND THE LEFTMOST CHAR/INDEX TO BE REMOVED, BY GOING THEU MAP VALUES or just call Collections.min(map.values);
+		-> note: it is possible to solve with lft and right ptrs and slide from left one by one and map<char,freq>, but not as straight as above.
 	m_lesson_partition-labels.java ->
 		it sounds complicated, recursive and dp problem, but its not !
 		->2 pass solution:
@@ -433,7 +485,8 @@ to remember:
             -keeptrack of furthest most index of occurence for any letter in current interval.
             -if that is = i, we dont have anymore repeating in future, so partition window ends here. add it to result.
                 Note: We END it here rather than including more unique chars because we want as many unique intervals as we can.
-	m_longest-substring-without-repeating-characters.java -> set is enough with sliding window. map not required here.
+	m_longest-substring-without-repeating-characters.java 
+		-> set is enough with sliding window. map not required here.
 		-> when we slide from left, we dont increment the right ptr. because duplicate might just be right -1 ! eg: abcdee -> when we sit at right = 2nd e.
 	m_palindromic-substrings.java -> 
 		-count palindrom from odd center. (i)
@@ -442,7 +495,8 @@ to remember:
 		-do this for every i from 0 to len 
 	m_reverseWords.java
 		->trim both ends first 
-		->now rever the string then reverse each word. -> wo do this to avoid extra space. if we dont reverse, we will store each word in array/stack. ->then build string with words in reverse order.
+		->now reverse the string then reverse each word. 
+		-> wo do this to avoid extra space. if we dont reverse, we will store each word in array/stack. ->then build string with words in reverse order.
 	m_trick_fraction-to-recurring-decimal.java
 		-explained well by diagram in leetcode.
 		-> main trick : if remainder starts repeating, we know its repeating and finish
@@ -454,6 +508,11 @@ to remember:
 				ramainder *= 10; --> whi mult by 10? that is how we proceed manunal division
 				remainder %= divisor;
 			}
+
+	https://github.com/krutikpatel/leetcode2019/blob/master/strings/m_trick_multiply-strings.java
+		-> compute products from each pair of digits from num1 and num2. 
+		-> carry each element over. (arr will have nums 1 to 99 possible)
+		-> output the solution.
 
 9. Priority Queue - Interval types
 Note:
@@ -467,9 +526,11 @@ todo:
 	task-scheduler.java
 	
 to remember:
-	m_exclusive-time-of-functions.java -> see as time intervals. Since its logs, its already in chronological order/sorted, so no need to sort by start time using PQ. 
+	m_exclusive-time-of-functions.java 
+		-> see as time intervals. Since its logs, its already in chronological order/sorted, so no need to sort by start time using PQ. 
 		-> now imp to realize use of stack. We dont use PQ here like interval problems (because already sorted by start time). 
-		->push started tasks in stack (like actual call stack !) -> stack<taskId> only. calculate exclusive time during iteration itself.
+		->push started tasks in stack (like actual call stack !) 
+			-> maintain stack<taskId> only. calculate exclusive time during iteration itself. use lastStartedTime to track prev start-timestamp
 			-> when see end log, pop.
 			->result can be array and taskId serves as index. so no hashmap required
 			->when end log comes, taskid will alway match to top of stack. (first to end will be last to start - because its single threaded - V Imp - this is why we are able to use stack only)
@@ -478,7 +539,7 @@ to remember:
 		->iterate with ptrs over both arrays together
 		->overlap interval = [biggerStart,smallerEnd]
 			->then which ptr to move ?
-			move minEnd
+			move minEnd - thats the one which ends first, because other one might still intersect with next
 		->since we are looking for overlap - nothing to do after loop exits
 	
 	m_meeting-rooms-ii.java
@@ -495,7 +556,8 @@ to remember:
 			->while its possible to add loop inside to merge till we can with curr elem. since we are not doing it in place - not modifying given array, returning new arr, we wont do it. 
 			->thats not good idea, complicates loop
 			->just merge one at a time. while keeping track of prev interval.
-	
+		[what if there were 2 lists to merge?]
+		
 	reorganize-string.java
 		->map chars by count.
 		->store int[charASCII, count] in pq -> max heap
@@ -512,7 +574,10 @@ to remember:
 					->add a to result -> aba 
 			->so, if (pq is empty && prev count > 0	) -> eg: aaab
 				->then we can find elems/char to separate all "a". so return false 
-				
+		
+		-given pq: aaaabbn
+			think what wud u do. remove a, then use b, then  use a again
+			
 	merge-k-sorted-lists.java
 		->add 1st elem of all lists to pq (min sorted)
 		->now link nodes to create new ordered/merged list
