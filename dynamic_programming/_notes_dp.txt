@@ -1,3 +1,5 @@
+==> Brute force solution most likely weill be recursive, atleast easier to derive in recursive way
+
 ==> Top-Down
 -top-down ineherently means recursive if u think.
 -then we can add memoisation to it to make it DP
