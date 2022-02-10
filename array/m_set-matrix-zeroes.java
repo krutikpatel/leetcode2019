@@ -70,7 +70,47 @@ class Solution {
         }
     }
     
-    //================================ below is faster
+  ////O(1) space
+  public void setZeroes(int[][] matrix) {
+    //track zero rows and col
+    boolean fr = false,fc = false;
+    
+    //find 0 elems, and make 1st elem of that row/col 0. use 1st row/col as indicator of 0 rather than extra storage map/set
+    for(int i = 0; i < matrix.length; i++) {
+        for(int j = 0; j < matrix[0].length; j++) {
+            if(matrix[i][j] == 0) {
+                if(i == 0) fr = true;
+                if(j == 0) fc = true;
+                matrix[0][j] = 0;
+                matrix[i][0] = 0;
+            }
+        }
+    }
+    
+    //using 0 on 1st elem row/col, turn curr elem as zero
+    for(int i = 1; i < matrix.length; i++) {
+        for(int j = 1; j < matrix[0].length; j++) {
+            if(matrix[i][0] == 0 || matrix[0][j] == 0) {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+    
+    //needed to be done last. make enitre 1st row/col zero if fr or fc true
+    if(fr) {
+        for(int j = 0; j < matrix[0].length; j++) {
+            matrix[0][j] = 0;
+        }
+    }
+    if(fc) {
+        for(int i = 0; i < matrix.length; i++) {
+            matrix[i][0] = 0;
+        }
+    }
+    
+  }
+  
+    //================================ another way but not recommended
     
     //we dont want to touch original zeros, we want to clear for original zeros
     public void setZeroesOrig(int[][] matrix) {
@@ -109,4 +149,5 @@ class Solution {
             
         }
     }
+  
 }
