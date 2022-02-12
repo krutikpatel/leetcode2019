@@ -68,34 +68,38 @@ class Solution {
     }
     
     /////////////// easier approach
-    public String zigzag(String s, int r) {
-        int len = s.length;
-        StringBuilder sb[] = new StrinbBuilder[r];
+    public String convert(String s, int numRows) {
+        
+        if (numRows == 1) return s;
+        int r = numRows;
+        
+        int len = s.length();
+        StringBuilder sb[] = new StringBuilder[r];
         for(int i = 0; i<r;i++) {
-            sb[i] = new StrinbBuilder();
+            sb[i] = new StringBuilder();
         }
 
         int currRow = 0;
         int dir = 1;
-        while(i<len) {
-            sb[currRow].append(s.charAt(i));
-            currRow = currRow+dir;
-            if(currRow == r){
-                dir = -1;
-                currRow = currRow -2;
-            } else if(currRow == -1) {
-                dir = 1;
-                currRow = 1;
+        for (char c : s.toCharArray()) {
+            sb[currRow].append(c);
+            
+            if(currRow == r-1){
+                dir = -1;//start going up
+            } else if(currRow == 0) {
+                dir = 1;//start going down
             }
-            i++;
+            currRow = currRow+dir;
         }
 
         StringBuilder sbb = new StringBuilder();
-        for(int i = 0; i<r;i++) {
-            abb.append(sb[i]);
+        int i=0;
+        for(; i<r;i++) {
+            sbb.append(sb[i]);
         }
 
         return sbb.toString();
+
     }
     
 }
