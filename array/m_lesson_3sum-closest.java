@@ -10,6 +10,36 @@ Given array nums = [-1, 2, 1, -4], and target = 1.
 The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
 */
 class Solution {
+    public int threesumclosest(int[] nums, int t) {
+        //int ret = Integer.MAX_VALUE;
+        if(nums == null || nums.length < 3)
+            return 0;
+
+        int ret = nums[0] + nums[1] + nums[2];
+        Arrays.sort(nums);
+        for(int i=0;i<nums.length;i++) {
+            int j = i+1;
+            int k = nums.length-1;
+            int a = nums[i];
+            while(j<k) {
+                int b = nums[j];
+                int c = nums[k];
+                int currSum = a+b+c;
+                ret = Math.min(Math.abs(ret-t), Math.abs(ret-currSum));
+
+                if(currSum > t) {
+                    j--;
+                } else if(currSum < t) {
+                    i++;
+                } else {
+                    return currSum;
+                }
+            }
+        }
+
+        return ret;
+    }
+    //////////////
     public int threeSumClosest(int[] nums, int target) {
         if(nums == null || nums.length < 3)
             return 0;
