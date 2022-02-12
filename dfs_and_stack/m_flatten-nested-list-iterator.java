@@ -39,12 +39,23 @@ Explanation: By calling next repeatedly until hasNext returns false,
  */
 
 /*
-Stack is better : suits more for "next" operation of itertor.
-but for that, we have to push in stack from last.
+Stack is better : 
+-take adv of recursion using stack. we dont flatten in advance, and only till we find next int
+-but we want fifo order to insert in stack in certain order,  we have to push in stack from last.
 
 -> dont flatten whole list in advance using queue, that is space wastage.
 ->rather flatten whenever hasNext is called.
 
+Algo:
+createHelperMethod - to push in stack in reverse list order
+hasNext
+  -return true only if we find some integer
+  -for that, we have to empty stack till we encounter int
+  -if we encounter List inbetween, call addListToStack that we did on constructor
+
+next
+  -just return top
+=============  
 pesudocode:
 define function iterativeDepthFirstSearch(nestedList):
     result = []
