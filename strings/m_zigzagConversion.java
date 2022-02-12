@@ -66,4 +66,36 @@ class Solution {
         
         return rows[0].toString();
     }
+    
+    /////////////// easier approach
+    public String zigzag(String s, int r) {
+        int len = s.length;
+        StringBuilder sb[] = new StrinbBuilder[r];
+        for(int i = 0; i<r;i++) {
+            sb[i] = new StrinbBuilder();
+        }
+
+        int currRow = 0;
+        int dir = 1;
+        while(i<len) {
+            sb[currRow].append(s.charAt(i));
+            currRow = currRow+dir;
+            if(currRow == r){
+                dir = -1;
+                currRow = currRow -2;
+            } else if(currRow == -1) {
+                dir = 1;
+                currRow = 1;
+            }
+            i++;
+        }
+
+        StringBuilder sbb = new StringBuilder();
+        for(int i = 0; i<r;i++) {
+            abb.append(sb[i]);
+        }
+
+        return sbb.toString();
+    }
+    
 }
