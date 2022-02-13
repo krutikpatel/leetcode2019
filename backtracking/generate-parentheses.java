@@ -22,10 +22,11 @@ class Solution {
     
     //our choices are n '(' and n ')'
     //call takes care of looping it n times. remember rec call arg is our first loop. and we need only one loop.
+    
+    //IMP: since we are using "String" for sofar tracking, we dont have to remove char/backtrack after recursive call.
+    //if we use StringBuilder instead of String, we will have to manually remove char from sofar after recursive call
     public void arrange(List<String> list, String str, int open, int close, int max){
-        //check invalid conditions
-        //In a parenthesis balanced string, count of ')' must be less than equal to count of '(' for every prefix of the string
-        if(open > max || close > open) // think putting ) before putting ( at beginning
+        if(open > max || close > open)
             return;
         
         // goal case
@@ -36,15 +37,18 @@ class Solution {
         }
         
         //we put choices in order that is correct ( and then )
-        //if(open < max)
+        if(open < max){
             arrange(list, str+"(", open+1, close, max);
-                
-        //Key point of bracker problem : this helps ensure right num of closing. 
+            //IMP: since we are using "String" for sofar tracking, we dont have to remove char/backtrack after recursive call 
+        }
+      
+        //Key point of bracket problem : this helps ensure right num of closing. 
         // at any point in correct closre, we wont have ( count greater than ) count.
         // because that will sooner orlater lead into )( - which is invalid
-        //if(close < open)
+        if(close < open){
             arrange(list, str+")", open, close+1, max);
+            //IMP: since we are using "String" for sofar tracking, we dont have to remove char/backtrack after recursive call 
+        }
         
-        //return from function works as backtracking when we unwind the call stack BECAUSE WE ARE USING STRING TO STORE THE CURRENT SEQUENCE WHICH IS IMMUTABLE
     }
 }
