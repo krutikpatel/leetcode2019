@@ -72,6 +72,9 @@ to remember:
                 return false;
             if(n.left !=null && n.left.val != n.val)
                 return false;
+		-no need to overcomlicate - one helper method traversal over whole tree is enough. no need to pass down n.val
+ 		-post order traversal/DFS - call l & r, then decide if parent is univalue.
+		
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_find-duplicate-subtrees.java
 		-convert tree in string (INCLUDING NULL NODES) 
 		-only certain order will work - POST order 
@@ -111,7 +114,7 @@ to remember:
 		
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_lesson_lowest-common-ancestor-of-a-binary-tree.java
 		-first thought comes is helper method to find 2 elems under given node 
-		-BUT we dodnt need that extra method O(n^2)
+		-BUT we dodnt need that extra FIND method O(n^2)
 		-//if root is p or q, that is LCA
         if( root == p || root == q || root == null)
             return root;
@@ -161,7 +164,9 @@ github
 
 Continue from:m_set-matrix-zeroes.java
 	[hard remaining]
-
+TODO:
+https://leetcode.com/problems/top-k-frequent-elements/ - add this to github
+	
 to remember:
 	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_daily-temperatures.java	-> stack the indices rather than temp vals, because we need index diff. -> start from end -> monotonic stack.
 	
@@ -276,6 +281,15 @@ to remember:
 		-track gasAvailable after each node 
 		-if gasAvailable  -ve, that node is not answer 
 		-at end if gas_needed+gas_available > 0 we are in surplus and can make it.
+	
+	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_sliding-window_grumpy-bookstore-owner.java
+		-sliding window technique !
+		-count normal sum of whole array.
+		-now slide window of sixe X (counting/adding 1's to satisfied custs)
+		-now keep sliding till end, and recor max every time we slide 
+		==> or just dont count sum in advance and do it?
+			-count satisfied custs while iterating
+			-keep track of max in window and keep sliding 
 		
 4. 	BFS and queue:
 
@@ -354,13 +368,20 @@ to remember:
 6. Binary Search 
 continue from:
 	h_median-of-two-sorted-arrays.java
+	-from : m_lesson_search-a-2d-matrix-ii.java
 	
 to remember:
+	-Note: search in binary tree can be done iteratively. go left or right till reach null leaf 
 	m_Search_for_a_Range.java 
 		-> use template-1 (l<=r) and record target index each time. Sicne we are looking for exact match - template1 is suitable.
 		- template 2 (l<r) has issues - might get into endless loop.
 	
+	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/e_sqrtx.java
+		-return closest decimal is perfect square is not available
+		-use division to overcome overflow, instead of long. -> because truncation is allowed as per question.
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/e_valid-perfect-square.java - use long instead of division technique. because division will lead to false true. (2 = 5/2 - but its not perfect square)
+		-imp to check if its perfect square at end of loop too.
+		
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_find-first-and-last-position-of-element-in-sorted-array.java
 		-dont use while(l<r) template - problem narrow downing the end
 		-use while(l<=r) template 
@@ -370,12 +391,36 @@ to remember:
 			
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_lesson_search-a-2d-matrix-ii.java - TODO binary search way. currently doing narrowing down method, beginning bottom left corner.
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_find-minimum-in-rotated-sorted-array.java
+		-what to do if there are duplicates?
+		-if(nums[mid]==nums[right])
+			reight--;//to skip dups
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_search-in-rotated-sorted-array.java
+	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_kth-largest-element-in-an-array.java
+		-use quick sorting. quick sort partition step gives small nums on left of pivot selected.
+		-so turn kth largest prob into len-kth smallest elem. k2 = len-k
+		-partition method is recursive till we find k2 elems in left partition
+			-if l> r return IntMAX
+			-for partition, maintain writePtr = l, 
+			-after loop, swap one more time 
+			-if nums left of pivot == k2 return that index. 
+			-if nums left of pivot > k2 -> go left
+			else go right 
 	
-todo:
-h_median-of-two-sorted-arrays.java	
-https://leetcode.com/problems/time-based-key-value-store/
+	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_lesson_floor-function-sorted-array.java
+		--normal bianry search function : if val not found, it ends up at smaller closest !
+		-so use template 1, and keep recording val if its <x, at end of loop that will be our answer.
+		-template 2 also popssible
 
+todo:
+	h_median-of-two-sorted-arrays.java	
+	https://leetcode.com/problems/time-based-key-value-store/
+	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_lesson_floor-function-sorted-array.java
+		--normal bianry search function : if val not found, it ends up at smaller closest !
+		-so use template 1, and return nums[start] after loop.
+		-template 2 also popssible
+	m_lesson_online-election.java
+	
+	
 7. DFS
 continue from:
 	TODO: hards
@@ -482,7 +527,7 @@ to remember:
         -Record the last occurence of each letter in map
         -Second pass can be done in way that we will get max partitions.
 			-Keep current interval window marked by begin and end pointers
-            -keeptrack of furthest most index of occurence for any letter in current interval.
+            -keeptrack of furthest most index of occurence for any letter in current interval/window. that var is our "end" ptr of window
             -if that is = i, we dont have anymore repeating in future, so partition window ends here. add it to result.
                 Note: We END it here rather than including more unique chars because we want as many unique intervals as we can.
 	m_longest-substring-without-repeating-characters.java 
@@ -588,11 +633,23 @@ to remember:
 
 10. Graph 
 notes under graph directory.
-
+	-https://leetcode.com/problems/evaluate-division/
+		-As one can see, we just transform the problem into a path searching problem in a graph.
+		** More precisely, we can reinterpret the problem as "given two nodes, we are asked to check if there exists a path between them. If so, we should return the cumulative products along the path as the result. **
+		-Imagine a/b = k as a link between node a and b, the weight from a to b is k, the reverse link is 1/k. Query is to find a path between two nodes.
+		-for each node, we need neighbors and weight of that edge. Best way to do that is Map<neightboer,weigth> for each node
+		-adj list with weights : Map<String, Map<String, Double>> adj
+		-need to track visited nodes in DFS to catch loop. 
+		-return -1 for no sol and loops.
+	
+	-https://leetcode.com/problems/all-paths-from-source-to-target/
+		-DFS + backtrack
+		-all paths means backtrack
+		-it is given that graph is "acyclic" - so we dont need to maintain "visited" map 
+		
 continue from:
 todo:
-	-All Paths from Source Lead to Destination
-	-remaining from done probs on LC
+	-Hard ones
 	
 11. Sliding window:
 
@@ -626,7 +683,7 @@ continue from:
 	-sudoku solver
 	
 Note:
--think recursive prob as solving subproblem. eg: 
+-MIMP: think recursive prob as solving subproblem. eg: 
 	-Permutation: abc -> a + permutations of (bc)
 	-subset: abc -> a + subsets of (bc)
 	-so we solve subproblem first, as a result output will be in that order.
@@ -656,3 +713,7 @@ Note:
 ========
 TODO:
 quick sort and related probs	
+
+Java useful calls
+====================
+map: putIfAbsent instead of getOrDefault
