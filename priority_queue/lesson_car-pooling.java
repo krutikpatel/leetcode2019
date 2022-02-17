@@ -78,20 +78,23 @@ class Solution {
     IMP - if we are tracking passenger loading capacity, 
         it is v imp to add capacity by first considering passengers leaving because if end point
     */
+    private static final int START = 1;
+    private static final int END = 2;
     public boolean carPooling2(int[][] trips, int capacity) {
         //sort trip by start time (covers start point events)
-        Arrays.sort(trips, (a,b) -> a[1] - b[1]);
+        Arrays.sort(trips, (a,b) -> a[START] - b[START]);
         
         //we will add nodes which we crossed here, sorted by end time (this will add checkpoint at end event)
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)->a[2]-b[2]);
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)->a[END]-b[END]);
                 
         for(int[] trip: trips){
             //add in pq for end sort
             pq.offer(trip);
-         
+            
             //add capacity before dec capacity, because there might be people getting off here
             //remove elems till endtime <= curr_start_time
-            if(pq.peek()[2] <= trip[1]) {
+            //while(!pq.isEmpty() && pq.peek()[2] <= trip[1]) {
+            if(pq.peek()[END] <= trip[START]) {
                 //int[] ending = pq.poll();
                 capacity += pq.poll()[0];
             }
