@@ -91,7 +91,7 @@ class Solution {
          
             //add capacity before dec capacity, because there might be people getting off here
             //remove elems till endtime <= curr_start_time
-            while(!pq.isEmpty() && pq.peek()[2] <= trip[1]) {
+            if(pq.peek()[2] <= trip[1]) {
                 //int[] ending = pq.poll();
                 capacity += pq.poll()[0];
             }
