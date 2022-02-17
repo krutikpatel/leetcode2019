@@ -86,6 +86,9 @@ class Solution {
         PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)->a[2]-b[2]);
                 
         for(int[] trip: trips){
+            //add in pq for end sort
+            pq.offer(trip);
+         
             //add capacity before dec capacity, because there might be people getting off here
             //remove elems till endtime <= curr_start_time
             while(!pq.isEmpty() && pq.peek()[2] <= trip[1]) {
@@ -98,9 +101,6 @@ class Solution {
             if(capacity<0){
                 return false;
             }
-                        
-            //add in pq for end sort
-            pq.offer(trip);
         }
             
         
