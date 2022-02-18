@@ -49,6 +49,9 @@ class Solution {
     systematic think of what info needs to pass down, and what info needs to come back up
     top-down - passs sum
     bottom-up - if node to be removed - null if removed, node if not.. -> we make links again while coming up
+    
+    Also, IMP to note that we do : DFS in POST order traversal way. ie, we go to leaf first, we call left and right first,
+    then we can decide whether a parent is sufficient or not
     */
     public TreeNode sufficientSubset(TreeNode root, int limit) {
         if(root == null)
