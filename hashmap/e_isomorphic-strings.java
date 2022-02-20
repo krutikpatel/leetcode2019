@@ -65,14 +65,16 @@ class Solution {
         int [] tt = new int[256];
         
         for(int i = 0; i< s.length();i++){
+            char c1 = s.charAt(i);
+            char c2 = t.charAt(i);
             //if same char has diff mapping to other char. think aa, ab
-            if(ss[s.charAt(i)] != tt[t.charAt(i)]){
+            if(ss[c1] != tt[c2]){
                 return false;
             }
             
             //add entries in respective maps
-            ss[s.charAt(i)] = i+1;
-            tt[t.charAt(i)] =i+1;            
+            ss[c1] = i+1;
+            tt[c2] =i+1;            
         }
         return true;
     }
