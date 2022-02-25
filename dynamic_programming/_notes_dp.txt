@@ -20,3 +20,8 @@ because calling tree will have 2^n nodes
 
 Knapsack/Subset problems
 =============================
+=============================
+Fibonacci nums
+=============================
+-n will never turn negative because of n-4 or n-3, because those factors are preemptively covered in base cases.
+	 * so base case will return val if n <3 or n<4
