@@ -23,5 +23,7 @@ Knapsack/Subset problems
 =============================
 Fibonacci nums
 =============================
--n will never turn negative because of n-4 or n-3, because those factors are preemptively covered in base cases.
-	 * so base case will return val if n <3 or n<4
+=>Number Factors
+	-n will never turn negative because of n-4 or n-3, because those factors are preemptively covered in base cases.
+	-so base case will return val if n <3 or n<4
+	-base cases: n=0,1,2,3 (4 not because it can be covered by others)
