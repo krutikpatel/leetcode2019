@@ -58,3 +58,14 @@ Fibonacci nums
 	-loop x times with curr coin, where x = amount/coinVal
 		-we use curr coin 0 to x times
 		-coinIndx+1, 
+
+=> House robber
+	-all we need to pass is currIndex
+	-so we dont need any loops in the function
+	-we have 2 options
+		currElem+recCall(currIndex+2)
+		recCall(currIndex+1)
+	-take max of two
+	-base return case is simple
+		if(index>=arr.len) return 0
+
