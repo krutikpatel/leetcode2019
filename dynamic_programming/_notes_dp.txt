@@ -38,3 +38,23 @@ Fibonacci nums
 
 	    if (jumps[currentIndex] == 0)
 	      return Integer.MAX_VALUE;// cannot make jump, so return some invalid val indicator
+
+=> Coin change
+	-try each coin multiple times
+	-loop x times with curr coin, where x = amount/coinVal
+	-so recursively thinking: 
+		1 coinA + recprob(useNextCoin)
+		2 coinA + recprob(useNextCoin)
+		x coinA + recprob(useNextCoin)
+		
+	-rec call maintains currCoinIndex, and remaining amount
+	-ret val:
+		-1 if cant make it
+		0 if we can make it. if(ret ==0) ways = ways+1
+	-Base case:
+	if(amount== 0) return 0;
+	if(cinIndex = Arr.length) return -1;
+	
+	-loop x times with curr coin, where x = amount/coinVal
+		-we use curr coin 0 to x times
+		-coinIndx+1, 
