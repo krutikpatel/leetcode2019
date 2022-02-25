@@ -27,3 +27,14 @@ Fibonacci nums
 	-n will never turn negative because of n-4 or n-3, because those factors are preemptively covered in base cases.
 	-so base case will return val if n <3 or n<4
 	-base cases: n=0,1,2,3 (4 not because it can be covered by others)
+
+=>Min jumps to reach end of an array
+	-brute force:
+	-we just need to pass/use curr/begin index in recursive calls
+	-MinJump result var does not have to be class var. can be declared in rec call, since top level call will ultimately return it.
+	    // if we have reached the last index, we don't need any more jumps
+	    if( currentIndex == jumps.length - 1)
+	      return 0;//pass (callee will add res+1)
+
+	    if (jumps[currentIndex] == 0)
+	      return Integer.MAX_VALUE;// cannot make jump, so return some invalid val indicator
