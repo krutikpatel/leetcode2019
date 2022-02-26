@@ -67,7 +67,7 @@ to remember:
 		-next returns min elem - thus its in order retrival
 		-we can use stack to store in-order sequence
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_count-univalue-subtrees.java
-		-check for corner case: before calling curr node as univalue 
+		-check for curr node as univalue 
 			if(n.right !=null && n.right.val != n.val)
                 return false;
             if(n.left !=null && n.left.val != n.val)
@@ -102,10 +102,13 @@ to remember:
 		-keep going left and right as per BST, whenever go left (record n as return value first)
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_lesson_insufficient-nodes-in-root-to-leaf-paths.java
 		-good one with regards to passing vals and returning node and making links
+		Also, IMP to note that we do : DFS in POST order traversal way. ie, we go to leaf first, we call left and right first,
+		then we can decide whether a parent is sufficient or not
+		
 		-pass down sum sofar
 		-if sum < target at leaf, return null 
 		-if n.l and n.r both becomes null, return null. -delete this node.
-	
+		
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_lesson_kth-smallest-element-in-a-bst.java
 		-in-order tarversal and counter k (incement/decrement happens in-order, on current node. so counting does not start til lwe reach left most) - we dont have to worry about reaching left most elem and then start counting exclusively. that is part of "in order" processing.
 		-that needs helper method (and class var for result ). cant be done in-place otherwise.
@@ -338,12 +341,18 @@ Continue from: github
 	https://github.com/krutikpatel/leetcode2019/blob/master/hashmap/m_insert-delete-getrandom-o1.java
 to remember:
 	-log rate limiter - study various approaches IMP
+		-we need LAST 10 sec window, 10 slots. queue, array, circular buffer whatever u think of.
+		-Also, we need Set for each slot, so that we know whether incoming log was printed in any of last 10 secs
+		a. figure out slot - based on given timestamp. clear old slot if not same. clear old set as well in that case
+		b. check if msg was printed in last 10 secs. go thru each slot (see if slot time < 10 secs) and see if present in any of the sets.
+		
 	https://leetcode.com/problems/next-greater-element-i/
 	https://leetcode.com/problems/isomorphic-strings/
 		-go char by char 
 		-need 2 maps. a to b char mapping and b to a chars mapping. because both sides can break the mapping done earlier.
 		-if entry does not exist add (a to b) and (b to a)
 		-if either side map entries dont match - false.
+		todo: 2 arr technique. same as hashmap, we just use arr as map.
 		
 	https://leetcode.com/problems/find-duplicate-subtrees/
 		representation of tree(segment) can be in terms os String with all nodes in some order (post order here is must)
@@ -363,8 +372,31 @@ to remember:
 			They both have same in-order serialization "#0#0#" if we just use "#" to represent null.
 
 	https://github.com/krutikpatel/leetcode2019/blob/master/hashmap/m_group-shifted-strings.java --> key forming math
-	https://leetcode.com/problems/time-based-key-value-store/		
-
+		-use ascii diff between 2 chars: for 1st char, val = 0
+			acf = 0->2->3, and pru = 0->2->3.
+			
+		-az, ba
+			-where az = 0->25 and ba = 0->-1. When it goes negative, 
+			-just make it positive(rotate or mod equivalent) by adding 26. So it becomes, ba = 0->25, which forms same group
+		[(charA-charB) + 26] % 26 
+			-we do +26 beause we need circular progressing index. az if we rotate this, it becomes za, so our key should do that.
+			
+	https://leetcode.com/problems/time-based-key-value-store/
+		-all we need is :
+		HashMap<String,TreeMap<Integer,String>> map;
+			-for each keyString - we need to store : at what timestmap, what string val we have.
+				-if we dont have any at give timestamp, we look for smaller timestamp valString.
+			-we need treeMap, reverse sorted by time. latest time first.
+			
+	https://github.com/krutikpatel/leetcode2019/blob/master/hashmap/m_insert-delete-getrandom-o1.java
+		-need ArrayList as main data store. easier for getRandom, as random is based on index.
+		-Map<int, itsIndexInList>
+			-how to avoid shifting the whole arraylist while remove in middle of list? there is another problem in shiftin, its we stored indices of nums in map, that will change as well!
+			-swap elem-x with last elem. and remove last elem. map has to be updated accordigly.
+	
+	https://github.com/krutikpatel/leetcode2019/blob/master/hashmap/m_lesson_find-and-replace-pattern.java
+		-same logic as isomorphic strings.
+		
 6. Binary Search 
 continue from:
 	h_median-of-two-sorted-arrays.java
@@ -420,7 +452,66 @@ todo:
 		-template 2 also popssible
 	m_lesson_online-election.java
 	
+todo:
+Some of the Binary Search based Interval Problems :)
+57. Insert Interval - https://leetcode.com/problems/insert-interval/
+436. Find Right Interval - https://leetcode.com/problems/find-right-interval/
+729. My Calendar I - https://leetcode.com/problems/my-calendar-i/
+1235. Maximum Profit in Job Scheduling - https://leetcode.com/problems/maximum-profit-in-job-scheduling/
+2054. Two Best Non-Overlapping Events - https://leetcode.com/problems/two-best-non-overlapping-events/
+
+IMP note:
+===================
+-template2 - given that arr is ascendin sirted, and we do l = m+1 when x<target
+	Obs1 . what index does template-2 settle at? what is end val of l - when elem not found?
+		->it settles on upper (closest) side of target!
+			-so if target was not the max num of arr, it WILL settle on last index of arr. !
+		->that means normal template 2 serves as "CEILING" function. 
 	
+	Obs2
+		-template2 will always return a "VALID" index. (0 to len-1)
+	
+	Obs3
+		-template1 may return a "INVALID" index. (0 to "len") - when num is bigger than upper bound
+	
+	Obs4
+		-template 1 also settles on the num (closest Bigger) than target, if target not in arr.
+		-so it serves as "CEILING" function (except last elem, for which check is needed)
+		
+	-sometimes, when we want to derive a fitting index (may be elem?), we need to be careful of 'r'
+	-normally r = arr.len-1 
+	but if we want to settle to correct index - we may want to set r = arr.len
+		Example:
+		https://leetcode.com/problems/search-insert-position/
+			-template1 works very good here. BUT if we want to use template2, we need to set r = arr.len 
+	-Think another problem: 
+		1. return index of elem smaller than target 
+		2. return index of elem bigger than target 
+		3. floor function 
+	
+	-Trick on template2 
+		-to get floor functionality out of template 2:
+			set l = 1 and r = len
+			-because we know it will settle down on celingin elem 
+
+TODO
+Floor-function:
+	-there are only 3 possibilities
+		-target below 0
+		-target above arr.len 
+		-target index inside arr 
+		
+	-its easier to get corner cases right away before doing loop.
+        // If last element is smaller than x
+        if (x >= arr[r])
+            return r;
+		if(x <arr[0])
+			return -1;
+			
+Floor and Celining:
+
+
+			
 7. DFS
 continue from:
 	TODO: hards
@@ -631,6 +722,15 @@ to remember:
 			->make linkage -> curr.next = polled -> curr = curr.next 
 			->add curr's/polled's list's next elem to pq (if non null ie, list has not ended)
 
+	car-pooling https://github.com/krutikpatel/leetcode2019/blob/master/priority_queue/lesson_car-pooling.java
+		probably better to look at non pq based solutions..
+		-sort arr by start time.
+		-treat start and end time as intervals 
+			-start point = capacity+
+			-end point = capacity-
+		-we will maintain pq - sorted by end time.
+		->when we see end time 
+		
 10. Graph 
 notes under graph directory.
 	-https://leetcode.com/problems/evaluate-division/
@@ -663,31 +763,92 @@ to remember:
 12. Backtracking/recursion
 -starting from leetcode 
 
-todo:
 	https://leetcode.com/problems/restore-ip-addresses/
-	n-queens
+		-maintain beginIndex and segmentCount - to return once done 
+		-each time - we create segment with 1,2 or 3 digits and make recursive calls.
+		-imp - the segment has to be valid(0 to 255), so validate before recursive call.
+		-remove dot from last segment end.
+	
+	n-queens 
+		-how to mark/access diags \ and / to see if its valid?
+		boolean[] d1,d2 //len 2*n 
+		int id1 = col - row + n;    // this is / diagonal for that point. col -row can be negative, so if we want to store it in array, 
+                                        // we have to make it +ve offset by adding n to each
+        int id2 = col + row;        // this is \ diagonal for that point
+        OR-use Set<Integer>
+			and
+			int currDiagonal = row - col;
+            int currAntiDiagonal = row + col;			
+	
+	sudoku
+		-recursive method params are not fancy, just board
+		private boolean solve(char[][] board){
+			-all param looping inside method.
+			for rows 
+				for cols 
+					for num1to 9
+		-isValid method for puttin num at particular cell 
+			-validity for that 3x3 block
+			int rr = 3 * (row/3);
+			int cc = 3 * (col/3);
+	
 	https://leetcode.com/problems/remove-invalid-parentheses/
-		-doable both DFS and BFS.
+		-BFS:
+		-Since optimal soluion is asked, we should think of BFS.
+			-meaning : parallelly explore removing one parantheses from each position, and keep doing that at each level
+			-strings resulting by removing one paranthesis from each positions, becomes my neoghbors for next level BFS
+		-maintain Set of visited strings 
+			// generate all possible states, as next BFS level
+			for (int i = 0; i < s.length(); i++) {
+			  // ignore non-paranthesis chars
+			  if (s.charAt(i) != '(' && s.charAt(i) != ')') continue;
+			
+			  String t = s.substring(0, i) + s.substring(i + 1);
+			
+			  if (!visited.contains(t)) {
+				// for each state, if it's not visited, add it to the queue
+				queue.add(t);
+				visited.add(t);
+			  }
+			}
 		-trick for validity : 
 			if ( count++
 			if ) count--
 			if(count <0) -> invalid/false
 		-no need to worry about char inbetween. parantheses validity will be same regardless of chars between them.
 	
+	word-break-ii 
+		https://leetcode.com/problems/word-break-ii/discuss/44167/My-concise-JAVA-solution-based-on-memorized-DFS
+		-we dont have to go char by char from given string and do recursion. rather,
+		start from word in give dict arr, and see if give string "starts with" that word.
+			-if so, make recursive call from there.
+			-after return, add 1st word in front of return list to form answer string 
+		
+		(see in comment section in above link: its still easy to go char by char, we dont have to pass charIndex in recursive call.)
+		
+		-BUT, brute force DFS exceeds time. So we need to memoize.
+			-what to memo? - if we have answer for given (prefix) string 
+			HashMap<String, List<String> answers>
+			
+todo:
+	
 	https://leetcode.com/problems/remove-invalid-parentheses/
 		-DFS+trie
 		-need of trie comes from the fact that we need to know that we have a prefix match so that we can keep continue down this route. otherwise waste of runtime.
 		
+	word-search 2
+	word ladder 2
 		
 continue from:
-	-sudoku solver
+	
 	
 Note:
 -MIMP: think recursive prob as solving subproblem. eg: 
 	-Permutation: abc -> a + permutations of (bc)
 	-subset: abc -> a + subsets of (bc)
 	-so we solve subproblem first, as a result output will be in that order.
-
+	-combinaitions of 1,2,3,4 -> take 1 (add 1 to sofar) and solve problem recursively from 2
+	
 -permutations output order for swap based recursive algo
 	Input: nums = [1,2,3]
 	Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
@@ -710,6 +871,34 @@ Note:
 	-NOTE: visited boolean[][] does not have to be created fresh for every DFS starting point x,y. since we are backtracking and clearing flags, same map can be reused as is dugin next x,y DFS check.
 
 
+13. DP
+	https://github.com/krutikpatel/leetcode2019/blob/master/dynamic_programming/e_best-time-to-buy-and-sell-stock.java
+		-track minSoFar
+		-if currElem > minSofar
+			-track max diff/profit
+	
+	https://github.com/krutikpatel/leetcode2019/blob/master/dynamic_programming/e_maximum-subarray.java
+		-simpler than the instinct of making it complicated. -no recursion no complicated memo.
+		-its like sliding window problem acctually - But its not totally
+		-this is a popular problem that can be solved using an algorithm called Kadane's Algorithm.
+		-The difficult part of this problem is figuring out when a negative number is "worth" keeping in a subarray.
+			-We need a general way to figure out when a part of the array is worth keeping.
+			-any subarray whose sum is positive is worth keeping.
+		-Ans: we don't actually need to build the subarray, we can just keep an integer variable current_subarray and add the values of each element there. When it becomes negative, we reset it to 0 (an empty array).
+			-track max 
+			-keep adding till sum is +ve 
+			-if it becomes -ve, discard all. 
+					if(sumSoFar < 0) {
+						sumSoFar = nums[i];
+					} else {
+						sumSoFar = sumSoFar+nums[i];
+					}
+					maxSum = Math.max(maxSum, sumSoFar); 
+			
+		-Same thing can also be stated as:	
+			currentSubarraySum = Math.max(num, currentSubarraySum + num);
+		
+		
 ========
 TODO:
 quick sort and related probs	
@@ -717,3 +906,132 @@ quick sort and related probs
 Java useful calls
 ====================
 map: putIfAbsent instead of getOrDefault
+
+
+New Done probs:
+https://leetcode.com/problems/search-insert-position/
+https://leetcode.com/problems/palindrome-linked-list/
+	-way1
+		-put all elems in arr/arrList and check if palindrome 
+	-way2 -O(1) space, asked by FB
+		-find mid of list (slow and fast ptr technique - run loop till both slow and fast != null)
+		-reverse 2nd half in place (-begin with prev = null, and restick links while curr != null)
+		-compare 1st half and 2nd half, one by one 
+	-way3
+		-find mid 
+		-use stack to store 1st half 
+		-compare one by one with other half 
+	-way4
+		-recursive and its O(n) space in call stack though 
+		
+https://leetcode.com/problems/longest-consecutive-sequence/solution/	
+	graph and BFS way - 2O(n)
+	-One way of looking at this is as a graph traversal problem in which there are multiple disconnected subgraphs and we need identify the largest sub-graph.
+    -A node 'num' is directly connected to its neighbours 'num-1' and 'num+1' if present in the array.
+    -So basically we first prepare an adjacency list 'map' while iterating through all the array elements.
+        //partial adj list, one node can help u get +-1 , and that node will lead u to its +-1
+    -Now we do a BFS for each sub-graph and find out its size. If it's greater than 'max', we update max.
+    -While doing BFS, we keep track of global visited node to avoid running into cycles.
+    -Finally we return 'max'
+
+	TODO - O(n) hashmap way 
+		-Map(num, seqLen)
+		for each n, check map for n-1 and n+1 -> then update those entries as well with len 
+		len = 1 + leftLen + rightLen 
+		
+		-update farthest entries
+			map.put(n - leftLen, sum);        
+			map.put(n + rightLen, sum);//update farthest entries
+                
+                //following does not work!
+                //map.put(n - 1, sum);
+                //map.put(n + 1, sum);
+
+https://leetcode.com/problems/palindrome-partitioning/submissions/
+	-normal way is recursion+backtracking 
+	-recursion helper method with begin/start ptr , maintain list of curr_palindrome_substrings 
+	-loop from "start" till str.len to try all subtrings for palindrome 
+	-if palindrome, then only make recursive call 
+	-backtrack by removing last added palindrome from curr_palindrome_substrings
+	
+	-DP way TODO 
+
+https://leetcode.com/problems/sort-list/solution/
+	TODO
+	-understand getMid method
+	-understand merge method - simple - Qn - merge 2 sorted LL
+
+
+FB:
+https://leetcode.com/problems/valid-word-abbreviation/submissions/
+	-lesson - 
+	-using for(char: abbr.chars) type loop, instead of maintaining index of abbr. that will add complexity 
+	-after pattern/abbr loop finishes, we may or my not have reached solution still.
+	-to pass, wordPtr MUST reach word.length (more than that or less both are invalid)
+https://leetcode.com/problems/valid-palindrome-ii/
+	-use 2 ptr when want to remove char to skip char.
+	-try simple iteration. use helper method for ispalindrome with 2 ptrs, l and r
+	-recursive solution is possible
+		-dont mix iteration and recursion. make it pure recursion, for every char, u call recursion.
+	OR:
+	I think a good way for the (generic) followup may be using Longest Palindromic Subsequence.
+	If the LPS has length >= n-k, then return true. O(n^2) algorithm.	
+
+https://leetcode.com/problems/range-sum-of-bst
+	-simple yet easy to get lost
+	-recursive is easy. maintain external sum var 
+	-Easiest is:
+		-just traverse like binary tree and if val is in range, add to sum.
+		But to leverage BST prop 
+	-see which side we need to go.
+	-IMP to note that - sometimes we have to go both sides, sometimes only one side 
+	so use if + if and NOT if,else 
+	this: range 5,15 and 
+		tree: 5 ->10 <-15
+		tree: 5->10->15 (only left edge, 5 is at bottom)
+		tree: 5<-10<-15 (only right edge, 5 is at top)
+		
+https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/
+	-dont think recursively here (brute force recursion gives TLE anyways)
+	-We can use stack to eliminate duplicates, just like recursion.
+	for each c, if(c==s.peek())
+			remove from stack (s.pop())
+		else
+			s.push(c)
+	
+	-actually we dont even need stack 
+		-we can do same thing with maintaining stringBuilder as res and iterating over string char by char 
+		
+https://leetcode.com/problems/simplify-path/
+	-dont overcomplicate it by going char by char 
+	-specially because there can be lot of combinations of paths. eg: /a/b/c/.././././//d
+	
+	-Just split string/path with '/'
+		-and process each section 
+	Following rules:
+		-we need to skip .
+		-by splitting with / we will have "" for // or more slashes, so ignore any "" section.
+		-for .. , if we have prev dir on stack , remove it, otherwise ignore ..
+		Thats it ! :)
+		
+https://leetcode.com/problems/binary-tree-vertical-order-traversal
+	-we need to group elems by columns
+	-ALSO, each column should be sorted top to bottom order 
+	
+	-columns wise grouping can be achieved by DFS (BFS as well) by keep tab of +-1 at each left/right move
+	-vertical top-bottom order in each column - CAN be naturally achieved in BFS (without maintaining height param)- think level order traversal.
+	So go by BFS (queue) rather than DFS (recursion)
+	
+	-with BFS, use Java's Pair class Pair<TreeNode, Integer> -int is column 
+	make Queue of Pair<TreeNode, col>
+	
+	-TreeMap<col, ArrayList<int>>
+
+https://leetcode.com/problems/nested-list-weight-sum
+	-very good recursion exercise
+	-pass depth param to recursive function 
+	
+https://leetcode.com/problems/diagonal-traverse/
+	todo 
+	-realize that even after switching direction/diagonal, we can run out of boundary on each 4 walls. also flipping is not always same, diff in top half and bottom half of rectangle 
+	
