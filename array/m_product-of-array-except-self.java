@@ -51,3 +51,47 @@ class Solution {
         return res;
     }
 }
+/*
+My attempt:
+class Solution {
+    ////
+    prod(x) = prod(0tox-1) * prod(x+1,len)
+    0tox-1 -> go left to right
+    x+1 to len -> got right to left
+    skip x for both
+    
+    [1,2,3,4]
+    p [1,1,2,6]
+    q [24,12,4,1]
+    
+    ret [24,12,8,6]
+    ////
+    public int[] productExceptSelf(int[] nums) {
+        
+        int[] p = new int[nums.length];
+        Arrays.fill(p,1);
+        
+        int prod = 1;//nums[0];
+        //left to right
+        for(int i=0;i<nums.length;i++){
+            p[i] = prod;//by doing this we r essentially skipping ith elem in prod
+            prod = prod*nums[i];//for next time
+        }
+        
+        //System.out.println(p);
+        //right to left
+        int[] q = new int[nums.length];
+        prod = 1;//nums[nums.length-1];
+        for(int i = nums.length-1;i>=0;i--){
+            q[i] = prod;
+            prod = prod*nums[i];
+        }
+        //System.out.println(q);
+        for(int i=0;i<nums.length;i++){
+            nums[i] = p[i] * q[i];
+        }
+        return nums;
+    }
+}
+*/
+    
