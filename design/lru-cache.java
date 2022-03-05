@@ -27,8 +27,41 @@ cache.get(3);       // returns 3
 cache.get(4);       // returns 4
 
 */
+    
 class LRUCache {
-/*    
+/*
+Req:
+-capacity
+-key,val plus order of access atleast ( we dont need time accessed, order is enough)
+-get and put both updates access order
+	-since we dont need "timestamp" order , we dont do PQ<time,node>
+
+TLDR: HashMap as store, plus DoublyLinkedList nodes.
+
+=>we just need to keep elems in order of which there were accessed.
+->DLL - need head and tail.
+->Map<key,DllNode>
+	
+	put{
+		-if in map, move to front 
+			-else add to front 
+	
+		if map size > capacity:
+			-remove last elem, remove from map too
+	}
+	get{ 
+		-if in map, return 
+		-move elem to front 
+	}
+	
+-to make get elem from DLL O(1) - use map 
+	map<key,DLL>
+	rather than map<key,val>
+	
+*/
+    
+/*    -leverage JAva LinkedHashMap. good for understanding concept, not for interview
+
     HashMap<Integer,Integer> map;
     int capacity;
     
@@ -51,7 +84,7 @@ class LRUCache {
     }
 */
     /*
-    HashMap as store, plus DoublyLinkedList nodes.
+    TLDR: HashMap as store, plus DoublyLinkedList nodes.
     Logic:
     
     HashMap will only store nodes = capacity (and those will be LRU node)
@@ -158,7 +191,13 @@ class LRUCache {
             moveToFront(n);
         } else {
             DLLNode n = new DLLNode(key,value);
-            if(count == CAPACITY) {
+            
+            //add new node
+            addNode(n);
+            map.put(key,n);
+            //count++;
+            //if(count == CAPACITY) {
+            if(map.size() > CAPACITY) {
                 //LRU
                 DLLNode nodeToRemove = tail.prev;
                 //System.out.println("nodeToRemove = "+nodeToRemove.key);
@@ -167,14 +206,6 @@ class LRUCache {
                 
                 //remvoe from DLL
                 removeNode(nodeToRemove);
-                
-                //add new node
-                addNode(n);
-                map.put(key,n);
-            } else {
-                addNode(n);
-                map.put(key,n);
-                count++;
             }
         }
         
