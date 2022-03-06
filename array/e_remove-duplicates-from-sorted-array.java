@@ -23,18 +23,18 @@ class Solution {
         if(nums == null || nums.length == 0)
             return 0;
         
-        int write = 0;
+        int write = 0;//this is like index of new/extra space array 
         
         //sincce we are looking for duplicates, we start j from 1
         for(int j=1;j<nums.length;j++){
             //once we find uniue/non-duplicate elem, we add it to array (same arr here lol)
-            if(nums[j] != nums[write]){  //since arr is sorted, we can also say if nums[j] > nums[write]
+            if(nums[j] != nums[write]){
                 write++; //we donw want to "replace" good num with new num                
                 nums[write] = nums[j];
             }
         }
         
         //good is index, but we need to return length
-        return good+1;
+        return write+1;
     }
 }
