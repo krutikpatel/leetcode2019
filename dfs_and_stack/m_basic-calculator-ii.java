@@ -33,26 +33,27 @@ class Solution {
         for(int i=0;i<len;i++){
             if(Character.isDigit(s.charAt(i))){
                 num = num*10+s.charAt(i)-'0';
-            }
-            //if not digit, AND its not space OR its last char
-            if((!Character.isDigit(s.charAt(i)) && s.charAt(i) != ' ') || i==len-1){
-                //process last sign and generate one operand, because we have new sign now
-                if(sign=='-'){
-                    stack.push(-num);
+            } else {
+                //if not digit, AND its not space OR its last char. if its last char, the whole num we need to put in stack
+                if(s.charAt(i) != ' ') || i==len-1){
+                    //process last sign and generate one operand, because we have new sign now
+                    if(sign=='-'){
+                        stack.push(-num);
+                    }
+                    if(sign=='+'){
+                        stack.push(num);
+                    }
+                    if(sign=='*'){
+                        stack.push(stack.pop()*num);
+                    }
+                    if(sign=='/'){
+                        stack.push(stack.pop()/num);
+                    }
+
+                    //take new sign for next iteration
+                    sign = s.charAt(i);
+                    num = 0;
                 }
-                if(sign=='+'){
-                    stack.push(num);
-                }
-                if(sign=='*'){
-                    stack.push(stack.pop()*num);
-                }
-                if(sign=='/'){
-                    stack.push(stack.pop()/num);
-                }
-                
-                //take new sign for next iteration
-                sign = s.charAt(i);
-                num = 0;
             }
         }
 
