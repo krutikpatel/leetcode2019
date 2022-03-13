@@ -104,11 +104,19 @@ to remember:
 		-good one with regards to passing vals and returning node and making links
 		Also, IMP to note that we do : DFS in POST order traversal way. ie, we go to leaf first, we call left and right first,
 		then we can decide whether a parent is sufficient or not
-		
+		IMP:
+		1.although its like postorder, we process sum before calling children, because sum has to be passed down.
+		2.we check if its leaf node, and check sum condition here. BEcause we need to return from here.
+			-if we go to null node, it will always return null, and upper level will think that its insufficient.
+			
 		-pass down sum sofar
 		-if sum < target at leaf, return null 
 		-if n.l and n.r both becomes null, return null. -delete this node.
 		
+		=>There are two codnitions when we return null, or remove nodes:
+			1. if sum < target at leaf, return null 
+			2. both left and right are null, so they point to no good path.
+			
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_lesson_kth-smallest-element-in-a-bst.java
 		-in-order tarversal and counter k (incement/decrement happens in-order, on current node. so counting does not start til lwe reach left most) - we dont have to worry about reaching left most elem and then start counting exclusively. that is part of "in order" processing.
 		-that needs helper method (and class var for result ). cant be done in-place otherwise.
@@ -128,7 +136,15 @@ to remember:
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_serialize-and-deserialize-binary-tree.java
 		Ser:
 		pre-roder, # for null and ',' as delimiter
-		
+		Logic Note:
+			-Serialization: we used recursion in pre-order manner
+			-Deserialization:
+				-we have data in certain order. to reuild tree out of it, follow same order 
+				a-data was built with recursion, so use recusrion
+				b-order was pre-order - so use pre-order
+				c-how to fetch elems in deserRecFunction that order?
+					-use Q to fetch elems in that order. (can be done using array and index, but prone to error)
+					
 		Deser:
 		Queue + preorder resursion
 		Use Queue<> for deser, put all nodes in Q and just recreate tree in Pre-order fashion
@@ -171,8 +187,12 @@ TODO:
 https://leetcode.com/problems/top-k-frequent-elements/ - add this to github
 	
 to remember:
-	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_daily-temperatures.java	-> stack the indices rather than temp vals, because we need index diff. -> start from end -> monotonic stack.
-	
+	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_daily-temperatures.java	
+		-> stack the indices rather than temp vals, because we need index diff. -> start from end -> monotonic stack.
+		-pop first till stack top is less than curr 
+		-then push curr anyways 
+		imp - we store index in stack
+		
 	4 sum:
 		-For each elem [i], solve k-1 problem recursively, at k=2, solve 2sum problem
 			-2sum loop/sweep shud not end as soon as we find pair, because we need to find ALL pairs to continue till (l<r)
@@ -194,7 +214,7 @@ to remember:
 	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_3sum-smaller.java
 		-tricky - there is more than just counting at each 2 sum sweep.
 		-at any given 2sum sweep : if(localsum<target)
-			-we need to count all combinations keeping "low or l". 
+			-we need to count all combinations keeping "low or l constant". 
 			x,l,r
 			x,l,r-1 
 			x,l,r-2 etc
@@ -245,8 +265,9 @@ to remember:
 			-They are using the first row and column as a memory to keep track of all the 0's in the entire matrix.
 			-only problem with that is : if 0th row or col is 0. - >becaues if so : if 0throw is 0, we need to make 0th col zero as well. as same for cols 
 			-so use 2 more flags to indicate if fr or fc is zero.
-			
-	product-of-array-except-self -> need to do without division. -> realize that product except self = product(on left) + product (right)
+
+	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_product-of-array-except-self.java
+		-> need to do without division. -> realize that product except self = product(on left) + product (right)
 		-> that can be achieved without creating extra arrays for left and right.
 		->use same arr for both loops. and that will be our ans 
 		->iterate left to right skiping sefl
@@ -306,7 +327,22 @@ There are 2 aspects to BFS.
 Continue from: https://leetcode.com/problems/perfect-squares/
 
 to remember:
-	https://leetcode.com/problems/evaluate-division/solution/
+	https://leetcode.com/problems/01-matrix
+		-natural instinct : start from 1's go find till 0 reached.
+			-that BFS is only good if we were to find shortest distance for that 1 cell. To find it for ALL cells, we will need separate BFS from each cell.
+		-So, rahter, start from eacch 0 cells as BFS in parallel. 
+			-basically statrt from desired destination ("0" cells ) when we need shortest distance (for all ("1")cells ) in matrix.
+
+		1. add all 0 to Q 
+		2. we need to take action when se we see 1 (we make them: currCell+1). make all 1's as other constant: MAX (or keep another matrix of unvisited 1's). -we only operate on cell ONCE. so mark them as untouched 
+		3. BFS 
+			if cell == MAX, convert and MAX to currCell+1, as distance marker for 0 to reach it.
+		4.	-Add that neighbor to Q (eg vals: 1,2,3 these are distances)
+		5. IMP - in the while(!q.isEmpty()) loop 
+				-we just take one cell, and visit all its neighbors. 
+				-we dont loop over all q elems in this iteration. actually we never do that ! we always take 1 elem and visit all its neighbors.
+				
+	https://leetcode.com/problems/evaluate-division/solution/ - DFS 
 	https://leetcode.com/problems/the-maze/solution/
 		-DFS is more natural here. But BFS has advantage of less heap space.
 		-need to keep track of visited nodes 
@@ -335,6 +371,14 @@ to remember:
 		-we only add nodes to Q once, 
 		1. initially
 		2. when we convert them to rotten in loop 
+	
+	maze-ii 
+		-how do we keep track of distance travelled for each direction while doing BFS 
+			-create a new matrix for that. dist[i][j] = i,j distance from start point.
+		-when we roll, we need to return final point where roll stops
+			-we also need to return dist travelled. use int[3]
+		-create move/roll method, and also create isValid method.
+		
 	
 5. HashMaps
 Continue from: github
@@ -421,6 +465,11 @@ to remember:
 		if(Math.abs(arr[mid]-x) > Math.abs(arr[mid+k]-x)){
 		-we are comparing mid and mid+k to decide which side to go.
 			
+	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_lesson_search-a-2d-matrix.java
+		-imp: see whole matrix as one single sorted array!
+		for arr elem i, row = i/n, and col = i%n 
+		-do normal binary search over that array.
+		
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_lesson_search-a-2d-matrix-ii.java - TODO binary search way. currently doing narrowing down method, beginning bottom left corner.
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_find-minimum-in-rotated-sorted-array.java
 		-what to do if there are duplicates?
@@ -443,6 +492,15 @@ to remember:
 		-so use template 1, and keep recording val if its <x, at end of loop that will be our answer.
 		-template 2 also popssible
 
+	https://leetcode.com/problems/search-in-a-sorted-array-of-unknown-size/
+		-find lower bound and upper bound to perform binary search.
+		start with l,r = 1;
+		while(arr.get(r) < target)
+			r = r*2;
+		//at this point arr(r) > target. so upperbound = r.
+		l = r/2	;//that must be lower bound, because we only broke condition in last iteration.
+		l...target ....r 
+		
 todo:
 	h_median-of-two-sorted-arrays.java	
 	https://leetcode.com/problems/time-based-key-value-store/
@@ -462,10 +520,12 @@ Some of the Binary Search based Interval Problems :)
 
 IMP note:
 ===================
--template2 - given that arr is ascendin sirted, and we do l = m+1 when x<target
+-template2 - given that arr is ascendin sorted, and we do l = m+1 when x<target
+IMP - below obs are in terms of "index", l is index. Not the elem at index.
+
 	Obs1 . what index does template-2 settle at? what is end val of l - when elem not found?
-		->it settles on upper (closest) side of target!
-			-so if target was not the max num of arr, it WILL settle on last index of arr. !
+		->it settles on left/smaller (closest) side of target!
+			-so if target was greater than the max num of arr, it WILL settle on last index of arr. !
 		->that means normal template 2 serves as "CEILING" function. 
 	
 	Obs2
@@ -477,13 +537,25 @@ IMP note:
 	Obs4
 		-template 1 also settles on the num (closest Bigger) than target, if target not in arr.
 		-so it serves as "CEILING" function (except last elem, for which check is needed)
+--------	
+IMP:
+	-we dont have to memorize limits. 
+	-limit/bounds are defined by us/algo itself.
+	l=0,r=len-1 
+	while(l<r)
+		-->here l cannot go below 0
+		-->l cannot go above r, it can be r when loop exits . r = len-1, thus valid index 
+--------	
 		
 	-sometimes, when we want to derive a fitting index (may be elem?), we need to be careful of 'r'
 	-normally r = arr.len-1 
 	but if we want to settle to correct index - we may want to set r = arr.len
 		Example:
 		https://leetcode.com/problems/search-insert-position/
-			-template1 works very good here. BUT if we want to use template2, we need to set r = arr.len 
+			-if target is out of array 
+			-we have to imagine array is len+1. and return index accordingly
+			-template1 works very good here. BUT if we want to use template2, we need to set r = arr.len
+			
 	-Think another problem: 
 		1. return index of elem smaller than target 
 		2. return index of elem bigger than target 
@@ -494,22 +566,23 @@ IMP note:
 			set l = 1 and r = len
 			-because we know it will settle down on celingin elem 
 
-TODO
-Floor-function:
+Floor-function: TODO - I think it is same as search insert position problem! but here, if elem = target, we cant return that, we want floor of the target.
 	-there are only 3 possibilities
-		-target below 0
-		-target above arr.len 
-		-target index inside arr 
+		-target below 0	-> ret: -1
+		-target above arr.len-1 -> ret: len-1
+		-target index inside arr -> left of target 
 		
-	-its easier to get corner cases right away before doing loop.
+	-IMP- its easier to get corner cases right away before doing loop.
         // If last element is smaller than x
         if (x >= arr[r])
             return r;
 		if(x <arr[0])
 			return -1;
-			
-Floor and Celining:
-
+		
+		-now run template1 or 2 , either is ok
+		
+Celining:
+	-template 2
 
 			
 7. DFS
@@ -518,6 +591,7 @@ continue from:
 	
 to remember:
 	m_basic-calculator-ii.java -> 
+		-maintain prev num and prev sign, because calculation/decision happens after getting next num. for num we need to see prev sign, for sign we need to know prev num.
 		-little not intuitive. keep putting + and - operands (nums created so far) in stack. * and / calculate in run time.
 		=>Addition (+) or Subtraction (-): We must evaluate the expression later based on the next operation. So, we must store the currentNumber to be used later. Let's push the currentNumber in the Stack.
 		=>Multiplication (*) or Division (/): Pop the top values from the stack and evaluate the current expression. Push the evaluated value back to the stack.
@@ -577,22 +651,47 @@ to remember:
 	longest-common-prefix - > there are many ways to solve. ->pick 1st string, and compare char by char in rest of strings. stop when dont match and return prefix.
 		-> divide and conquer, binary search are possible.
 		-> find min and max strings, then compare..
+		
 	reorder-data-in-log-files.java -> use String x = a.substring(a.indexOf(' ')+1,a.length());		
 		-> also note: comparator for pq -> strA.compareTo(strB)
+		PriorityQueue<String> pq = new PriorityQueue<>(
+            (a,b)->{
+                String x = a.substring(a.indexOf(' ')+1,a.length());
+                String y = b.substring(b.indexOf(' ')+1,b.length());
+                if(x.equals(y)){
+                    return a.substring(0,a.indexOf(' ')).compareTo(b.substring(0,b.indexOf(' ')));//let1 vs let2
+                } else 
+                    return x.compareTo(y); 
+        });
+		
 	reverse-words-in-a-string-iii -> how do we iterate char by char and derive each word?
 		a. use two ptrs -> start and end -> in place operations. no extra space needed.
 		b. use stringbuilder, build it up to one word, usinng just one ptr. - after loop - check if strinbuilder is non empty (when whole string is 1 word or also for last word)
+	
 	e_strstr.java -> brute force match at every char position in bigger string.
+	
 	e_trick-greatest-common-divisor-of-strings.java -> GCD for string is the biggest common substring. so we need to keep cutting substrings from begin point until we cant.
-		-> if one string is empty, other is the answer to return.
+		-> if s1(bigger) string is empty(ultimately by recursive call), other is the answer to return.
+		if (!str1.startsWith(str2)) {	//we use startsWith method instead of indexOf method. because If MUST start with s2 for it to be gcd
+                return ""; 
+		
+		
 	e_unique-email-addresse -> to replace occurences of . in string:  id = id.replaceAll("\\.","");   //remember this utility and \\ for before .
+	
 	m_atoi.java -> there are corner cases to be covered:
 		0. remove spaces from front and back - trim
 		1. sign in front - may or may not be present
 		2. Integer overflow min and max. Store temp result on "long". if temp result = max or min, return max of min, because its overflow.
 		3. look for non digit chars. once encounter, break/stop
 		-> use long to store intermediate result to check int overflow. converting string to int, char/digit by digit. 
+	
 	m_group-shifted-strings ->
+		-Consider acf and pru. Now notice the differnce between each characters.
+			acf = 0->2->3, and pru = 0->2->3. So these two form same group. So in this case, you can simply use integers ASCII difference to form key.
+
+			Now consider corner case, az and ba, where az = 0->25 and ba = 0->-1. When it goes negative, just make it positive(rotate or mod equivalent) by adding 26. So it becomes, ba = 0->25, which forms same group.
+				a's next is b, and z's next is a
+
 		key += String.format("%2d", (s.charAt(i) - s.charAt(i-1) + 26) % 26);//positive Difference from the previous char.
 		->circular shifted strs in same group
 		->TODO need to understand the logic ((a-z)+26)%26 -> %26 so that we get circular position. +26 because we want +ve num in case of "az"
@@ -605,6 +704,8 @@ to remember:
 		->split string by dots
 		->create utility to convert string to int. ->skip prefix zeros
 		-key to make soln easy-for diff length, we can use 0 for whichever finished. ===> IMP TRICK FOR ANY 2 ARR OPERATIONS
+		-the just compare seg1 and seg2, if diff return +-1 or after loop, they are euqal and return 0
+		
 	m_lesson_longest-substring-with-at-most-two-distinct-characters.java 
 		-> need to store HashMap<char, latestIndex> -> we store latest/last index because, if we were to remove that char, we need to remove till right most occurence of that char. we cannot just remove left most char and be sure that that char is not present in window anuymore. eg abcccbdddddd
 		
@@ -612,6 +713,7 @@ to remember:
 		-> but leftmost cant be tracked with ptr, each time need to go over map and find leftMost char to remove from sliding window
 		->when window/map size ==3, FIND THE LEFTMOST CHAR/INDEX TO BE REMOVED, BY GOING THEU MAP VALUES or just call Collections.min(map.values);
 		-> note: it is possible to solve with lft and right ptrs and slide from left one by one and map<char,freq>, but not as straight as above.
+		
 	m_lesson_partition-labels.java ->
 		it sounds complicated, recursive and dp problem, but its not !
 		->2 pass solution:
@@ -621,18 +723,23 @@ to remember:
             -keeptrack of furthest most index of occurence for any letter in current interval/window. that var is our "end" ptr of window
             -if that is = i, we dont have anymore repeating in future, so partition window ends here. add it to result.
                 Note: We END it here rather than including more unique chars because we want as many unique intervals as we can.
+	
 	m_longest-substring-without-repeating-characters.java 
 		-> set is enough with sliding window. map not required here.
 		-> when we slide from left, we dont increment the right ptr. because duplicate might just be right -1 ! eg: abcdee -> when we sit at right = 2nd e.
+			-we slide from left till there is no duplicate in window.
+			
 	m_palindromic-substrings.java -> 
 		-count palindrom from odd center. (i)
 		-count palindrom from even center. (i,i+1)
 			-to cehck palindrome, run loop to expand from center.
 		-do this for every i from 0 to len 
+	
 	m_reverseWords.java
 		->trim both ends first 
 		->now reverse the string then reverse each word. 
 		-> wo do this to avoid extra space. if we dont reverse, we will store each word in array/stack. ->then build string with words in reverse order.
+	
 	m_trick_fraction-to-recurring-decimal.java
 		-explained well by diagram in leetcode.
 		-> main trick : if remainder starts repeating, we know its repeating and finish
@@ -650,6 +757,18 @@ to remember:
 		-> carry each element over. (arr will have nums 1 to 99 possible)
 		-> output the solution.
 
+	https://leetcode.com/problems/minimum-window-substring/
+		-normal tendency: 2 maps , matchcount from 0 to pattern len 
+		-imp: pattern can have duplicate chars, so, matchcount != pattern.len 
+			-matchcount = patternMap.size 
+		
+		-https://leetcode.com/problems/minimum-window-substring/discuss/26810/Java-solution.-using-two-pointers-%2B-HashMap
+			-single hashmap 
+			-count from t.len to 0 (t.len is ok if used correctly, we dont have to use tmap.len)
+		OR go with this soln:
+		https://designgurus.org/path-player?courseid=grokking-the-coding-interview&unit=grokking-the-coding-interview_1628541068682_8Unit
+		
+		
 9. Priority Queue - Interval types
 Note:
 if we need top -k elem 
@@ -741,7 +860,11 @@ notes under graph directory.
 		-adj list with weights : Map<String, Map<String, Double>> adj
 		-need to track visited nodes in DFS to catch loop. 
 		-return -1 for no sol and loops.
-	
+		IMP break conds:
+			-if from is not in adj or to is not in adj map -> fail return -1
+			-if visited in adj, we r in loop -> return -1 
+			-no backtracking involved (in visited set, we just go from, from -> to in 1 call, we do not begin with other start point)
+			
 	-https://leetcode.com/problems/all-paths-from-source-to-target/
 		-DFS + backtrack
 		-all paths means backtrack
@@ -752,13 +875,35 @@ todo:
 	-Hard ones
 	
 11. Sliding window:
+	-tip: implement with HashMap<char,int> rather than directly using int[] as map 
+	-tip/note: lot of sliding window probs possoble to solve with single map as well. but complicated.
+	-tip/note:
+		-2 options to run loop 
+			a. with i=0 to len 
+			b. 2 ptrs. left and right. while(r<len)
 
 to remember:
 	->https://designgurus.org/path-player?courseid=grokking-the-coding-interview&unit=grokking-the-coding-interview_1628541055153_6Unit	
 		-we dont have to worry about consecutiveness of window for pattern anagram/permutation
 		-the matchCharCount combined with checking at each char, will take care of it.
 		-so, just store <char,count> map for pattern, and decrement,increment it as we slide char by char.
-		
+
+	https://leetcode.com/problems/find-all-anagrams-in-a-string
+	-sliding window 
+	-tip: implement with HashMap<char,int> rather than directly using int[] as map 
+	-solution dilemma in sliding window:
+		-to build 1st window and then run the loop or
+		-run loop while building 1st window? -> not that hard, can do this.
+			//1. add char to wmap
+			if(i>=patternLen){
+				//2. check for equalness
+				pmap.equals(wmap)
+				
+				//3
+				//slide wmap from leftside
+			}
+
+			
 
 12. Backtracking/recursion
 -starting from leetcode 
@@ -872,6 +1017,20 @@ Note:
 
 
 13. DP
+Note:
+Notice how we construct the solution from using the previous solutions (previous values in array). 
+This is in essence Dynamic Programming where you remember the previous computed values and make calculations faster.
+	-ie, if we have 2 ptrs , normally we will 
+		-soln(i) = derived from solj( 0 to i) --> because we already know solution of probs till "i", and we began i from 0.
+
+IMP: dp state vars: diceIndex, sumSoFar NOT k, k is CONSTANT ! see which args are changing, those are state vars for dp memo 
+
+Note:
+	-all Palindrome question involves start and end index. dp and brute force recursion, iteration.
+	
+continue from:
+	https://github.com/krutikpatel/leetcode2019/blob/master/dynamic_programming/m_minimum-path-sum.java
+--	
 	https://github.com/krutikpatel/leetcode2019/blob/master/dynamic_programming/e_best-time-to-buy-and-sell-stock.java
 		-track minSoFar
 		-if currElem > minSofar
@@ -898,7 +1057,110 @@ Note:
 		-Same thing can also be stated as:	
 			currentSubarraySum = Math.max(num, currentSubarraySum + num);
 		
+	https://leetcode.com/problems/decode-ways/ - todo
+		-good to think recursively as an exercise but, iterative is faster and not bad 
+		-iterative:
+			-at each index, form 2 nums, 1char and 2char
+			-if they are valid, use them.
+			-1char = 0 is invalid 
+			->what should be begin index? 0 or 1? start with 1. we can use dp[0] as known base case.
+	
+	https://github.com/krutikpatel/leetcode2019/blob/master/dynamic_programming/m_maximum-product-subarray.java
+		-no dp required 
+		-single pass, maintain min and max sofar. 
 		
+
+	https://leetcode.com/problems/knight-dialer/submissions/
+		-first  understand problem correctly.
+		-for any solution, we need to try all start points on num pad, 0 to 9
+			-for each start point, make path of n nodes, each node is valid move neighbor 
+		-precompute/populate neighbor/adj for each digit 
+		-DFS 
+			-in DFS helper call, see 2 params of call, and memo soln based on them.
+	
+	
+	https://leetcode.com/problems/longest-increasing-subsequence
+		-dont need to think recursively to derive ierative soln.
+		-iterative soln with 2 ptrs for subsequence bound 
+		-dp[] only we dont need 2d memo 
+		
+		Notice how we construct the solution from using the previous solutions (previous values in array). 
+		This is in essence Dynamic Programming where you remember the previous computed values and make calculations faster.
+			-ie, if we have 2 ptrs , normally we will 
+				-soln(i) = derived from solj( 0 to i) --> because we already know solution of probs till "i", and we began i from 0.
+
+		-we start from left side or 0 in array, BECAUSE we are lookinf for increasing subsequences. for palindrome like probs it wud not matter.
+	
+	https://leetcode.com/problems/valid-palindrome-iii
+		-at most k removals 
+		-is longest palindrome subsequnce length >= n-k? we have solved the longest palindromic subseq problem 
+		
+14. Design
+continue from:
+	min stack
+	
+-sorted done probs by freq on LC 
+	-https://leetcode.com/problems/lru-cache/
+		-HashMap as store Map<key,DllNode>, plus DoublyLinkedList nodes -> for ordering elem by access order.
+		-DLL - head and tail refs
+		
+	https://leetcode.com/problems/time-based-key-value-store
+		understand prob with example:
+		foo:
+			bar,1
+			bar2,3
+			abc,5
+			
+		get(foo,2) -> bar
+		fet(foo,4) -> bar2
+
+		Use:
+			HashMap<key,List<Pair>>	
+			-create simple pair class: time, val store
+			
+		get:
+			-binary-search for ts -track smaller val
+		IMP:
+			-todo binary search - we need sorted list. since these are timestamps, we can assume its time sorted.
+
+	https://leetcode.com/problems/insert-delete-getrandom-o1/
+		-implement all : insert(val), remove(val) and getRandom() in O(1) time 
+		-insert and remove kind of easy with basic hashMap 
+		-getRandom : NEEDS index to randomize access.
+			-index is only for array/lists 
+			-arrayList is good, flexible size, indexed access and its list 
+			=>remove can be problem in arrayList 
+				-but, we can use trick: swap elem x with end, and remove end elem !
+			
+		-so, use: 
+		1. ArrayList for storing vals 
+		2. HashMap<val, itsIndexInList> for O(1) access
+		
+	https://leetcode.com/problems/logger-rate-limiter/solution/
+		-simple approach:
+			-use arr[10] as circular buf and set of size 10 to store strings at each timestamp 
+			-slow 
+		
+		-HashMap<String, timeInt> - faster , O(1) runtime and O(n) storage.
+			-if msg in map - need to check time and update tim 
+			-if not in map, print it and record time 
+	
+	https://leetcode.com/problems/design-tic-tac-toe/
+		-how to manage O(1) for move? -finding out if player won ?
+		IMP: it is given that move i,j will be made on empty space. so we dont have to check if that cell is occupied.
+		first instinct: store info for each row and col, 2 diags 
+		But:
+			-to check that row-x is won, we just need "sum" of each elems in that row, and not need to stroe whole row.
+			-same for col and 2 diags 
+			->how to represent 2 players?
+				-both cant be done using +ve nums 
+				-for player 1, use +1 and for pl2, -1
+			
+			->state can also be maintained as StringBuilder, choose chars for 1 and 2 
+		
+		-update diag: row==col 
+		-update antidiag: row+col == n-1 
+		 
 ========
 TODO:
 quick sort and related probs	
@@ -908,13 +1170,16 @@ Java useful calls
 map: putIfAbsent instead of getOrDefault
 
 
+============================================================
 New Done probs:
+============================================================
 https://leetcode.com/problems/search-insert-position/
 https://leetcode.com/problems/palindrome-linked-list/
 	-way1
 		-put all elems in arr/arrList and check if palindrome 
 	-way2 -O(1) space, asked by FB
 		-find mid of list (slow and fast ptr technique - run loop till both slow and fast != null)
+			-mid is END OF 1st HALF, not start of 2nd half.
 		-reverse 2nd half in place (-begin with prev = null, and restick links while curr != null)
 		-compare 1st half and 2nd half, one by one 
 	-way3
@@ -924,7 +1189,7 @@ https://leetcode.com/problems/palindrome-linked-list/
 	-way4
 		-recursive and its O(n) space in call stack though 
 		
-https://leetcode.com/problems/longest-consecutive-sequence/solution/	
+https://leetcode.com/problems/longest-consecutive-sequence/
 	graph and BFS way - 2O(n)
 	-One way of looking at this is as a graph traversal problem in which there are multiple disconnected subgraphs and we need identify the largest sub-graph.
     -A node 'num' is directly connected to its neighbours 'num-1' and 'num+1' if present in the array.
@@ -947,7 +1212,7 @@ https://leetcode.com/problems/longest-consecutive-sequence/solution/
                 //map.put(n - 1, sum);
                 //map.put(n + 1, sum);
 
-https://leetcode.com/problems/palindrome-partitioning/submissions/
+https://leetcode.com/problems/palindrome-partitioning/
 	-normal way is recursion+backtracking 
 	-recursion helper method with begin/start ptr , maintain list of curr_palindrome_substrings 
 	-loop from "start" till str.len to try all subtrings for palindrome 
@@ -955,22 +1220,91 @@ https://leetcode.com/problems/palindrome-partitioning/submissions/
 	-backtrack by removing last added palindrome from curr_palindrome_substrings
 	
 	-DP way TODO 
-
+		-memo the isPalindrome part, memo[start][end]
+		
 https://leetcode.com/problems/sort-list/solution/
-	TODO
-	-understand getMid method
-	-understand merge method - simple - Qn - merge 2 sorted LL
+	-solve recursively using merger sort
+	-get mid, 
+	-recursive call left = sort(head) , right = sort(mid)
+	-now merge both using merge method - like problem - merge 2 sorted LL
 
+https://leetcode.com/problems/rotate-array/submissions/
+	-classic exercise to calculate rotated index 
+	newIndex = (i+k) % n , n = len of arr 
+		-works for both when i+k is smaller or bigger than n 
+	TODO - in place method - not hard 	
 
+https://leetcode.com/problems/maximal-square/
+	-realize its DP problem, from matric[][] pattern 
+	-brute force it little tricky although looks simple 
+	-classic DP problem, like the dp[][] matrix we make for string based probs
+    -note 1st col and 1 row remains as is, for base case
+	  // dp(i, j) represents the length of the square 
+      // whose lower-right corner is located at (i, j)
+      // dp(i, j) = 1+ min{ dp(i-1, j-1), dp(i-1, j), dp(i, j-1) }	//min of all 3 neighbors (we are at bottom-right of square). if any nbr is 0, it will make curr as 1
+	  
+https://leetcode.com/problems/house-robber-iii/solution/
+	https://leetcode.com/problems/house-robber-iii/discuss/79330/Step-by-step-tackling-of-the-problem
+	
+https://leetcode.com/problems/find-all-anagrams-in-a-string
+	-sliding window 
+	-tip: implement with HashMap<char,int> rather than directly using int[] as map 
+	-solution dilemma in sliding window:
+		-to build 1st window and then run the loop or
+		-run loop while building 1st window? -> not that hard, can do this.
+			//1. add char to wmap
+			if(i>=patternLen-1){
+				//2. check for equalness
+				pmap.equals(wmap)
+				
+				//3
+				//slide wmap from leftside
+			}
+	
+	-tip/note: lot of sliding window probs possoble to solve with single map as well. but complicated.
+	-tip/note:
+		-2 options to run loop 
+			a. with i=0 to len 
+			b. 2 ptrs. left and right. while(r<len)
+
+https://leetcode.com/problems/longest-increasing-subsequence/			
+
+https://leetcode.com/problems/subarray-sums-divisible-by-k
+	-trick to remember:
+	2 nums who have num%k same ie, sum1%k == sum2%k, then sum2-sum1 is divisible by k 
+	-find all such pairs.
+	ans = pick 2 out of n pairs.
+	-store such cound in array as hashmap 
+	
+	-trick2: if (remainder < 0) remainder += K; //Java has negative modulus so correct it. consider -ve nums 
+
+https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/
+	-very good 
+	TODO 
+	
+====================================
 FB:
 https://leetcode.com/problems/valid-word-abbreviation/submissions/
 	-lesson - 
 	-using for(char: abbr.chars) type loop, instead of maintaining index of abbr. that will add complexity 
 	-after pattern/abbr loop finishes, we may or my not have reached solution still.
 	-to pass, wordPtr MUST reach word.length (more than that or less both are invalid)
+	
+	-iterate thru abbr chars one by one
+    -maintain wordPtr to track where we are in word
+    -when count !=0 , we dont have to substring word for matching, just advance wp. and then match with next char
+    -abbr chars index is moved by for loop, so wp++ has to be done by us
+    -after loop exit: in order for success, wp+count HAS to be word.length, no less no more
+    
+	
 https://leetcode.com/problems/valid-palindrome-ii/
 	-use 2 ptr when want to remove char to skip char.
 	-try simple iteration. use helper method for ispalindrome with 2 ptrs, l and r
+		-keep advancing 2 ptrs till chars are equal
+	-we dont need to maintain removedCharCounter, since only 1 char shud be removed.
+		if (s.charAt(i) != s.charAt(j)) {
+			return isPalindrome(s, i + 1, j) || isPalindrome(s, i, j - 1);//just return reuslt of 1 char removal, 
+		}
 	-recursive solution is possible
 		-dont mix iteration and recursion. make it pure recursion, for every char, u call recursion.
 	OR:
@@ -1034,4 +1368,103 @@ https://leetcode.com/problems/nested-list-weight-sum
 https://leetcode.com/problems/diagonal-traverse/
 	todo 
 	-realize that even after switching direction/diagonal, we can run out of boundary on each 4 walls. also flipping is not always same, diff in top half and bottom half of rectangle 
+
+https://leetcode.com/problems/continuous-subarray-sum
+	-math magic 
+	-sore sum,index - because we need atleast 2 elems in result. index will help with that 
+	-we are asked for sum which is multiple of k 
+	Logic:
+		-if we can find any two subarray of prefix sum have same mod value, then their difference MUST be
+			divisible by k. So we can use a map to store mod value of each prefix sum in map, with its index. Then check
+		-store sum%k instead of sum 
+		map.put(0, -1); //have to do it for 1st 2 elem sum
+		
+https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
+	-follow: https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/discuss/419443/Java-Clean-StringBuilder-solution
+	Tricks learnt:
+	1-to check validity of parantheses: - we dont need stack.
+	-we just need one counter: open
+		-if we see open: open++
+		-if we see close: open--
+
+	2. to find min para to remove:
+		-maintain minCount
+		-when we see invalid close: (ie, open <0)
+			minCount++
+		
+		-at end:
+			if open>0 : we have unmatched open , so add them to remove.
+			minCount + open 
+
+		
+	-this problem does not need to compute minParan to 	remove.
+	----
+	Algo:
+	-A valid pair of parentheses is consist of an open and a close. The open has to be before the close.
+		-So, we can remove the extra close parenthese then remove extra open parenthese
+
+	-the fist iteration, we remove the unwanted )
+		-0 to len 
+	-the second iteration, we remove the unwanted (
+		-len to 0 ==> and because of this, dont forget to reverse the sb after loop.
+		
+	---
+https://leetcode.com/problems/remove-invalid-parentheses
+	-Solvable by BFS, and easy to remember than DFS? 
 	
+	Followable DFS solution:
+		https://leetcode.com/problems/remove-invalid-parentheses/discuss/75034/Easiest-9ms-Java-Solution
+		-good for understanding of open close bracket counts and recursion calls
+		
+			public void dfs(String s, int i, Set<String> res, StringBuilder sb, int rmL, int rmR, int open)
+				-last param is the balanceness of string we formed. with single counter, like mentioned in soln above.
+				
+	Another good way to keep track of sesparate invalid parans: -->single counter does not tell which one is imbalance. may be it does +ve or -ve
+		int open=0, close=0;
+        for(int i=0;i<s.length();i++) {
+            char c = s.charAt(i);
+            if(c=='(') {
+                open++;
+            } else if(c==')') {
+                if(open==0) {
+                    close++;
+                } else {
+                    open--;
+                }
+            }
+        }
+		==> for imbalance, only one of them will be non-zero at end.
+		
+https://leetcode.com/problems/buildings-with-an-ocean-view
+	-simple, track max coming from right side.
+	-and record index of greater elems in new list, then return the reversed list.
+
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii
+	-sounds simple. but can be little tricky to write CLEAN solution 
+	-note: we dont need to precompute both paths 
+		-root is not provided 
+	
+	-LCA is simple :
+		-if we know one path(node to root). put all nodes in set 
+		-go over other path (node to root) , and when you find/stop at common point  
+
+IMP for LCA problems:
+	-forming both paths is not good idea.
+	-dont do that 
+
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-ii
+		TODO
+		
+https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/
+	-good dp practice, long not needed.
+	-IMP: dp state vars: diceIndex, sumSoFar NOT k, k is CONSTANT ! see which args are changing, those are states	
+
+	
+	
+====
+TODO: add to github:
+https://leetcode.com/explore/interview/card/apple/344/array-and-strings/3116/
+https://leetcode.com/problems/knight-dialer/submissions/ DP	
+
+
+https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/
