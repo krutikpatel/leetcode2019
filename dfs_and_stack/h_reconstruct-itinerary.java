@@ -40,15 +40,19 @@ class Solution {
     Soultion is Hierholzer's Algorithm
     its not normal DFS
     -----------------------------------
-    Algo notes:
+Given:
 -start point is given "JFK"
+-As one might notice in the above example, the input graph is NOT what we call a DAG (Directed Acyclic Graph), since we could find at least a cycle in the graph.
+-In addition, the graph could even have some duplicate edges (i.e. we might have multiple flights with the same origin and destination).
+
+Algo notes:
 -its not topological sort problem
--its given that there are no cycles
 -valid solution exists, so in dfs we dont have to check that we reached dest. actually we dont know final dest
 -in dfs we dont have to track visited nodes. every dfs call, removes the entry from adj list/pq
 -so, do exhaustive DFS from start point, and record the path 
 
-    The point that we got stuck would be the last airport that we visit. And then we follow the visited vertex (airport) backwards, we would obtain the final itinerary.
+
+=>The point that we got stuck would be the last airport that we visit. And then we follow the visited vertex (airport) backwards, we would obtain the final itinerary.
 
 =>Actually, we could consider the algorithm as the postorder DFS (Depth-First Search) in a directed graph, from a fixed starting point.
 
