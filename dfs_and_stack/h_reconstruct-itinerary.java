@@ -41,6 +41,13 @@ class Solution {
     its not normal DFS
     -----------------------------------
     Algo notes:
+-start point is given "JFK"
+-its not topological sort problem
+-its given that there are no cycles
+-valid solution exists, so in dfs we dont have to check that we reached dest. actually we dont know final dest
+-in dfs we dont have to track visited nodes. every dfs call, removes the entry from adj list/pq
+-so, do exhaustive DFS from start point, and record the path 
+
     The point that we got stuck would be the last airport that we visit. And then we follow the visited vertex (airport) backwards, we would obtain the final itinerary.
 
 =>Actually, we could consider the algorithm as the postorder DFS (Depth-First Search) in a directed graph, from a fixed starting point.
