@@ -46,6 +46,8 @@ Depth First Traversals:
 (c) Postorder (Left, Right, Root) : 4 5 2 3 1
 	
 to remember:
+	-https://leetcode.com/problems/closest-binary-search-tree-value/
+	
 	-lesson_binary-tree-postorder-traversal.java	-> there are mutiple ways to iterate using stack. see which one suites me.
 	-balanced binary tree - 
 		-top-down -check each node is balanced with helper method of height. O(n^2)
@@ -185,8 +187,19 @@ Continue from:m_set-matrix-zeroes.java
 	[hard remaining]
 TODO:
 https://leetcode.com/problems/top-k-frequent-elements/ - add this to github
+	-we maintain min PQ, and keep adding. when size > k , we remove. so top gets removed, which is min. so in the end, we have top/max k elems in PQ! 
 	
 to remember:
+	https://leetcode.com/problems/squares-of-a-sorted-array/
+		-give that array is sorted. AND can contain -ve nums 
+		max square of -ve num will be greater at 0 index and decreases
+		-create extra ret arr
+		-fill from end 
+		-only problem is -ve elems 
+		-keep 2 ptrs : l and r 
+			-regardless of there is -ve or not, 
+			ret[i] = max of Sq(l) and Sq(r) 
+		
 	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_daily-temperatures.java	
 		-> stack the indices rather than temp vals, because we need index diff. -> start from end -> monotonic stack.
 		-pop first till stack top is less than curr 
@@ -637,7 +650,10 @@ Note: dfs helper function normally will not return anything, its just dfs sweepe
 		-> also this dfs helper needs to return boolena for whether word found or not. -> so need to OR all dfs directions.
 		-> time complexity: Time Complexity: O(N. 3^L) where N is the number of cells in the board and L is the length of the word to be matched.
 	
-	
+	https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
+		-use DP , single dp[][] across all points/cells call  
+		-fill dp with dfs 
+		
 8. Strings 
 continue from:
 	m_trick_multiply-strings
@@ -914,7 +930,7 @@ to remember:
 		-imp - the segment has to be valid(0 to 255), so validate before recursive call.
 		-remove dot from last segment end.
 	
-	n-queens 
+	https://leetcode.com/problems/n-queens-ii/
 		-how to mark/access diags \ and / to see if its valid?
 		boolean[] d1,d2 //len 2*n 
 		int id1 = col - row + n;    // this is / diagonal for that point. col -row can be negative, so if we want to store it in array, 
@@ -925,7 +941,10 @@ to remember:
 			int currDiagonal = row - col;
             int currAntiDiagonal = row + col;			
 	
-	sudoku
+		-generic formula to detect presence of other elem on that diagonal/antidiag. we are not just talking abt 2 diags, but 2diags for any point x,y
+	
+	-sudoku
+	
 		-recursive method params are not fancy, just board
 		private boolean solve(char[][] board){
 			-all param looping inside method.
@@ -961,23 +980,39 @@ to remember:
 			if ) count--
 			if(count <0) -> invalid/false
 		-no need to worry about char inbetween. parantheses validity will be same regardless of chars between them.
-	
-	word-break-ii 
-		https://leetcode.com/problems/word-break-ii/discuss/44167/My-concise-JAVA-solution-based-on-memorized-DFS
+		
+		DFS: TODO
+		-count invalid open and close braces.
+		-Construct string from bottom up, dfs, using those counters.
+			-
+		
+	https://leetcode.com/problems/word-break-ii/ ---------- V IMP to understand - recursion and DP - add to recursion and dp lists 
+		-https://leetcode.com/problems/word-break-ii/discuss/44167/My-concise-JAVA-solution-based-on-memorized-DFS
 		-we dont have to go char by char from given string and do recursion. rather,
 		start from word in give dict arr, and see if give string "starts with" that word.
 			-if so, make recursive call from there.
 			-after return, add 1st word in front of return list to form answer string 
 		
 		(see in comment section in above link: its still easy to go char by char, we dont have to pass charIndex in recursive call.)
-		
-		-BUT, brute force DFS exceeds time. So we need to memoize.
+
+		Algo:
+		-solve bruteforce for better understanding. 
+			-char by char, form work and lookup in dict.
+			-recursively cann for substring i-to-end 
+			
+		-DP- brute force DFS is slow, So we need to memoize.
 			-what to memo? - if we have answer for given (prefix) string 
 			HashMap<String, List<String> answers>
 			
+			-Here also 2 approaches
+			a. recursively solveing postfix substring (i-to-end) is slower
+			b. rather than looking up dict match for substring from begin-to-i, look for substring i-to-end
+				-and recursively solve for substring 0-to-i
+				-add sublist strings + " "+postfix word 
+			
 todo:
 	
-	https://leetcode.com/problems/remove-invalid-parentheses/
+//	https://leetcode.com/problems/remove-invalid-parentheses/
 		-DFS+trie
 		-need of trie comes from the fact that we need to know that we have a prefix match so that we can keep continue down this route. otherwise waste of runtime.
 		
@@ -1027,6 +1062,10 @@ IMP: dp state vars: diceIndex, sumSoFar NOT k, k is CONSTANT ! see which args ar
 
 Note:
 	-all Palindrome question involves start and end index. dp and brute force recursion, iteration.
+
+-Palindrome problems: 
+	boolean[][] dp for substring problems -storing is subproblem palindrome 
+	int[][] dp , for subsequence problems - storing len 
 	
 continue from:
 	https://github.com/krutikpatel/leetcode2019/blob/master/dynamic_programming/m_minimum-path-sum.java
@@ -1057,7 +1096,7 @@ continue from:
 		-Same thing can also be stated as:	
 			currentSubarraySum = Math.max(num, currentSubarraySum + num);
 		
-	https://leetcode.com/problems/decode-ways/ - todo
+	https://leetcode.com/problems/decode-ways/
 		-good to think recursively as an exercise but, iterative is faster and not bad 
 		-iterative:
 			-at each index, form 2 nums, 1char and 2char
@@ -1065,6 +1104,14 @@ continue from:
 			-1char = 0 is invalid 
 			->what should be begin index? 0 or 1? start with 1. we can use dp[0] as known base case.
 	
+		-recursive 
+			-get the known good and bad case out of way 
+			-if charAt(begin) == 0 -> return false/0
+			-if only one char left, return 1
+			-now: ret = way1 + way2 
+				-way1 - use one char, ie next = begin+1
+				-way2 - use 2 chars, ie next = begin+2
+			
 	https://github.com/krutikpatel/leetcode2019/blob/master/dynamic_programming/m_maximum-product-subarray.java
 		-no dp required 
 		-single pass, maintain min and max sofar. 
@@ -1224,7 +1271,7 @@ https://leetcode.com/problems/palindrome-partitioning/
 		
 https://leetcode.com/problems/sort-list/solution/
 	-solve recursively using merger sort
-	-get mid, 
+	-get mid, ==>somewhat tricky: we need mid as a 1st node of 2nd half . Also, we need to cut the list at mid. ie, slow.next = null 
 	-recursive call left = sort(head) , right = sort(mid)
 	-now merge both using merge method - like problem - merge 2 sorted LL
 
@@ -1313,6 +1360,8 @@ https://leetcode.com/problems/valid-palindrome-ii/
 
 https://leetcode.com/problems/range-sum-of-bst
 	-simple yet easy to get lost
+	-Realize that its BST, and we ARE given RANGE. even if we visit every node once(like binary tree any prder traversal), we know range, so we can add it to sum accordingly.
+	(Range sum in normal binary tree is easy too, if we are given range-low and high)
 	-recursive is easy. maintain external sum var 
 	-Easiest is:
 		-just traverse like binary tree and if val is in range, add to sum.
@@ -1335,7 +1384,10 @@ https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/
 	
 	-actually we dont even need stack 
 		-we can do same thing with maintaining stringBuilder as res and iterating over string char by char 
-		
+	-Algo:
+	-maintain 1st and last ptr in string.
+	-if both cahrs are same, remove last char 
+	
 https://leetcode.com/problems/simplify-path/
 	-dont overcomplicate it by going char by char 
 	-specially because there can be lot of combinations of paths. eg: /a/b/c/.././././//d
@@ -1349,6 +1401,24 @@ https://leetcode.com/problems/simplify-path/
 		Thats it ! :)
 		
 https://leetcode.com/problems/binary-tree-vertical-order-traversal
+	-https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/discuss/231140/Solved-Add-clarification-for-the-output-order
+	problem breakdown:
+	1st level of order : col sorted 
+		-instead of any tricks to sort, just record min and max, so that we can iterate min to max col value ! ==> new trick learnt
+	2nd: row sorted 
+		-instead of any tricks to sort, just record min and max, so that we can iterate min to max row value !
+		
+	3rd: value sorted 
+
+	->cols is x axis
+	->rows is y axis
+	Algo:
+		-create class level map<col, map<row, PQ<nodeVals>>>
+		-create DFS helper method, to fill this map. traverse tree and fill map.
+			dfs(node, col, row)	//pass col, row +-1 accordingly 
+		
+		-in main method, form the ret list now.
+		
 	-we need to group elems by columns
 	-ALSO, each column should be sorted top to bottom order 
 	
@@ -1359,9 +1429,8 @@ https://leetcode.com/problems/binary-tree-vertical-order-traversal
 	-with BFS, use Java's Pair class Pair<TreeNode, Integer> -int is column 
 	make Queue of Pair<TreeNode, col>
 	
-	-TreeMap<col, ArrayList<int>>
 
-https://leetcode.com/problems/nested-list-weight-sum
+https://leetcode.com/problems/nested-list-weight-sum - add to dfs
 	-very good recursion exercise
 	-pass depth param to recursive function 
 	
@@ -1377,6 +1446,7 @@ https://leetcode.com/problems/continuous-subarray-sum
 		-if we can find any two subarray of prefix sum have same mod value, then their difference MUST be
 			divisible by k. So we can use a map to store mod value of each prefix sum in map, with its index. Then check
 		-store sum%k instead of sum 
+		-map<sum%k,index>
 		map.put(0, -1); //have to do it for 1st 2 elem sum
 		
 https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
@@ -1403,11 +1473,16 @@ https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
 	-A valid pair of parentheses is consist of an open and a close. The open has to be before the close.
 		-So, we can remove the extra close parenthese then remove extra open parenthese
 
-	-the fist iteration, we remove the unwanted )
-		-0 to len 
-	-the second iteration, we remove the unwanted (
-		-len to 0 ==> and because of this, dont forget to reverse the sb after loop.
-		
+	-Step1: the fist iteration, we remove the unwanted )
+		-go chars : 0 to len 
+		-maintain sb, skip invalid closing braces 
+	-Step2: the second iteration, we remove the unwanted (
+		-go chars: len to 0 ==> and because of this, dont forget to reverse the sb after loop.
+		-skip(skip add to sb2), the open parantheses = numUnmatchedOpenBraces from prev loop.
+	-think eg: ))((
+			-1st loop will remove )) 
+			-2nd loop will remove ((
+			
 	---
 https://leetcode.com/problems/remove-invalid-parentheses
 	-Solvable by BFS, and easy to remember than DFS? 
@@ -1433,7 +1508,8 @@ https://leetcode.com/problems/remove-invalid-parentheses
                 }
             }
         }
-		==> for imbalance, only one of them will be non-zero at end.
+		
+TODO: https://leetcode.com/problems/minimum-add-to-make-parentheses-valid
 		
 https://leetcode.com/problems/buildings-with-an-ocean-view
 	-simple, track max coming from right side.
@@ -1453,18 +1529,79 @@ IMP for LCA problems:
 	-dont do that 
 
 https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-ii
-		TODO
+	p or q can be null. not guaranteed to be in tree !
+	-dont worry about figuring out path.
+	-if p or q is not in tree, LCA is null. so we need to know if they are there.
+	-single helper method can check for both. maintain global count or boolean for both
+	-Also, if both are present, while traversing, we can also find LCA answer like : https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/ 
+		-VIMP the getLca helper method:
+		-first left and right calls  - Becasue we want exhaustive search so that we find both p and q , rather than just lca of them.
+		-rest lca method is same as : https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/ 
 		
+
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+	IMP:
+	-recursive very easy, yet forget and find it complicated.
+	-1stof all, recursive one pass is possible, so remember that.
+	
+	
 https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/
 	-good dp practice, long not needed.
 	-IMP: dp state vars: diceIndex, sumSoFar NOT k, k is CONSTANT ! see which args are changing, those are states	
+	- Integer[][] dp = new Integer[n+1][target+1];//since 2nd dimension max is target: instead of sumsofar, we need to go from target to 0
+		-we r not choosing sumsofar as 2nd dimension because, we cant upperbound it for dp array declaration.
+		-both state var dimension same 
+	
+https://leetcode.com/problems/maximum-swap
+	->start from left - so that we swap most sig digit 
+    ->find biggest from its left - good way to do taht is use buckets fo digits. and start from 9to 0bucket.    bucket stores index, so we know we are on right side of our digit.
+		->store index of digits in arr[10]
 
+https://leetcode.com/problems/next-permutation
+	-choice of loops and their index are very very imp
+	-1,2,3 and 3,2,1 are corner cases 
+	
+https://leetcode.com/problems/k-closest-points-to-origin -> add to PQ 
+	V imp lesson for topk problem:
+    -maintain PQ of size K but in reverse order than asked. (if min asked, maintain max and vise versa)
+    -for each elem:
+        -add to pq
+        -if(pq size > k)
+            -remove from pq
+            
+    -this results in k elems in desired fashion(min or max)    
 	
 	
 ====
 TODO: add to github:
 https://leetcode.com/explore/interview/card/apple/344/array-and-strings/3116/
 https://leetcode.com/problems/knight-dialer/submissions/ DP	
-
-
+https://leetcode.com/problems/shortest-path-in-binary-matrix
+https://leetcode.com/problems/k-closest-points-to-origin - pq 
+https://leetcode.com/problems/top-k-frequent-words/ - pq 
+https://leetcode.com/problems/unique-paths/ - dp, matrix 
+91. Decode Ways - dp 
+	https://leetcode.com/problems/unique-paths-ii/
+	
 https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/
+https://leetcode.com/problems/alien-dictionary
+https://leetcode.com/problems/squares-of-a-sorted-array/
+https://leetcode.com/problems/evaluate-reverse-polish-notation/ - stack good practice 
+https://leetcode.com/problems/maximum-product-subarray/ - array 
+https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+
+===
+To remember others from top list
+--------------------------------
+https://leetcode.com/problems/rotate-image/
+https://leetcode.com/problems/spiral-matrix/
+https://leetcode.com/problems/powx-n/
+https://leetcode.com/problems/unique-paths/
+https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
+
+
+===
+To solve:
+https://leetcode.com/problems/binary-tree-longest-consecutive-sequence
+https://leetcode.com/problems/binary-tree-longest-consecutive-sequence-ii/discuss/101510/Java-solution-Binary-Tree-Post-Order-Traversal
