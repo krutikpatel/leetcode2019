@@ -82,8 +82,8 @@ class Solution {
     public boolean isSubtreeNeedsWork(TreeNode s, TreeNode t) {
         if (s == null) return false;
         
-        String ss = inorder(s);
-        String tt = inorder(t);
+        String ss = preorder(s);
+        String tt = preorder(t);
         
         System.out.println(ss);
         System.out.println(tt);
@@ -94,7 +94,7 @@ class Solution {
         }
     }
     
-    private String inorder(TreeNode n) {
+    private String preorder(TreeNode n) {
         if(n==null)
             return "x";
         /*
@@ -103,6 +103,6 @@ class Solution {
         String r = inorder(n.right);
         return l+r;
         */
-        return Integer.toString(n.val) + inorder(n.left) + inorder(n.right);
+        return Integer.toString(n.val) + preorder(n.left) + preorder(n.right);
     }
 }
