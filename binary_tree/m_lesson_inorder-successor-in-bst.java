@@ -64,11 +64,11 @@ class Solution {
         
         //just traverse top to bottom in right direction.
         while(root!=null){
-            if(target.val >= root.val){                            
-                //go right
+            if(root.val <= target.val){                            
+                //go right for successor
                 root = root.right;
             }else{
-                
+                //root val is bigger - so it can be successor, so record first and then navigate
                 ret = root; // why ????? anytime you go left, save the node first (as parent/bigger elem), because left of it might be null, so parent becomes successor
                 //go left
                 root = root.left;
