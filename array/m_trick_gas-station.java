@@ -48,17 +48,17 @@ class Solution {
         int size=gas.length;
         int remainingGas=0; //remaining gas after one iteration 0-n
         int res=0;
-        int nextItrReqdFuel=0; //nextItrReqdFuel fuel
+        int backlog=0; //nextItrReqdFuel// backlog fuel //backlog
         
         for(int i=0; i<size; ++i){
             remainingGas+=gas[i]-cost[i];
             if(remainingGas<0){
-                nextItrReqdFuel += remainingGas;//remainingGas is -ve. imagine burning it in next loop for this move, when we start again from i+1
+                backlog += remainingGas;//remainingGas is -ve. imagine burning it in next loop for this move, when we start again from i+1
                 remainingGas=0;
                 res=i+1;//its definitely not ith node, so may be i+1. later we check leftover fuel
             }
         }
-        int leftover = nextItrReqdFuel + remainingGas;
+        int leftover = backlog + remainingGas;
         
         return leftover<0 ?-1:res;
         
