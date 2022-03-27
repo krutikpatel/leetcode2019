@@ -33,9 +33,13 @@ Explanation: One shortest way is : left -> down -> left -> down -> right -> down
 /*
 We need to explore ALL the paths and find the shortest distance, but we can prune paths where the distance to reach a square is more than the currently shortest distance.
 Because of that, we can use either BFS or DFS since it doesnt matter as we need to explore ALL the paths.. The main difference is when each path will be pruned. In the average case, BFS would be a much better result cause more paths will be pruned since the first few moves to a particular square will generally yield the shortest distance.
-
 We use a distance[][] array that keeps track of the minimum distance to reach that square..
 And prune any visits to that square if the distance is more than the minimum distance.
+*/
+/*
+Algo:
+-we will try to reach dest with all various ways using BFS
+-and use int[][] distance to store shortest dist to reach that point. for dest we will update with min dist everyt time we reach dest
 */
 public class Solution {
     int[][] steps = new int[][]{{-1,0}, {1, 0}, {0, -1}, {0, 1}}; //up down left right
@@ -45,21 +49,29 @@ public class Solution {
         int m = maze.length;
         int n = maze[0].length;
         
-        int[][] distance = new int[m][n];  //can also use a hashmap
+        //keep storing min distance, everytime we touch the particular cell
+        int[][] distanceMemo = new int[m][n];  //can also use a hashmap
         for(int i = 0; i < m; i++) {
-            Arrays.fill(distance[i], Integer.MAX_VALUE);
+            Arrays.fill(distanceMemo[i], Integer.MAX_VALUE);
         }
         
         Queue<int[]> queue = new LinkedList();
-        distance[start[0]][start[1]] = 0;
+        distanceMemo[start[0]][start[1]] = 0;
         queue.add(start);
         while (!queue.isEmpty()) {
-            int[] pos = queue.poll();
+            int[] curr = queue.poll();
+            //try all 4 dirs
             for (int i=0; i<4; i++) {
-                int[] newPos = move(i, pos[0], pos[1], maze);
-                int totalDistance = distance[pos[0]][pos[1]] + newPos[2];
-                if (totalDistance < distance[newPos[0]][newPos[1]]) {
-                    distance[newPos[0]][newPos[1]]  =  totalDistance;
+                //roll and get new pos
+                int[] newPos = move(i, curr[0], curr[1], maze);
+                
+                //currCell + newCell
+                int totalDistance = distanceMemo[curr[0]][curr[1]] + newPos[2];
+                
+                if (totalDistance < distanceMemo[newPos[0]][newPos[1]]) {
+                    distanceMemo[newPos[0]][newPos[1]]  =  totalDistance;
+                    
+                    //if newpos is dest, dont add to queue
                     if (newPos[0] == destination[0] && newPos[1] == destination[1]) { 
                         continue;
                     }
@@ -67,10 +79,11 @@ public class Solution {
                 }
             }
         }
-        int shortest_distance = distance[destination[0]][destination[1]];
+        int shortest_distance = distanceMemo[destination[0]][destination[1]];
         return shortest_distance == Integer.MAX_VALUE ? -1 : shortest_distance; 
     }
     
+    //3rd int in return arr is disance
     public int[] move(int dir,  int x, int y, int[][] maze) {
         int[] pos = new int[]{x, y, 0};
         while (isValid(maze, pos[0] + steps[dir][0] , pos[1] +  steps[dir][1])) {
@@ -84,7 +97,9 @@ public class Solution {
     
     
     public boolean isValid(int[][] maze, int x, int y) {
-        if (!(x>=0 && y >=0 && x < maze.length && y < maze[0].length)) { return false; }
+        if (!(x>=0 && y >=0 && x < maze.length && y < maze[0].length)) { 
+            return false; 
+        }
         return maze[x][y] != 1; //not a wall
     }
     
