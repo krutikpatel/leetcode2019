@@ -19,6 +19,8 @@ s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 */
 class Solution {
     
+    class Solution {
+    
     //Note
     /*
     String before num to be used once - pop
@@ -33,9 +35,9 @@ class Solution {
             return s;
         
         Stack<Integer> repeat_count = new Stack();
-        Stack<String> repeat = new Stack();
+        Stack<String> sofar = new Stack();
         
-        String res = "";//imp to maintain, there can be brackets inside brackets etc
+        String res = "";//sofar String, imp to maintain, there can be brackets inside brackets etc
         
         int i = 0;
         //process one char at a time
@@ -52,7 +54,7 @@ class Solution {
             
             } else if(s.charAt(i) == '['){  //store string whatever you have and begin new
                 //store string so far
-                repeat.push(res); //imp
+                sofar.push(res); //imp
                 res = "";
                 //System.out.println("pushed");
                 i++;
@@ -60,12 +62,12 @@ class Solution {
             } else if (s.charAt(i) == ']'){
                 //get repeat_count
                 int count = repeat_count.pop();
-                String ss = repeat.pop();
                 
-                StringBuilder temp = new StringBuilder(ss);//key
+                //string sofar outside []
+                StringBuilder temp = new StringBuilder(sofar.pop());//key
                 
                 for(int j = 0;j<count;j++){
-                    temp.append(res);//key
+                    temp.append(res);//res is the curr string inside [] to be repeated
                 }
                 res = temp.toString();
                 
@@ -79,6 +81,34 @@ class Solution {
                       
         return res;
     }
+    
+    /*
+    More readable
+    
+    Stack<Integer> intStack = new Stack<>();
+    Stack<StringBuilder> strStack = new Stack<>();
+    
+    StringBuilder cur = new StringBuilder();
+    int k = 0;
+    
+    for (char ch : s.toCharArray()) {
+        if (Character.isDigit(ch)) {
+            k = k * 10 + ch - '0';
+        } else if ( ch == '[') {
+            intStack.push(k);
+            strStack.push(cur);
+            cur = new StringBuilder();
+            k = 0;
+        } else if (ch == ']') {
+            StringBuilder tmp = cur;
+            cur = strStack.pop();
+            for (k = intStack.pop(); k > 0; --k) cur.append(tmp);
+        } else cur.append(ch);
+    }
+    return cur.toString();
+        
+    */
+}
     
     /*
     More readable
