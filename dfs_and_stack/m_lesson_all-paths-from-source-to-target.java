@@ -25,7 +25,7 @@ Recognize that graph[i] is i's neighbors
 class Solution {
     /*
     create adjacency list for each node
-    DFS from 0
+    DFS from 0 - no need to track visited nodes since graph is acyclic
     backtrack
     
     -imp : we are not tracking visited nodes, BECAUSE its given that the graph is acyclic
