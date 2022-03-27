@@ -40,6 +40,7 @@ class Solution {
             }
         }
         
+        // for 1 and 4 we need this check
         if(num == l * l)
             return true;
         else
