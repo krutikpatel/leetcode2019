@@ -40,7 +40,7 @@ class Solution {
             }
         }
         
-        // for 1 and 4 we need this check
+        // for 1 and 4 we need this check. when r itself is square-root of num. at end of above loop, l=num/2
         if(num == l * l)
             return true;
         else
