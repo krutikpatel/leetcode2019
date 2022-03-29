@@ -32,6 +32,7 @@ class Solution {
             return null;
         }
         
+        //step1-Record the last occurence of each letter in map
         int[] lastIndexMap = new int[26];
         for(int i=0;i<S.length();i++){
             lastIndexMap[S.charAt(i) - 'a'] = i;
@@ -42,6 +43,8 @@ class Solution {
         //window begin and end
         int begin = 0;
         int end = 0;
+        
+        //step2
         for(int i=0;i<S.length();i++){
             end = Math.max(end, lastIndexMap[S.charAt(i) - 'a']);//keep track of last most index of any letters in this substring
             //imp, no more char has repeated occurence after this index.
