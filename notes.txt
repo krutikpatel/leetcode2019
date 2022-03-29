@@ -46,10 +46,18 @@ Depth First Traversals:
 (c) Postorder (Left, Right, Root) : 4 5 2 3 1
 	
 to remember:
+	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/e_lesson_convert-sorted-array-to-binary-search-tree.java
+		-in each recursive call, node.val = middle of arrary. pass left and right bounds to rec call 
+		
 	-https://leetcode.com/problems/closest-binary-search-tree-value/
-	
+		-follow BST property from root to bottom 
+		-so, iterative is good.
+		-record min diff from target also record that node because we need node.
+			-acrtually just recodr node, and keep comparing the diff 
+		
 	-lesson_binary-tree-postorder-traversal.java	-> there are mutiple ways to iterate using stack. see which one suites me.
-	-balanced binary tree - 
+	
+	-https://leetcode.com/problems/balanced-binary-tree/ 
 		-top-down -check each node is balanced with helper method of height. O(n^2)
 		-botttom up O(N) - needs node to store info - whether its balanced or not. build up on that.
 			-even without storing info - bottom up is O(n)
@@ -58,6 +66,7 @@ to remember:
 		-THERE IS SUBTLE DIFFERENE BETWEEN THESE TWO IMPLEMENTATIONS THAT I DID NOT UNDERSTAND YET
 		-same technique is used here for O(n):
 			https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/e_diameter-of-binary-tree.java
+	
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/e_lesson_subtree-of-another-tree.java
 		-checking at each node is O(n^2)
 		-converting tree to string - but order matters
@@ -65,9 +74,11 @@ to remember:
 		ONLY preorder will work. its node by node comarision from top.
 		ALSO: we need to count null leafs in string too, to avoid wrong comparisions, which gives false true.
         -to avoid returning true for example 2 above
+		
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_binary-search-tree-iterator.java
 		-next returns min elem - thus its in order retrival
 		-we can use stack to store in-order sequence
+		
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_count-univalue-subtrees.java
 		-check for curr node as univalue 
 			if(n.right !=null && n.right.val != n.val)
@@ -97,8 +108,12 @@ to remember:
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_flatten-binary-tree-to-linked-list.java
 		TODO 
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_lesson_boundary-of-binary-tree.java
-		-i think can be done with level order traversal.
-		-store 1st in left and last in right lists.
+		-level order cant help here. 1 node in queue does not tell whether its on left edge or right edge
+		//-store 1st in left and last in right lists.
+		-ret.add(root);
+		now for left edge: call -> getedge(root.left)
+		for rightEdge: getedge(root.right)
+		
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_lesson_inorder-successor-in-bst.java
 		-successor will be right of x -> once u go right it can be n or n.left
 		-keep going left and right as per BST, whenever go left (record n as return value first)
@@ -131,6 +146,7 @@ to remember:
 		-//if root is p or q, that is LCA
         if( root == p || root == q || root == null)
             return root;
+			
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_lesson_most-frequent-subtree-sum.java
 		-dont need to calculate sum at each node separately
 		-traverse tree once and record sums in map. map<sum,count>
@@ -206,7 +222,7 @@ to remember:
 		-then push curr anyways 
 		imp - we store index in stack
 		
-	4 sum:
+	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_4sum.java
 		-For each elem [i], solve k-1 problem recursively, at k=2, solve 2sum problem
 			-2sum loop/sweep shud not end as soon as we find pair, because we need to find ALL pairs to continue till (l<r)
 		
@@ -270,7 +286,7 @@ to remember:
 		-keep recording sum so far in map.
 			-if we have seen  ( SUM[0, i] - target ) -> add this to answer.
 			
-	m_set-matrix-zeroes 
+	https://leetcode.com/problems/set-matrix-zeroes/
 		-A straight forward solution using O(mn) space is probably a bad idea. track 0 converted elems/visited elems. so that we dont consider them original 0s.
 		-improvement: only track col and row nums which needs to be zeroed. PAss1: record these rows and cols. PAss2: zero down those rows and cols. 2*O(mn)
 		- work on memory efficient soln
@@ -310,7 +326,7 @@ to remember:
 		-find overlap points
 			-find overlap points and apply formula like above 
 	
-	m_trick_gas_station
+	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_trick_gas-station.java
 		-tricky yet simple algebra
 		-we dont have to try each position exclusively, single iteration is enough 
 		-gas[] - gas_available
@@ -392,6 +408,11 @@ to remember:
 			-we also need to return dist travelled. use int[3]
 		-create move/roll method, and also create isValid method.
 		
+	https://github.com/krutikpatel/leetcode2019/blob/master/bfs_and_queue/word-ladder.java
+		-forming new word with 1 char repalcement is our BFS 
+			-for-each-char-in-word
+				-replace-with-aToz 
+					-if String(wordArr) present in set -> add to queue 
 	
 5. HashMaps
 Continue from: github
@@ -455,21 +476,27 @@ to remember:
 		-same logic as isomorphic strings.
 		
 6. Binary Search 
+Note:
+	If we are looking for "target", go for template 1 : l<=r
+
 continue from:
 	h_median-of-two-sorted-arrays.java
 	-from : m_lesson_search-a-2d-matrix-ii.java
 	
 to remember:
 	-Note: search in binary tree can be done iteratively. go left or right till reach null leaf 
-	m_Search_for_a_Range.java 
+	https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
 		-> use template-1 (l<=r) and record target index each time. Sicne we are looking for exact match - template1 is suitable.
 		- template 2 (l<r) has issues - might get into endless loop.
 	
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/e_sqrtx.java
-		-return closest decimal is perfect square is not available
+		-return closest decimal if perfect square is not available
 		-use division to overcome overflow, instead of long. -> because truncation is allowed as per question.
-	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/e_valid-perfect-square.java - use long instead of division technique. because division will lead to false true. (2 = 5/2 - but its not perfect square)
+	
+	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/e_valid-perfect-square.java 
+		- use long instead of division technique. because division will lead to false true. (2 = 5/2 - but its not perfect square)
 		-imp to check if its perfect square at end of loop too.
+			-because, for 1 and 4 we need this check. when r itself is square-root of num. at end of above loop, l=num/2
 		
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_find-first-and-last-position-of-element-in-sorted-array.java
 		-dont use while(l<r) template - problem narrow downing the end
@@ -485,9 +512,18 @@ to remember:
 		
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_lesson_search-a-2d-matrix-ii.java - TODO binary search way. currently doing narrowing down method, beginning bottom left corner.
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_find-minimum-in-rotated-sorted-array.java
+		- Trick:
+		look for unsorted side -if r is smaller than mid
+        -min has to be on that side
+        -and we narrow down towards smaller elem too, so end up with right answer
+		proof/verification:
+        -in case of sorted array, we will go towards left so will chase min anyways
+        -verify with 1,2,3 elems - rotated
+		
 		-what to do if there are duplicates?
 		-if(nums[mid]==nums[right])
 			reight--;//to skip dups
+			
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_search-in-rotated-sorted-array.java
 	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_kth-largest-element-in-an-array.java
 		-use quick sorting. quick sort partition step gives small nums on left of pivot selected.
@@ -495,7 +531,7 @@ to remember:
 		-partition method is recursive till we find k2 elems in left partition
 			-if l> r return IntMAX
 			-for partition, maintain writePtr = l, 
-			-after loop, swap one more time 
+			-after loop, swap one more time one more swap for pivot
 			-if nums left of pivot == k2 return that index. 
 			-if nums left of pivot > k2 -> go left
 			else go right 
@@ -517,10 +553,6 @@ to remember:
 todo:
 	h_median-of-two-sorted-arrays.java	
 	https://leetcode.com/problems/time-based-key-value-store/
-	https://github.com/krutikpatel/leetcode2019/blob/master/binary_search/m_lesson_floor-function-sorted-array.java
-		--normal bianry search function : if val not found, it ends up at smaller closest !
-		-so use template 1, and return nums[start] after loop.
-		-template 2 also popssible
 	m_lesson_online-election.java
 	
 todo:
@@ -552,13 +584,13 @@ IMP - below obs are in terms of "index", l is index. Not the elem at index.
 		-so it serves as "CEILING" function (except last elem, for which check is needed)
 --------	
 IMP:
-	-we dont have to memorize limits. 
+	-"we dont have to memorize limits."
 	-limit/bounds are defined by us/algo itself.
 	l=0,r=len-1 
 	while(l<r)
 		-->here l cannot go below 0
 		-->l cannot go above r, it can be r when loop exits . r = len-1, thus valid index 
---------	
+--------
 		
 	-sometimes, when we want to derive a fitting index (may be elem?), we need to be careful of 'r'
 	-normally r = arr.len-1 
@@ -592,7 +624,10 @@ Floor-function: TODO - I think it is same as search insert position problem! but
 		if(x <arr[0])
 			return -1;
 		
-		-now run template1 or 2 , either is ok
+		-now run template1 or 2 , either is ok, becaues we always narrow down towards smaller elem :
+		if (array[mid] >target) {
+			r=m-1 or m
+		}
 		
 Celining:
 	-template 2
@@ -603,7 +638,7 @@ continue from:
 	TODO: hards
 	
 to remember:
-	m_basic-calculator-ii.java -> 
+	https://leetcode.com/problems/basic-calculator-ii -> TODO : https://leetcode.com/problems/basic-calculator/
 		-maintain prev num and prev sign, because calculation/decision happens after getting next num. for num we need to see prev sign, for sign we need to know prev num.
 		-little not intuitive. keep putting + and - operands (nums created so far) in stack. * and / calculate in run time.
 		=>Addition (+) or Subtraction (-): We must evaluate the expression later based on the next operation. So, we must store the currentNumber to be used later. Let's push the currentNumber in the Stack.
@@ -612,11 +647,24 @@ to remember:
 		-if char is digit, keep forming currentNumber 
 		-if char is not digit, and its not space, -> operate. and reset currentNumber = 0 at end
 		-we are not forming final result in iteration, we keep putting each result back in stack . at the end, we iterate over stack and add them all 
-		
-	m_copy-list-with-random-pointer.java 
+		/*
+			if(Character.isDigit(s.charAt(i))){
+                num = num*10+s.charAt(i)-'0';
+            }
+            
+            //IMP - we dont put "else" - because we process last sign and last num
+            //IMP - we need tp check if its last char, otherwise the LAST num formed will not be processed !
+            if((!Character.isDigit(s.charAt(i)) && s.charAt(i) != ' ') || i==len-1){
+				//process last sign 
+				
+				sign = newChar;
+				num=0;
+			}
+		*/
+	https://leetcode.com/problems/copy-list-with-random-pointer/
 		-> need to use HashMap<origNode,newNode> as visited record, instead of set, because we need to retrieve new node to reuse (from given visited node)
 	
-	m_decode-string.java 
+	https://leetcode.com/problems/decode-string/
 		-maintain 2 stacks, one for nums , one for string 
 		-> when encounter [, we need to push stringSoFar on stack -> because there can be multiple/nested layers (just like num/count nesting), we we wont be able to store it directly in final result
 		->k[string k[string k[string]
@@ -627,7 +675,8 @@ to remember:
 		-> when see end log, pop.
 		->result can be array and taskId serves as index. so no hashmap required
 		->when end log comes, taskid will alway match to top of stack. ()
-	m_flatten-nested-list-iterator.java 
+	
+	https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/m_flatten-nested-list-iterator.java 
 		-> imp to realize the recursive nature. since its rec, we can use stack. BUT we want them in FIFO order, so push items to stack with reverse loop on list given
 		-> during constructore, put curernt list as is on stack (no deep flattening, that will be done while hasNext call)
 		-> hasNext - if item is list, reuse the "insert" method, to flatten/insert that list on stack (just 1 list)
@@ -639,14 +688,18 @@ to remember:
 		-->Queue based iterative solution:
 		--> but downside is, we create new storage for entire nestedList again, rather that going thru given input.
 
-	m_lesson_all-paths-from-source-to-target.java -> realize that we need to backtrack (remove curr neighbor from path) before next iteration to other neighbor. (after recursive dfs call)
-Note: dfs helper function normally will not return anything, its just dfs sweeper. result will be recorded in some class var.
-
-	m_lesson_path-sum-iii.java -> see each root to leaf path as array, and we are looking for subarray that sums to target. for that we use "prefix-sum" technique. so thats what we will do.
+	https://leetcode.com/problems/all-paths-from-source-to-target/ 
+		-> realize that we need to backtrack (remove curr neighbor from path) before next iteration to other neighbor. (after recursive dfs call)
+	Note: dfs helper function normally will not return anything, its just dfs sweeper. result will be recorded in some class var.
+		-> no need to track visited nodes since graph is acyclic
+		
+	https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/m_lesson_path-sum-iii.java 
+		-> see each root to leaf path as array, and we are looking for subarray that sums to target. for that we use "prefix-sum" technique. so thats what we will do.
 		-> imp : consider two nodes having same num (also -ve nums are allowed), so our prefix sum map will need <sumSoFar, frequency>
 	
 	
-	m_word-search.java -> dfs+backtracking -> again exhaustive dfs. whenever there is exhaustive dfs, dont forget to clear/backtrack visited node if word not found here. if the path does not lead to a solution, we then revert the change (i.e. backtracking) and try another path.
+	https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/m_word-search.java
+		-> dfs+backtracking -> again exhaustive dfs. whenever there is exhaustive dfs, dont forget to clear/backtrack visited node if word not found here. if the path does not lead to a solution, we then revert the change (i.e. backtracking) and try another path.
 		-> also this dfs helper needs to return boolena for whether word found or not. -> so need to OR all dfs directions.
 		-> time complexity: Time Complexity: O(N. 3^L) where N is the number of cells in the board and L is the length of the word to be matched.
 	
@@ -659,7 +712,8 @@ continue from:
 	m_trick_multiply-strings
 	
 to remember:
-	e_lesson_most-common-word.java -> good practice of string iteration by chars, and corner cases. -> character.isLetter and stringbuilder are enough to make word. we dont need start and end pointer to make word.
+	https://github.com/krutikpatel/leetcode2019/blob/master/strings/e_lesson_most-common-word.java
+		-> good practice of string iteration by chars, and corner cases. -> character.isLetter and stringbuilder are enough to make word. we dont need start and end pointer to make word.
 		how do we iterate char by char and derive each word?
 		a. use two ptrs -> start and end
 		b. use stringbuilder, build it up to one word, usinng just one ptr. after loop - check if strinbuilder is non empty (when whole string is 1 word or also for last word)
@@ -668,7 +722,8 @@ to remember:
 		-> divide and conquer, binary search are possible.
 		-> find min and max strings, then compare..
 		
-	reorder-data-in-log-files.java -> use String x = a.substring(a.indexOf(' ')+1,a.length());		
+	https://github.com/krutikpatel/leetcode2019/blob/master/strings/e_reorder-data-in-log-files.java
+		-> use String x = a.substring(a.indexOf(' ')+1,a.length());		
 		-> also note: comparator for pq -> strA.compareTo(strB)
 		PriorityQueue<String> pq = new PriorityQueue<>(
             (a,b)->{
@@ -680,13 +735,15 @@ to remember:
                     return x.compareTo(y); 
         });
 		
-	reverse-words-in-a-string-iii -> how do we iterate char by char and derive each word?
+	https://github.com/krutikpatel/leetcode2019/blob/master/strings/e_reverseWordsIII.java 
+		-> how do we iterate char by char and derive each word?
 		a. use two ptrs -> start and end -> in place operations. no extra space needed.
 		b. use stringbuilder, build it up to one word, usinng just one ptr. - after loop - check if strinbuilder is non empty (when whole string is 1 word or also for last word)
 	
 	e_strstr.java -> brute force match at every char position in bigger string.
 	
-	e_trick-greatest-common-divisor-of-strings.java -> GCD for string is the biggest common substring. so we need to keep cutting substrings from begin point until we cant.
+	https://github.com/krutikpatel/leetcode2019/blob/master/strings/e_trick-greatest-common-divisor-of-strings.java
+		-> GCD for string is the biggest common substring. so we need to keep cutting substrings from begin point until we cant.
 		-> if s1(bigger) string is empty(ultimately by recursive call), other is the answer to return.
 		if (!str1.startsWith(str2)) {	//we use startsWith method instead of indexOf method. because If MUST start with s2 for it to be gcd
                 return ""; 
@@ -712,7 +769,7 @@ to remember:
 		->circular shifted strs in same group
 		->TODO need to understand the logic ((a-z)+26)%26 -> %26 so that we get circular position. +26 because we want +ve num in case of "az"
 		
-	m_lesson_compare-version-numbers.java -> 
+	https://github.com/krutikpatel/leetcode2019/blob/master/strings/m_lesson_compare-version-numbers.java -> 
 		-need to consider various corner cases: Following are equal:
 			1.0 and 1.000
 			1.0 and 1.0.0
@@ -722,7 +779,7 @@ to remember:
 		-key to make soln easy-for diff length, we can use 0 for whichever finished. ===> IMP TRICK FOR ANY 2 ARR OPERATIONS
 		-the just compare seg1 and seg2, if diff return +-1 or after loop, they are euqal and return 0
 		
-	m_lesson_longest-substring-with-at-most-two-distinct-characters.java 
+	https://github.com/krutikpatel/leetcode2019/blob/master/strings/m_lesson_longest-substring-with-at-most-two-distinct-characters.java 
 		-> need to store HashMap<char, latestIndex> -> we store latest/last index because, if we were to remove that char, we need to remove till right most occurence of that char. we cannot just remove left most char and be sure that that char is not present in window anuymore. eg abcccbdddddd
 		
 		-> only use of left ptr is to cal len of substring. not for remove char from left side.
@@ -730,7 +787,7 @@ to remember:
 		->when window/map size ==3, FIND THE LEFTMOST CHAR/INDEX TO BE REMOVED, BY GOING THEU MAP VALUES or just call Collections.min(map.values);
 		-> note: it is possible to solve with lft and right ptrs and slide from left one by one and map<char,freq>, but not as straight as above.
 		
-	m_lesson_partition-labels.java ->
+	https://github.com/krutikpatel/leetcode2019/blob/master/strings/m_lesson_partition-labels.java
 		it sounds complicated, recursive and dp problem, but its not !
 		->2 pass solution:
         -Record the last occurence of each letter in map
@@ -740,23 +797,23 @@ to remember:
             -if that is = i, we dont have anymore repeating in future, so partition window ends here. add it to result.
                 Note: We END it here rather than including more unique chars because we want as many unique intervals as we can.
 	
-	m_longest-substring-without-repeating-characters.java 
+	https://github.com/krutikpatel/leetcode2019/blob/master/strings/m_longest-substring-without-repeating-characters.java
 		-> set is enough with sliding window. map not required here.
 		-> when we slide from left, we dont increment the right ptr. because duplicate might just be right -1 ! eg: abcdee -> when we sit at right = 2nd e.
-			-we slide from left till there is no duplicate in window.
+			-we slide from left one by one TILL there is no duplicate in window.
 			
-	m_palindromic-substrings.java -> 
+	https://github.com/krutikpatel/leetcode2019/blob/master/strings/m_palindromic-substrings.java 
 		-count palindrom from odd center. (i)
 		-count palindrom from even center. (i,i+1)
 			-to cehck palindrome, run loop to expand from center.
 		-do this for every i from 0 to len 
 	
-	m_reverseWords.java
+	https://github.com/krutikpatel/leetcode2019/blob/master/strings/m_reverseWords.java
 		->trim both ends first 
 		->now reverse the string then reverse each word. 
 		-> wo do this to avoid extra space. if we dont reverse, we will store each word in array/stack. ->then build string with words in reverse order.
 	
-	m_trick_fraction-to-recurring-decimal.java
+	https://github.com/krutikpatel/leetcode2019/blob/master/strings/m_trick_fraction-to-recurring-decimal.java
 		-explained well by diagram in leetcode.
 		-> main trick : if remainder starts repeating, we know its repeating and finish
 		-> we need to know where the repeating part starts. index of each digit in fraction -> do it by hashMap<Long, index>
@@ -764,7 +821,7 @@ to remember:
 		-> how do we keep reducing remainder? -> this is just plain division operation.
 			long remainder = dividend % divisor;
 			-> while(ramainder ! = 0){
-				ramainder *= 10; --> whi mult by 10? that is how we proceed manunal division
+				ramainder *= 10; --> why mult by 10? that is how we proceed manunal division
 				remainder %= divisor;
 			}
 
@@ -1589,6 +1646,13 @@ https://leetcode.com/problems/squares-of-a-sorted-array/
 https://leetcode.com/problems/evaluate-reverse-polish-notation/ - stack good practice 
 https://leetcode.com/problems/maximum-product-subarray/ - array 
 https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+https://leetcode.com/problems/two-sum-bsts
+https://leetcode.com/problems/pascals-triangle - misc 
+https://leetcode.com/problems/move-zeroes - array 
+https://leetcode.com/problems/min-stack/ - design and stack 
+https://leetcode.com/problems/excel-sheet-column-number - math, arr 
+https://leetcode.com/problems/missing-ranges/ - arr 
+https://leetcode.com/problems/intersection-of-two-linked-lists/ - LL 
 
 ===
 To remember others from top list
@@ -1605,3 +1669,26 @@ https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
 To solve:
 https://leetcode.com/problems/binary-tree-longest-consecutive-sequence
 https://leetcode.com/problems/binary-tree-longest-consecutive-sequence-ii/discuss/101510/Java-solution-Binary-Tree-Post-Order-Traversal
+https://leetcode.com/problems/reorder-list/
+https://leetcode.com/problems/contains-duplicate-ii
+https://leetcode.com/problems/contains-duplicate-iii
+
+Some of the Binary Search based Interval Problems :)
+57. Insert Interval - https://leetcode.com/problems/insert-interval/
+436. Find Right Interval - https://leetcode.com/problems/find-right-interval/
+729. My Calendar I - https://leetcode.com/problems/my-calendar-i/
+1235. Maximum Profit in Job Scheduling - https://leetcode.com/problems/maximum-profit-in-job-scheduling/
+2054. Two Best Non-Overlapping Events - https://leetcode.com/problems/two-best-non-overlapping-events/
+
+==================
+Time to revise
+==================
+-Btree : revn took 2 hrs 
+-Array - 2 hrs or less 
+-Strings - 1.5 to 2 hrs 
+-Binary search -1.5hr
+-BFS - 1hr
+-DFS - 1 to 1.5 hrs (good to do all github qns though)
+-Recursion - 1 hr 
+-PQ - 
+-Hashmap -
