@@ -25,6 +25,7 @@ class Solution {
         /*
         memo[n] = min(1 + memo[n-eachSmallerPerfectSquares])
         Try to fill whole memo array
+1.        ie: find solution for each i from 1 to n
         */
         for(int i=1;i<=n;i++){
             memo[i] = Integer.MAX_VALUE;    //because it was unitialzed arr, and we want min
@@ -41,6 +42,7 @@ class Solution {
             //     dp[n - 16] + 1
             //     and so on...
             */            
+//2.        // try all squares<=i and find min no of sqaures needed.
             for(int j =1;j*j<=i;j++){
                 int diff = i - (j*j);   // this is like n-1,n-4,n-9 ..
                 memo[i] = Math.min(memo[i], 1+ memo[diff]); //that 1 is for j*j which helped reach i
