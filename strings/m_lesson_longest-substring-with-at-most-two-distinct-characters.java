@@ -26,9 +26,10 @@ class Solution {
     -we might be tempted to <char.lastindex>
     -and when we find 3rd char, just remove/disard leftmost char and everything till lastIndex of leftmost char. 
     But that is flawed. example: abbbbbac
-        -as soon as we c, we cant just jump iorleft pointer to c.
+        -as soon as we c, we cant just jump iorleft pointer to c. - because "ac" will be valid if we remove b
     
     -so we need to remove leftmost (from right, ie, "finished")  character (that is min entry in map)    
+    -remove the char in the window, which finishes repeating first, ie char with its "min" rightmost index (the entry in map)
     
     Lesson: for sliding window, dont get ambitious and greedy, while sliding. Only slide minimum, conservatively.    
     
