@@ -39,6 +39,9 @@ Algo:
 					->add a to result -> aba 
 			->so, if (pq is empty && prev count > 0	) -> eg: aaab
 				->then we can find elems/char to separate all "a". so return false 
+				
+==>stop/ret false logic can be simplified i think: only add prev to pq if its cout is >0
+-after loop exits see if prev != null & prev[1]>0 => ret false
                 
 */
 class Solution {
