@@ -1,0 +1,348 @@
+FB:
+https://leetcode.com/problems/valid-word-abbreviation/submissions/
+	-lesson - 
+	-using for(char: abbr.chars) type loop, instead of maintaining index of abbr. that will add complexity 
+	-after pattern/abbr loop finishes, we may or my not have reached solution still.
+	-to pass, wordPtr MUST reach word.length (more than that or less both are invalid)
+	
+	-iterate thru abbr chars one by one
+    -maintain wordPtr to track where we are in word
+    -when count !=0 , we dont have to substring word for matching, just advance wp. and then match with next char
+    -abbr chars index is moved by for loop, so wp++ has to be done by us
+    -after loop exit: in order for success, wp+count HAS to be word.length, no less no more
+    
+	
+https://leetcode.com/problems/valid-palindrome-ii/
+	-use 2 ptr when want to remove char to skip char.
+	-try simple iteration. use helper method for ispalindrome with 2 ptrs, l and r
+		-keep advancing 2 ptrs till chars are equal
+	-we dont need to maintain removedCharCounter, since only 1 char shud be removed.
+		if (s.charAt(i) != s.charAt(j)) {
+			return isPalindrome(s, i + 1, j) || isPalindrome(s, i, j - 1);//just return reuslt of 1 char removal, 
+		}
+	-recursive solution is possible
+		-dont mix iteration and recursion. make it pure recursion, for every char, u call recursion.
+	OR:
+	I think a good way for the (generic) followup may be using Longest Palindromic Subsequence.
+	If the LPS has length >= n-k, then return true. O(n^2) algorithm.	
+
+https://leetcode.com/problems/range-sum-of-bst
+	-simple yet easy to get lost
+	-Realize that its BST, and we ARE given RANGE. even if we visit every node once(like binary tree any prder traversal), we know range, so we can add it to sum accordingly.
+	(Range sum in normal binary tree is easy too, if we are given range-low and high)
+	-recursive is easy. maintain external sum var 
+	-Easiest is:
+		-just traverse like binary tree and if val is in range, add to sum.
+		But to leverage BST prop 
+	-see which side we need to go.
+	-IMP to note that - sometimes we have to go both sides, sometimes only one side 
+	so use if + if and NOT if,else 
+	this: range 5,15 and 
+		tree: 5 ->10 <-15
+		tree: 5->10->15 (only left edge, 5 is at bottom)
+		tree: 5<-10<-15 (only right edge, 5 is at top)
+		
+https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/
+	Imp to undesrstand problem statement:
+	Return the final string after all such duplicate removals have been made. 
+    -remove ALL ADJ dups from RESULTING string    . problem is recursive in nature but we dont need to do recursion.
+		1. "abbbaca"  => "abaca"
+				-> notice, not all 3 b's are removed -> that kind of soln will be even simpler
+				
+		2. "bbb" -> "b"
+		3. "bbcbbc" -> ""
+		-since we need to eliminate adjacent dups, we are ONLY concerned about the last/top char in the result string.
+		
+		-dont think recursively here (brute force recursion gives TLE anyways)
+		-We can use stack to eliminate duplicates, just like recursion.
+		for each c, if(c==s.peek())
+				remove from stack (s.pop())
+			else
+				s.push(c)
+		
+	-actually we dont even need stack 
+		-we can do same thing with maintaining stringBuilder as res and iterating over string char by char 
+	-Algo:
+	-maintain 1st and last ptr in string.
+	-if both cahrs are same, remove last char 
+	
+https://leetcode.com/problems/simplify-path/
+	-dont overcomplicate it by going char by char 
+	-specially because there can be lot of combinations of paths. eg: /a/b/c/.././././//d
+	
+	-Just split string/path with '/'
+		-and process each section 
+	Following rules:
+		-we need to skip .
+		-by splitting with / we will have "" for // or more slashes, so ignore any "" section.
+		-for .. , if we have prev dir on stack , remove it, otherwise ignore ..
+		Thats it ! :)
+		
+https://leetcode.com/problems/binary-tree-vertical-order-traversal
+	//map of: col, rowList -> insert order
+	//BFS will insert in top-bottom order naturally, left-right order also covered naturally
+	Map<Integer, ArrayList<Integer>> map = new HashMap<>();
+
+and hard prob:
+https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/discuss/231140/Solved-Add-clarification-for-the-output-order
+	2 similar probs 
+	problem breakdown:
+	1st level of order : col sorted 
+		-instead of any tricks to sort, just record min and max, so that we can iterate min to max col value ! ==> new trick learnt
+	2nd: row sorted 
+		-instead of any tricks to sort, just record min and max, so that we can iterate min to max row value !
+		
+	3rd: value sorted 
+
+	->cols is x axis
+	->rows is y axis
+	Algo:
+		-create class level map<col, map<row, PQ<nodeVals>>>
+		-create DFS helper method, to fill this map. traverse tree and fill map.
+			dfs(node, col, row)	//pass col, row +-1 accordingly 
+		
+		-in main method, form the ret list now.
+		
+	-we need to group elems by columns
+	-ALSO, each column should be sorted top to bottom order 
+	
+	-columns wise grouping can be achieved by DFS (BFS as well) by keep tab of +-1 at each left/right move
+	-vertical top-bottom order in each column - CAN be naturally achieved in BFS (without maintaining height param)- think level order traversal.
+	So go by BFS (queue) rather than DFS (recursion)
+	
+	-with BFS, use Java's Pair class Pair<TreeNode, Integer> -int is column 
+	make Queue of Pair<TreeNode, col>
+	
+
+https://leetcode.com/problems/nested-list-weight-sum - add to dfs
+	-very good recursion exercise
+	-pass depth param to recursive function 
+	
+https://leetcode.com/problems/diagonal-traverse/
+	todo 
+	-realize that even after switching direction/diagonal, we can run out of boundary on each 4 walls. also flipping is not always same, diff in top half and bottom half of rectangle 
+
+https://leetcode.com/problems/continuous-subarray-sum
+	-math magic 
+	-sore sum,index - because we need atleast 2 elems in result. index will help with that 
+	-we are asked for sum which is multiple of k 
+	Logic:
+		-if we can find any two subarray of prefix sum have same mod value, then their difference MUST be
+			divisible by k. So we can use a map to store mod value of each prefix sum in map, with its index. Then check
+		-store sum%k instead of sum 
+		-map<sum%k,index>
+		map.put(0, -1); //have to do it for 1st 2 elem sum
+		
+https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
+	-follow: https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/discuss/419443/Java-Clean-StringBuilder-solution
+	Tricks learnt:
+	1-to check validity of parantheses: - we dont need stack.
+	-we just need one counter: open
+		-if we see open: open++
+		-if we see close: open--
+
+	2. to find min para to remove:
+		-maintain minCount
+		-when we see invalid close: (ie, open <0)
+			minCount++
+		
+		-at end:
+			if open>0 : we have unmatched open , so add them to remove.
+			minCount + open 
+
+		
+	-this problem does not need to compute minParan to 	remove.
+	----
+	Algo:
+	-A valid pair of parentheses is consist of an open and a close. The open has to be before the close.
+		-So, we can remove the extra close parenthese then remove extra open parenthese
+
+	-Step1: the fist iteration, we remove the unwanted )
+		-go chars : 0 to len 
+		-maintain sb, skip invalid closing braces 
+	-Step2: the second iteration, we remove the unwanted (
+		- this needs loop start from right-end, to find imbalance of "("
+		-go chars: len to 0 ==> and because of this, dont forget to reverse the sb after loop.
+		-skip(skip add to sb2), the open parantheses = numUnmatchedOpenBraces from prev loop.
+	-think eg: ))((
+			-1st loop will remove )) 
+			-2nd loop will remove ((
+			
+	---
+https://leetcode.com/problems/remove-invalid-parentheses
+	-Solvable by BFS, and easy to remember than DFS? 
+	Go by BFS soln.
+	-BFS - no need to count open close balance/imbalance counters 
+	-we are not starting BFS from empty string, but we start from the given string. we want to remove from it - min chars 
+	-we blindly remove char, and check if string is valid 
+	-we store such strings in Set<String> so we dont recompute
+	-IMP - keep a falg: ifFound, 
+		-if found do not add anything to the queue, we got the min removal. so no more removing chars and add to Q 
+		-still finish the Q 
+	Note: one level is ALL substrings with 1 char removed.	
+		-next level is ALL substringg with 1 more char removed (so total 2 chars removed from original string)
+	
+	Followable DFS solution:
+		https://leetcode.com/problems/remove-invalid-parentheses/discuss/75034/Easiest-9ms-Java-Solution
+		-good for understanding of open close bracket counts and recursion calls
+		
+			public void dfs(String s, int i, Set<String> res, StringBuilder sb, int rmL, int rmR, int open)
+				-last param is the balanceness of string we formed. with single counter, like mentioned in soln above.
+				
+	Another good way to keep track of sesparate invalid parans: -->single counter does not tell which one is imbalance. may be it does +ve or -ve
+		int open=0, close=0;
+        for(int i=0;i<s.length();i++) {
+            char c = s.charAt(i);
+            if(c=='(') {
+                open++;
+            } else if(c==')') {
+                if(open==0) {
+                    close++;
+                } else {
+                    open--;
+                }
+            }
+        }
+		
+https://leetcode.com/problems/minimum-add-to-make-parentheses-valid
+	-min moves needed are equal to no. of imabalance of both braces
+	-track imbalance of both braces with vars: open and close 
+	
+https://leetcode.com/problems/buildings-with-an-ocean-view
+	-simple, track max coming from right side.
+	-and record index of greater elems in new list, then return the reversed list.
+
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii
+	-sounds simple. but can be little tricky to write CLEAN solution 
+	-note: we dont need to precompute both paths 
+		-root is not provided 
+	
+	-LCA is simple :
+		-if we know one path(node to root). put all nodes in set 
+		-go over other path (node to root) , and when you find/stop at common point  
+
+IMP for LCA problems:
+	-forming both paths is not good idea.
+	-dont do that 
+
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-ii
+	p or q can be null. not guaranteed to be in tree !
+	-dont worry about figuring out path.
+	-if p or q is not in tree, LCA is null. so we need to know if they are there.
+	-single helper method can check for both. maintain global count or boolean for both
+	-Also, if both are present, while traversing, we can also find LCA answer like : https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/ 
+		-VIMP the getLca helper method:
+		-first left and right calls  - Becasue we want exhaustive search so that we find both p and q , rather than just lca of them.
+		-rest lca method is same as : https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/ 
+		
+
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+	IMP:
+	-recursive very easy, yet forget and find it complicated.
+	-1stof all, recursive one pass is possible, so remember that.
+	
+	
+https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/
+	-good dp practice, long not needed.
+	-Try recursive brute force and then add memo to recursive soln 
+		-since its going to be recursive DP, its top-bottom, so rather than sum from 0 to target, go target to 0. this is v imp 
+	-IMP: dp state vars: diceIndex, sumSoFar NOT k, k is CONSTANT ! see which args are changing, those are states	
+	- Integer[][] dp = new Integer[n+1][target+1];//since 2nd dimension max is target: instead of sumsofar, we need to go from target to 0
+		-we r not choosing sumsofar as 2nd dimension because, we cant upperbound it for dp array declaration.
+		-both state var dimension same 
+	
+https://leetcode.com/problems/maximum-swap
+	->start from left - so that we swap most sig digit 
+    ->find biggest from its right for swap - fast/good way to do that is use buckets/map for digits. and start from 9to 0bucket.    
+		->bucket stores index, so we know we are on right side of our digit.
+		->store index of digits in arr[10]
+
+https://leetcode.com/problems/next-permutation
+	-choice of loops and their index are very very imp
+	-1,2,3 and 3,2,1 are corner cases 
+	
+https://leetcode.com/problems/k-closest-points-to-origin -> add to PQ 
+	V imp lesson for topk problem:
+    -maintain PQ of size K but in reverse order than asked. (if min asked, maintain max and vise versa)
+    -for each elem:
+        -add to pq
+        -if(pq size > k)
+            -remove from pq
+            
+    -this results in k elems in desired fashion(min or max)    
+
+https://leetcode.com/problems/top-k-frequent-words/
+	-VV good 
+	
+https://leetcode.com/problems/dot-product-of-two-sparse-vectors
+	-use hashmap to store non zero index,vals since it is sparse vector.
+	-to save space even further, less space that hashmap, use:   List<int[]> 
+	IMP:
+	Update from recent FB onsite, interviewer didn't accept the HASHMAP solution and wanted to see the 2 pointers solution, 
+	in addition he also came up with a follow up question, what would you do if one of the vectors werent fully "sparse" -> hint use binary search
+	
+	Ans:
+	https://leetcode.com/problems/dot-product-of-two-sparse-vectors/discuss/1522271/Java-O(n)-solution-using-Two-Pointers-with-detailed-explanation-and-Follow-up
+	
+https://leetcode.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list
+	-followed:
+	https://leetcode.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list/discuss/149151/Concise-Java-solution-Beats-100
+	
+	-do in-order traversal. + linking using prev node RATHER than return Node from helper method for linking.
+	-keep dummy head like LL and itr ptr called prev , prev = dummy in beginning
+	-curr node becomes prev node once we are done with its (left)processing, in the in-order traversal 
+		-after helper in-order traversal, link 1st and last to make circular.
+			1st = dummy.right 
+			last = prev 
+	//with in-order traversal, prev will store last elem of list or rightmost elem of tree
+    //dont return Node from helper method, that is not right way to go here
+	
+https://leetcode.com/problems/range-sum-query-2d-immutable
+	-2D version of prefix sum - but this solution is very slow still 
+		List<Map<index,sum>> : map.put(-1,0)//need this for sum 0tok elems - dont need if we check left is 0, 
+	-TODO - faster DP version 
+	DP:
+		Prefix sum is 1D concept
+		2D version can be: prefix AREA/2D sum
+		
+		int[][] dp;
+			dp[i][j] : stores sum of rectrangle from 0,0 to i,j coordinate
+		
+		-so just run row,col loop on matrix and store sum 
+		-later use that for range sum 
+		
+https://leetcode.com/problems/random-pick-index
+	https://leetcode.com/problems/random-pick-index/solution/
+	-technique for getting random with equal prob:
+		public int pick(int target) {
+			int n = this.nums.length;
+			int count = 0;
+			int idx = 0;
+			for (int i = 0; i < n; ++i) {
+				// if nums[i] is equal to target, i is a potential candidate
+				// which needs to be chosen uniformly at random
+				if (this.nums[i] == target) {
+					// increment the count of total candidates
+					// available to be chosen uniformly at random
+					count++;
+					// we pick the current number with probability 1 / count (reservoir sampling)
+					if (rand.nextInt(count) == 0) {	//random will be called n times, that too for variable nums of count 
+						idx = i;
+					}
+				}
+			}
+			return idx;
+		}
+
+https://leetcode.com/problems/strobogrammatic-number-ii/
+	-MIMP aspect - we begin forming solution from center, and expand/append on both sides 
+    
+    -if n == even:  
+        -our options are only : reversible pairs: {'0', '0'}, {'1', '1'}, {'6', '9'}, {'8', '8'}, {'9', '6'}
+        -we put one char from aboev pair on left and one on right of subsolution string
+        
+    -if n == odd
+        -we begin with base center as : 0,1,8
+        -then expand around it
+        
+     recCall = helper(n-2,n)
