@@ -52,6 +52,7 @@ to remember:
 	-https://leetcode.com/problems/closest-binary-search-tree-value/
 		-follow BST property from root to bottom 
 		-so, iterative is good.
+		-at each node record and update min diff. whether we go left or right, we dont know what is going to be closest.
 		-record min diff from target also record that node because we need node.
 			-acrtually just recodr node, and keep comparing the diff 
 		
@@ -105,8 +106,9 @@ to remember:
 
 			They both have same in-order serialization "#0#0#" if we just use "#" to represent null.
 
-	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_flatten-binary-tree-to-linked-list.java
-		TODO 
+	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_flatten-binary-tree-to-linked-list.java 
+		-post order traversal  - no return val needed for linking
+		
 	-https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_lesson_boundary-of-binary-tree.java
 		-level order cant help here. 1 node in queue does not tell whether its on left edge or right edge
 		//-store 1st in left and last in right lists.
@@ -307,7 +309,7 @@ to remember:
 		-find out if there is intersection 
 		-then decide which arr to proceed 
 	
-	m_prison-cells-after-n-days
+	https://github.com/krutikpatel/leetcode2019/blob/master/array/m_prison-cells-after-n-days.java
 		-in-place modification of arr not possible, coz we need orig values of cell till end.
 		-so create new arr to store the result. create hlper method to do this and return new arr 
 		Optimization:
@@ -582,6 +584,10 @@ IMP - below obs are in terms of "index", l is index. Not the elem at index.
 	Obs4
 		-template 1 also settles on the num (closest Bigger) than target, if target not in arr.
 		-so it serves as "CEILING" function (except last elem, for which check is needed)
+	
+	Obs4 
+		-it template 1 and 2 both does celing, AND we return if we find num itself,
+		-floor index = l-1; //we shud set l =1 in beginning though 
 --------	
 IMP:
 	-"we dont have to memorize limits."
@@ -679,7 +685,11 @@ to remember:
 	https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/m_flatten-nested-list-iterator.java 
 		-> imp to realize the recursive nature. since its rec, we can use stack. BUT we want them in FIFO order, so push items to stack with reverse loop on list given
 		-> during constructore, put curernt list as is on stack (no deep flattening, that will be done while hasNext call)
-		-> hasNext - if item is list, reuse the "insert" method, to flatten/insert that list on stack (just 1 list)
+		-> parse/flatten one level : insert all elems of GIVEN LIST - on stack. - in reverse order - so 1st in list pops out first 
+		
+		-> hasNext 
+			- actually figure out if we have real int in the stack. go on till find one or stack is empty
+			- if item is list, reuse the "insert" method, to flatten/insert that list on stack (just 1 list)
 			-while(!st.isEmpty()) { //flatten each elem of curr stack , BUT if we see int , we stop} //we have to do this till st is empty, because there is possibility of nested lists without seeing any int. also list can be empty 
 			
 		->next - just pop item.
@@ -841,6 +851,12 @@ to remember:
 		OR go with this soln:
 		https://designgurus.org/path-player?courseid=grokking-the-coding-interview&unit=grokking-the-coding-interview_1628541068682_8Unit
 		
+	https://leetcode.com/problems/alien-dictionary
+		-undesrand the rule for lexicographically sorted strings 
+		-a,b a<b is a length < b length 
+		-if same len : ?
+		IMP: we dont process/link chars in same word. we only create links between chars in diff words.
+			-moreoever : for 2 strings, we create links for FIRST chars that differ 
 		
 9. Priority Queue - Interval types
 Note:
@@ -877,7 +893,8 @@ to remember:
 		->if new start-time >= end-time from pq, re-use room
 			->remove this pq top interval - room can be reused.
 		->add new interval to pq.
-
+		Note: -we dont put everything in PQ upfront, PQ only stores distinct intervals ie no of meeting rooms needed. We put one and then run loop for other elems to decide what to do
+		
 	merge-intervals.java
 		->sort them by start time 
 		->iterate and merge
@@ -1184,7 +1201,7 @@ continue from:
 	
 	
 	https://leetcode.com/problems/longest-increasing-subsequence
-		-dont need to think recursively to derive ierative soln.
+		-dont need to think recursively to derive iterative soln.
 		-iterative soln with 2 ptrs for subsequence bound 
 		-dp[] only we dont need 2d memo 
 		
@@ -1198,6 +1215,10 @@ continue from:
 	https://leetcode.com/problems/valid-palindrome-iii
 		-at most k removals 
 		-is longest palindrome subsequnce length >= n-k? we have solved the longest palindromic subseq problem 
+		
+	https://leetcode.com/problems/perfect-squares/
+		-simple trick dp. bfs not needed , although this BFS is really beautiful example of applying BFS to non trivial problem.
+		-build botttom up dp[]
 		
 14. Design
 continue from:
@@ -1264,7 +1285,33 @@ continue from:
 		
 		-update diag: row==col 
 		-update antidiag: row+col == n-1 
-		 
+
+15. LL 
+	-finding middle of list (odd or even)
+	1. gives end of 1st half. for odd, 1st half will have one more elem 
+		private ListNode endOfFirstHalf(ListNode head) {
+			ListNode fast = head;
+			ListNode slow = head;
+			while (fast.next != null && fast.next.next != null) {
+				fast = fast.next.next;
+				slow = slow.next;
+			}
+			return slow;
+		}
+	
+	2. gives begin of 2nd half (2nd half keeps extra elem in case of odd list)
+		public static Node findMiddle2(Node head) {
+			Node fast = head;
+			Node slow = head;
+			while (fast !=null && fast.next != null) {
+				fast = fast.next.next;
+				slow = slow.next;
+			}
+			return slow;
+		}
+
+		
+
 ========
 TODO:
 quick sort and related probs	
@@ -1320,11 +1367,22 @@ https://leetcode.com/problems/palindrome-partitioning/
 	-normal way is recursion+backtracking 
 	-recursion helper method with begin/start ptr , maintain list of curr_palindrome_substrings 
 	-loop from "start" till str.len to try all subtrings for palindrome 
+		-think start as subproblem, anything on left of start is palindrome/ans calucalted already
+		-start = 0 to len 
+		-end = start to len --> TRYING TO EXPAND THE PALINDROME 
+		
 	-if palindrome, then only make recursive call 
+		-new start = curr end+1
 	-backtrack by removing last added palindrome from curr_palindrome_substrings
 	
-	-DP way TODO 
+	-DP way
 		-memo the isPalindrome part, memo[start][end]
+		-memo loop: --> TRYING TO EXPAND FROM LEFT, LEN=1 TO MORE
+			//i = end : 0 to len 
+			//j = start	: 0 to end	
+			for(int end=0;end<s.length;end++) {
+				for(int j=0;j<=i;j++) {
+		
 		
 https://leetcode.com/problems/sort-list/solution/
 	-solve recursively using merger sort
@@ -1348,6 +1406,7 @@ https://leetcode.com/problems/maximal-square/
       // dp(i, j) = 1+ min{ dp(i-1, j-1), dp(i-1, j), dp(i, j-1) }	//min of all 3 neighbors (we are at bottom-right of square). if any nbr is 0, it will make curr as 1
 	  
 https://leetcode.com/problems/house-robber-iii/solution/
+	-house robber: in general - think from the dp[i] i's perspective. dp[i+1] = max : dp[i-1] + val, dp[i]
 	https://leetcode.com/problems/house-robber-iii/discuss/79330/Step-by-step-tackling-of-the-problem
 	
 https://leetcode.com/problems/find-all-anagrams-in-a-string
@@ -1432,13 +1491,23 @@ https://leetcode.com/problems/range-sum-of-bst
 		tree: 5<-10<-15 (only right edge, 5 is at top)
 		
 https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/
-	-dont think recursively here (brute force recursion gives TLE anyways)
-	-We can use stack to eliminate duplicates, just like recursion.
-	for each c, if(c==s.peek())
-			remove from stack (s.pop())
-		else
-			s.push(c)
-	
+	Imp to undesrstand problem statement:
+	Return the final string after all such duplicate removals have been made. 
+    -remove ALL ADJ dups from RESULTING string    . problem is recursive in nature but we dont need to do recursion.
+		1. "abbbaca"  => "abaca"
+				-> notice, not all 3 b's are removed -> that kind of soln will be even simpler
+				
+		2. "bbb" -> "b"
+		3. "bbcbbc" -> ""
+		-since we need to eliminate adjacent dups, we are ONLY concerned about the last/top char in the result string.
+		
+		-dont think recursively here (brute force recursion gives TLE anyways)
+		-We can use stack to eliminate duplicates, just like recursion.
+		for each c, if(c==s.peek())
+				remove from stack (s.pop())
+			else
+				s.push(c)
+		
 	-actually we dont even need stack 
 		-we can do same thing with maintaining stringBuilder as res and iterating over string char by char 
 	-Algo:
@@ -1458,7 +1527,13 @@ https://leetcode.com/problems/simplify-path/
 		Thats it ! :)
 		
 https://leetcode.com/problems/binary-tree-vertical-order-traversal
-	-https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/discuss/231140/Solved-Add-clarification-for-the-output-order
+	//map of: col, rowList -> insert order
+	//BFS will insert in top-bottom order naturally, left-right order also covered naturally
+	Map<Integer, ArrayList<Integer>> map = new HashMap<>();
+
+and hard prob:
+https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/discuss/231140/Solved-Add-clarification-for-the-output-order
+	2 similar probs 
 	problem breakdown:
 	1st level of order : col sorted 
 		-instead of any tricks to sort, just record min and max, so that we can iterate min to max col value ! ==> new trick learnt
@@ -1534,6 +1609,7 @@ https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
 		-go chars : 0 to len 
 		-maintain sb, skip invalid closing braces 
 	-Step2: the second iteration, we remove the unwanted (
+		- this needs loop start from right-end, to find imbalance of "("
 		-go chars: len to 0 ==> and because of this, dont forget to reverse the sb after loop.
 		-skip(skip add to sb2), the open parantheses = numUnmatchedOpenBraces from prev loop.
 	-think eg: ))((
@@ -1543,6 +1619,16 @@ https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
 	---
 https://leetcode.com/problems/remove-invalid-parentheses
 	-Solvable by BFS, and easy to remember than DFS? 
+	Go by BFS soln.
+	-BFS - no need to count open close balance/imbalance counters 
+	-we are not starting BFS from empty string, but we start from the given string. we want to remove from it - min chars 
+	-we blindly remove char, and check if string is valid 
+	-we store such strings in Set<String> so we dont recompute
+	-IMP - keep a falg: ifFound, 
+		-if found do not add anything to the queue, we got the min removal. so no more removing chars and add to Q 
+		-still finish the Q 
+	Note: one level is ALL substrings with 1 char removed.	
+		-next level is ALL substringg with 1 more char removed (so total 2 chars removed from original string)
 	
 	Followable DFS solution:
 		https://leetcode.com/problems/remove-invalid-parentheses/discuss/75034/Easiest-9ms-Java-Solution
@@ -1566,8 +1652,10 @@ https://leetcode.com/problems/remove-invalid-parentheses
             }
         }
 		
-TODO: https://leetcode.com/problems/minimum-add-to-make-parentheses-valid
-		
+https://leetcode.com/problems/minimum-add-to-make-parentheses-valid
+	-min moves needed are equal to no. of imabalance of both braces
+	-track imbalance of both braces with vars: open and close 
+	
 https://leetcode.com/problems/buildings-with-an-ocean-view
 	-simple, track max coming from right side.
 	-and record index of greater elems in new list, then return the reversed list.
@@ -1604,6 +1692,8 @@ https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 	
 https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/
 	-good dp practice, long not needed.
+	-Try recursive brute force and then add memo to recursive soln 
+		-since its going to be recursive DP, its top-bottom, so rather than sum from 0 to target, go target to 0. this is v imp 
 	-IMP: dp state vars: diceIndex, sumSoFar NOT k, k is CONSTANT ! see which args are changing, those are states	
 	- Integer[][] dp = new Integer[n+1][target+1];//since 2nd dimension max is target: instead of sumsofar, we need to go from target to 0
 		-we r not choosing sumsofar as 2nd dimension because, we cant upperbound it for dp array declaration.
@@ -1611,7 +1701,8 @@ https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/
 	
 https://leetcode.com/problems/maximum-swap
 	->start from left - so that we swap most sig digit 
-    ->find biggest from its left - good way to do taht is use buckets fo digits. and start from 9to 0bucket.    bucket stores index, so we know we are on right side of our digit.
+    ->find biggest from its right for swap - fast/good way to do that is use buckets/map for digits. and start from 9to 0bucket.    
+		->bucket stores index, so we know we are on right side of our digit.
 		->store index of digits in arr[10]
 
 https://leetcode.com/problems/next-permutation
@@ -1627,25 +1718,99 @@ https://leetcode.com/problems/k-closest-points-to-origin -> add to PQ
             -remove from pq
             
     -this results in k elems in desired fashion(min or max)    
+
+https://leetcode.com/problems/top-k-frequent-words/
+	-VV good 
 	
+https://leetcode.com/problems/dot-product-of-two-sparse-vectors
+	-use hashmap to store non zero index,vals since it is sparse vector.
+	-to save space even further, less space that hashmap, use:   List<int[]> 
+	IMP:
+	Update from recent FB onsite, interviewer didn't accept the HASHMAP solution and wanted to see the 2 pointers solution, 
+	in addition he also came up with a follow up question, what would you do if one of the vectors werent fully "sparse" -> hint use binary search
 	
+	Ans:
+	https://leetcode.com/problems/dot-product-of-two-sparse-vectors/discuss/1522271/Java-O(n)-solution-using-Two-Pointers-with-detailed-explanation-and-Follow-up
+	
+https://leetcode.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list
+	-followed:
+	https://leetcode.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list/discuss/149151/Concise-Java-solution-Beats-100
+	
+	-do in-order traversal. + linking using prev node RATHER than return Node from helper method for linking.
+	-keep dummy head like LL and itr ptr called prev , prev = dummy in beginning
+	-curr node becomes prev node once we are done with its (left)processing, in the in-order traversal 
+		-after helper in-order traversal, link 1st and last to make circular.
+			1st = dummy.right 
+			last = prev 
+	//with in-order traversal, prev will store last elem of list or rightmost elem of tree
+    //dont return Node from helper method, that is not right way to go here
+	
+https://leetcode.com/problems/range-sum-query-2d-immutable
+	-2D version of prefix sum - but this solution is very slow still 
+		List<Map<index,sum>> : map.put(-1,0)//need this for sum 0tok elems - dont need if we check left is 0, 
+	-TODO - faster DP version 
+	DP:
+		Prefix sum is 1D concept
+		2D version can be: prefix AREA/2D sum
+		
+		int[][] dp;
+			dp[i][j] : stores sum of rectrangle from 0,0 to i,j coordinate
+		
+		-so just run row,col loop on matrix and store sum 
+		-later use that for range sum 
+		
+https://leetcode.com/problems/random-pick-index
+	https://leetcode.com/problems/random-pick-index/solution/
+	-technique for getting random with equal prob:
+		public int pick(int target) {
+			int n = this.nums.length;
+			int count = 0;
+			int idx = 0;
+			for (int i = 0; i < n; ++i) {
+				// if nums[i] is equal to target, i is a potential candidate
+				// which needs to be chosen uniformly at random
+				if (this.nums[i] == target) {
+					// increment the count of total candidates
+					// available to be chosen uniformly at random
+					count++;
+					// we pick the current number with probability 1 / count (reservoir sampling)
+					if (rand.nextInt(count) == 0) {	//random will be called n times, that too for variable nums of count 
+						idx = i;
+					}
+				}
+			}
+			return idx;
+		}
+
+https://leetcode.com/problems/strobogrammatic-number-ii/
+	-MIMP aspect - we begin forming solution from center, and expand/append on both sides 
+    
+    -if n == even:  
+        -our options are only : reversible pairs: {'0', '0'}, {'1', '1'}, {'6', '9'}, {'8', '8'}, {'9', '6'}
+        -we put one char from aboev pair on left and one on right of subsolution string
+        
+    -if n == odd
+        -we begin with base center as : 0,1,8
+        -then expand around it
+        
+     recCall = helper(n-2,n)
+    		
 ====
 TODO: add to github:
 https://leetcode.com/explore/interview/card/apple/344/array-and-strings/3116/
 https://leetcode.com/problems/knight-dialer/submissions/ DP	
-https://leetcode.com/problems/shortest-path-in-binary-matrix
-https://leetcode.com/problems/k-closest-points-to-origin - pq 
-https://leetcode.com/problems/top-k-frequent-words/ - pq 
+https://leetcode.com/problems/shortest-path-in-binary-matrix - bfs 
+https://leetcode.com/problems/k-closest-points-to-origin - pq : we dont HAVE to create pq of Map.entry or Pair, if we have access to map. reagrdless of whether sort criteria needs both params.
 https://leetcode.com/problems/unique-paths/ - dp, matrix 
-91. Decode Ways - dp 
-	https://leetcode.com/problems/unique-paths-ii/
+https://leetcode.com/problems/decode-ways - dp 
+https://leetcode.com/problems/unique-paths-ii/
 	
-https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/
-https://leetcode.com/problems/alien-dictionary
-https://leetcode.com/problems/squares-of-a-sorted-array/
+https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/ - btree
+https://leetcode.com/problems/alien-dictionary -topological sort/dfs
+https://leetcode.com/problems/squares-of-a-sorted-array/ - arr
 https://leetcode.com/problems/evaluate-reverse-polish-notation/ - stack good practice 
 https://leetcode.com/problems/maximum-product-subarray/ - array 
-https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+https://leetcode.com/problems/kth-smallest-element-in-a-bst/ - bst
 https://leetcode.com/problems/two-sum-bsts
 https://leetcode.com/problems/pascals-triangle - misc 
 https://leetcode.com/problems/move-zeroes - array 
@@ -1653,7 +1818,13 @@ https://leetcode.com/problems/min-stack/ - design and stack
 https://leetcode.com/problems/excel-sheet-column-number - math, arr 
 https://leetcode.com/problems/missing-ranges/ - arr 
 https://leetcode.com/problems/intersection-of-two-linked-lists/ - LL 
-
+https://leetcode.com/problems/inorder-successor-in-bst/ - bst bt?
+https://leetcode.com/problems/find-the-duplicate-number - use flyod's cycle detection technique, like LL cycle detection.	-many other soln possible, including -ve marking since nos are 1 to n. then restore arr.
+https://leetcode.com/problems/game-of-life - arr 
+	-follow: https://leetcode.com/problems/game-of-life/discuss/73223/Easiest-JAVA-solution-with-explanation
+https://leetcode.com/problems/read-n-characters-given-read4/
+https://leetcode.com/problems/product-of-the-last-k-numbers/
+	
 ===
 To remember others from top list
 --------------------------------
@@ -1672,6 +1843,9 @@ https://leetcode.com/problems/binary-tree-longest-consecutive-sequence-ii/discus
 https://leetcode.com/problems/reorder-list/
 https://leetcode.com/problems/contains-duplicate-ii
 https://leetcode.com/problems/contains-duplicate-iii
+
+https://leetcode.com/problems/one-edit-distance
+
 
 Some of the Binary Search based Interval Problems :)
 57. Insert Interval - https://leetcode.com/problems/insert-interval/
@@ -1692,3 +1866,20 @@ Time to revise
 -Recursion - 1 hr 
 -PQ - 
 -Hashmap -
+-Interval 
+-DP - going on from github
+==================
+==================
+
+Lambda expression sort:
+	Collections.sort(eventPoints, (a,b)->{  if(a[0] != b[0]) 
+												return a[0]-b[0];
+											else 
+												return a[1]-b[1];
+										});
+
+
+
+FB explore card revise progress:
+-------
+-from next permutation or multiply strings 
