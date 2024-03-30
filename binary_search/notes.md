@@ -1,7 +1,9 @@
 ** while(l<r)
 
 -moves are m or m+1
+
 -we may keep recording the desired/matchin value BEFORE going left (ie, last seen good value), since we narrow down towards result, at the end we can return the recorded val.
+
 -use this kind of loop to narrow down to l. 
   
 ** whie(l<=r)
