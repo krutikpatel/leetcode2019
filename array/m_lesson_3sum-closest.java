@@ -28,7 +28,7 @@ class Solution {
             //standard two sum one pass sweep
             int l = i+1;
             int r = nums.length-1;
-            int local_target = target - nums[i];
+            //int local_target = target - nums[i];
             
             while(l<r){
                 int currSum = nums[l] + nums[r] + nums[i];//easier to call them a,b,c for simplicity
@@ -37,9 +37,9 @@ class Solution {
                 if(Math.abs(target - currSum) < Math.abs(target - closest))
                     closest = currSum;
                    
-                if(nums[l] + nums[r] < local_target){                    
+                if(currSum < target){                    
                     l++;
-                } else if(nums[l] + nums[r] > local_target){
+                } else if(currSum > target){
                     r--;
                 }else                         
                     return target;                    
