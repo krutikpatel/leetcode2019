@@ -1,0 +1,16 @@
+stack problems:
+
+https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/e_valid-parentheses.java
+
+https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/m_basic-calculator-ii.java
+
+https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/m_daily-temperatures.java
+
+https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/m_decode-string.java
+
+https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/m_exclusive-time-of-functions.java
+
+https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/m_flatten-nested-list-iterator.java
+
+--
+https://www.educative.io/courses/grokking-coding-interview-patterns-java/introduction-to-stacks
