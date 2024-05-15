@@ -26,6 +26,8 @@ There are 5 ways to assign symbols to make the sum of nums be target 3.
     Time complexity: O(2^n) . Size of recursion tree will be 2^n. n refers to the size of numsnums array.
     
     ==> optimized solutions are possible with DP. Below is only brute force soln
+
+    Think + and - signs as two branches of binary treee, just two options to go form current node
 */
 class Solution {
     int count = 0;
