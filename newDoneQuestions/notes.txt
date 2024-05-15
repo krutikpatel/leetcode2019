@@ -1,2 +1,31 @@
 Add Newly Done questions
 --------------------------
+- [https://leetcode.com/problems/max-number-of-k-sum-pairs/submissions/1241209299/?envType=study-plan-v2&envId=leetcode-75](https://leetcode.com/problems/max-number-of-k-sum-pairs/description/?envType=study-plan-v2&envId=leetcode-75) - 2 ptrs
+- https://leetcode.com/problems/find-pivot-index/description/?envType=study-plan-v2&envId=leetcode-75 - prefixsum
+- https://leetcode.com/problems/determine-if-two-strings-are-close/description/?envType=study-plan-v2&envId=leetcode-75 - hashmap/set
+- https://leetcode.com/problems/removing-stars-from-a-string/description/?envType=study-plan-v2&envId=leetcode-75 - stack
+- https://leetcode.com/problems/asteroid-collision/description/?envType=study-plan-v2&envId=leetcode-75 - stack - imp
+- https://leetcode.com/problems/maximum-subsequence-score/description/?envType=study-plan-v2&envId=leetcode-75 - TODO so bad
+- https://leetcode.com/problems/total-cost-to-hire-k-workers/description/?envType=study-plan-v2&envId=leetcode-75 - hard to remember some corners in loop
+- https://leetcode.com/problems/successful-pairs-of-spells-and-potions/description/?envType=study-plan-v2&envId=leetcode-75 - binary search - narrow down towards pivot
+- https://leetcode.com/problems/koko-eating-bananas/description/?envType=study-plan-v2&envId=leetcode-75 - tricky binary search
+- prefix sum + bianry tree
+    - https://leetcode.com/problems/path-sum-iii/?envType=study-plan-v2&envId=leetcode-75
+- https://leetcode.com/problems/delete-node-in-a-bst/?envType=study-plan-v2&envId=leetcode-75 - bst recursion
+- https://leetcode.com/problems/number-of-provinces/description/?envType=study-plan-v2&envId=leetcode-75 - DFS or union find
+- https://leetcode.com/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero/description/?envType=study-plan-v2&envId=leetcode-75 - graph dfs
+    - direction trick
+- https://leetcode.com/problems/nearest-exit-from-entrance-in-maze/description/?envType=study-plan-v2&envId=leetcode-75 - BFS practice
+- https://leetcode.com/problems/number-of-recent-calls/description/?envType=study-plan-v2&envId=leetcode-75 - interesting Queue application (what we store)
+- https://leetcode.com/problems/can-place-flowers/description/?envType=study-plan-v2&envId=leetcode-75 - array do not confuse with DP
+- https://leetcode.com/problems/increasing-triplet-subsequence/description/?envType=study-plan-v2&envId=leetcode-75 - array
+- https://leetcode.com/problems/string-compression/description/?envType=study-plan-v2&envId=leetcode-75 - good char and arr practice
+- https://leetcode.com/problems/non-overlapping-intervals/description/?envType=study-plan-v2&envId=leetcode-75 - little tricky interval prob
+- https://leetcode.com/problems/daily-temperatures/description/?envType=study-plan-v2&envId=leetcode-75
+- https://leetcode.com/problems/online-stock-span/description/?envType=study-plan-v2&envId=leetcode-75 - monotonic stack applied version
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/af3c7296-df6e-4e23-8c3c-3802bd54bbed/8e5f15ca-af6d-421a-8f71-514deb6c9367/Untitled.png)
+    
+- https://leetcode.com/problems/max-consecutive-ones-iii/description/?envType=study-plan-v2&envId=leetcode-75 sliding window
+    - similar to that:
+    - https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/description/?envType=study-plan-v2&envId=leetcode-75
