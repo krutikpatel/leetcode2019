@@ -1,0 +1,33 @@
+
+https://www.notion.so/_Leetcode-Progress-2024-e01d5ab2518c4a48b3b098624e475e07?pvs=4
+
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/h_binary-tree-maximum-path-sum.java
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_binary-search-tree-iterator.java
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_find-duplicate-subtrees.java
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_flatten-binary-tree-to-linked-list.java
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/binary_tree/m_lesson_insufficient-nodes-in-root-to-leaf-paths.java - advance in tree
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_3sum-smaller.java
+    - there is trick here - there are more triplets than you think. or go over using two sum sweep. you need all the combinations which is not directly possible using 2 sum sweep, but since arr is sorted, you can use that to your advantage
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_find-all-duplicates-in-an-array.java
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_remove-duplicates-from-sorted-array-ii.java
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/array/m_lesson_subarray-sum-equals-k.java
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/array/m_maximum-product-subarray.java
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/array/m_prison-cells-after-n-days.java
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/hashmap/e_isomorphic-strings.java
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/hashmap/m_group-shifted-strings.java
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/hashmap/m_lesson_find-and-replace-pattern.java
+- [ ]  https://leetcode.com/problems/time-based-key-value-store/description/
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/hashmap/m_logger-rate-limiter.java
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/m_flatten-nested-list-iterator.java dfs + stack - stack just as easy way to get next elem
+    - we are trying to avoid parsing/whole dfs in one go at beginning. we are trying to implement “Iterator”
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/m_lesson_all-paths-from-source-to-target.java
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/m_lesson_path-sum-iii.java dfs + prefix-sum
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/m_lesson_shortest-bridge.java dfs+bfs
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/m_lesson_the-maze.java
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/m_sum-root-to-leaf-numbers_lesson.java
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/m_target-sum.java
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/m_word-search.java
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/h_lesson_word-search-ii.java - trie rather than brute force dfs
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/h_longest-increasing-path-in-a-matrix.java dfs + memoization
+    - [ ]  No need to track visited, because we are looking for optimum solution, so rather we store soln at each node (memoization), and re-use it next time.
+- [ ]  https://github.com/krutikpatel/leetcode2019/blob/master/dfs_and_stack/h_reconstruct-itinerary.java
