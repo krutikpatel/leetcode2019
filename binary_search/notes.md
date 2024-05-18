@@ -6,6 +6,7 @@
 
 **while(l<=r)**
 
+- Initial Condition: left = 0, right = length - 1
 - Moves are m+1 and m-1
 - This kind of loop will go over each element and answer has to be found in the loop itself.
 - What remains in l or r is not relevant after loop.
