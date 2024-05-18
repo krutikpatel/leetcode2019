@@ -37,6 +37,7 @@ class Solution {
                 //if not digit, AND its not space OR its last char. if its last char, the whole num we need to put in stack
                 if(s.charAt(i) != ' ') || i==len-1){
                     //process last sign and generate one operand, because we have new sign now
+                    //approach : evaluate * and / in the loop (BECAUSE THEY HAVE HIGHER PRECEDENCE), then what remians is just series of +ve and -ve numbers to add-up
                     if(sign=='-'){
                         stack.push(-num);
                     }
