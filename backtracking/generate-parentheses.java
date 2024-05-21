@@ -35,7 +35,8 @@ class Solution {
             //System.out.println(str);//can visual the call stack sequence
             return;
         }
-        
+
+      /* no need of checks, directly call method
         //we put choices in order that is correct ( and then )
         if(open < max){
             arrange(list, str+"(", open+1, close, max);
@@ -49,6 +50,8 @@ class Solution {
             arrange(list, str+")", open, close+1, max);
             //IMP: since we are using "String" for sofar tracking, we dont have to remove char/backtrack after recursive call 
         }
-        
+        */
+        arrange(list, str+"(", open+1, close, max);
+        arrange(list, str+")", open, close+1, max);
     }
 }
