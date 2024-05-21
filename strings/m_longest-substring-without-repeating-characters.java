@@ -39,17 +39,17 @@ class Solution {
         int ret = 0;
         
         //extend window [i,j]        
-        int i = 0, j = 0;
-        while (i < s.length() && j < s.length()) {
-            if(!set.contains(s.charAt(j))){ //extend window from j side
-                set.add(s.charAt(j));
-                j++;
-                ret = Math.max(ret,j-i);                
+        int l = 0, r = 0;
+        while (r < s.length()) {
+            if(!set.contains(s.charAt(r))){ //extend window from j side
+                set.add(s.charAt(r));
+                ret = Math.max(ret,r-l+1);                
+                r++;
             }else{
                 //slide window from i side
-                set.remove(s.charAt(i)); //imagine case: pwwkew. imp to remove charAt i, that is our "sliding"
+                set.remove(s.charAt(l)); //imagine case: pwwkew. imp to remove charAt i, that is our "sliding"
                                          //in next iteration, j will add it to set, notice, we did not move j.
-                i++;
+                l++;
             }            
         }
         
