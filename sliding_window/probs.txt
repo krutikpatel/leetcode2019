@@ -1,0 +1,29 @@
+
+https://leetcode.com/problems/longest-repeating-character-replacement/description/ 
+
+https://leetcode.com/problems/longest-palindromic-substring/description/ 
+
+https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/description/ 
+
+https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/ 
+
+
+—continue from
+
+https://leetcode.com/problems/minimum-window-substring/description/ 
+
+https://leetcode.com/problems/longest-increasing-subsequence/description/ 
+
+https://leetcode.com/problems/longest-common-subsequence/description/
+
+https://leetcode.com/problems/longest-consecutive-sequence/description/
+
+Maximum Number of Vowels in a Substring of Given Length
+
+Max Consecutive Ones III
+
+Longest Subarray of 1's After Deleting One Element
+
+https://leetcode.com/problems/longest-palindromic-subsequence/description/
+
+https://leetcode.com/problems/longest-repeating-character-replacement/description/  
