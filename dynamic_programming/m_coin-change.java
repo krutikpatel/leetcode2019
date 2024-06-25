@@ -20,6 +20,24 @@ easily solvable with BFS too
 BFS used to give optimal solution
 
 */
+public int coinChange2(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, amount + 1); //Integer.MAX_VALUE; will create overflow when we do +1
+        dp[0] = 0;
+
+	//we fill each dp[x] to reach last one
+        for (int i = 1; i <= amount; i++) {
+	    //and at each dp try to use each coins once
+            for (int j = 0; j < coins.length; j++) {
+                if (coins[j] <= i) {
+                    dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
+                }
+            }
+        }
+        return dp[amount] > amount ? -1 : dp[amount];
+    }
+
+
 public int coinChange(int[] coins, int amount) {
         if (coins == null || coins.length == 0 || amount <= 0)
 		return 0;
