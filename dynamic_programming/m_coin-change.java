@@ -26,8 +26,9 @@ public int coinChange2(int[] coins, int amount) {
         dp[0] = 0;
 
 	//we fill each dp[x] to reach last one
+	//start filling DP for each amount vals from 1 to n
         for (int i = 1; i <= amount; i++) {
-	    //and at each dp try to use each coins once
+	    //and at each dp try to use each coins once, since we are building bottom-up
             for (int j = 0; j < coins.length; j++) {
                 if (coins[j] <= i) {
                     dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
