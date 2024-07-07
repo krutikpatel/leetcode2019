@@ -33,6 +33,7 @@ class Solution {
         Arrays.sort(points, (a, b) -> {
             // We can't simply use the o1[1] - o2[1] trick, as this will cause an 
             // integer overflow for very large or small values.
+            // also because we need to handle +ve and -ve values coordinates
             if (a[1] == b[1]) return 0;
             if (a[1] < b[1]) return -1;
             return 1;
