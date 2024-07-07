@@ -24,6 +24,12 @@ Explanation: You don't need to remove any of the intervals since they're already
 */
 class Solution {
     /**
+     rephrase problem - 
+    "Given a collection of intervals, find the maximum number of intervals that are non-overlapping."
+    -> if u remove a larger interval that overlaps, remaining ones will be max non - overlapping
+
+
+    
     -sort by start time. if start time same, sort by end time (keep smaller end time first)
     -then compare end with next start
     -no need to store we just need count
