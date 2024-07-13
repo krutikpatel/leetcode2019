@@ -12,9 +12,9 @@ https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characte
 
 https://leetcode.com/problems/minimum-window-substring/description/ 
 
-https://leetcode.com/problems/longest-increasing-subsequence/description/ 
+https://leetcode.com/problems/longest-increasing-subsequence/description/ - DP
 
-https://leetcode.com/problems/longest-common-subsequence/description/
+https://leetcode.com/problems/longest-common-subsequence/description/ - DP
 
 https://leetcode.com/problems/longest-consecutive-sequence/description/ - DP
 
