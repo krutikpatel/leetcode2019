@@ -28,7 +28,7 @@ class Solution {
                 if (helper(0, word, y, x, board, visited)) return true;
             }
         }
-        return helper(0, word, 0, 0, board, visited);
+        return false;
     }
     
     private boolean helper(int soFar, String word, int row, int col, char[][] board, boolean[][] visited){
@@ -37,7 +37,7 @@ class Solution {
             return true;
         }
 
-        //there can be common validation. which is, if cell is valid.
+        //there can be common validation. which is if cell is valid.
         if( (row<0) || (row>= board.length) || (col <0) || (col >= board[0].length) || (board[row][col] != word.charAt(soFar)) || (visited[row][col] == true) )
             return false;
         
@@ -45,16 +45,15 @@ class Solution {
         visited[row][col] = true;
     
         //possible movement choices
-        if(helper(soFar+1, word, row, col+1, board, visited)     //right
+        boolean ret = helper(soFar+1, word, row, col+1, board, visited)     //right
             || helper(soFar+1, word, row+1, col, board, visited) // down
             || helper(soFar+1, word, row, col-1, board, visited) // left
-            || helper(soFar+1, word, row-1, col, board, visited) // up
-          ){
-            return true;
-        }
+            || helper(soFar+1, word, row-1, col, board, visited); // up
+        
         //clear
         visited[row][col] = false;
         
-        return false;
-    }   
+        return ret;
+    }
+    
 }
