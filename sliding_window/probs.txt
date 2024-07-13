@@ -7,22 +7,23 @@ https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-charac
 
 https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/ 
 
-
-—continue from
-
 https://leetcode.com/problems/minimum-window-substring/description/ 
-
-https://leetcode.com/problems/longest-increasing-subsequence/description/ - DP
-
-https://leetcode.com/problems/longest-common-subsequence/description/ - DP
-
-https://leetcode.com/problems/longest-consecutive-sequence/description/ - DP
 
 https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/description/
 
 https://leetcode.com/problems/max-consecutive-ones-iii/description 
 
 https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/description/ 
+
+
+
+
+
+https://leetcode.com/problems/longest-increasing-subsequence/description/ - DP
+
+https://leetcode.com/problems/longest-common-subsequence/description/ - DP
+
+https://leetcode.com/problems/longest-consecutive-sequence/description/ - DP
 
 https://leetcode.com/problems/longest-palindromic-subsequence/description/ - DP
 
