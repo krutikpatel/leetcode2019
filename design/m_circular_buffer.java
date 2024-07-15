@@ -8,6 +8,11 @@ Note: circular buffer or ring buffer
     -if buffer is full, writer cant write. Consumer has to consume first
 
     Also, normally its good idea to add thread protection on buffer using lock
+
+TODO:
+    try implementing using LinkedList or array
+    LL
+        maintain hard, tail and size. pretty straightforward
  */
 class MyCircularQueue {
     Queue<Integer> q;
