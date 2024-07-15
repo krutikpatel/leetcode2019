@@ -86,6 +86,8 @@ TLDR: HashMap as store, plus DoublyLinkedList nodes.
     /*
     TLDR: HashMap as store, plus DoublyLinkedList nodes.
     Logic:
+    we have a need to keep track of access order. To form order, we need ability to move node to front when accessed. We have a need to evict node from other end
+    Thus DLL fits the requirement
     
     HashMap will only store nodes = capacity (and those will be LRU node)
     Use DLL to keep track of what is used most recently
