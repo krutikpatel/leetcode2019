@@ -24,7 +24,10 @@ Explanation: One arrow needs to be shot for each balloon for a total of 4 arrows
 */
 class Solution {
     /**
-    
+    Algo:
+     Ans = num of overlaps + others = total - overlaps
+      -we need that many arrows at minimum
+      
     -trick - because these are coordinates. we need to think +ve and -ve and they cant overlap
     -corner - edges on int range -> a-b will overdlow in normal comparator
      */
