@@ -29,7 +29,7 @@ class Solution {
         int goodIndexToOverwrite = 0;//this would be index of additional array, if used to put unique elems only
         int count = 1;
         for(int j=1;j<nums.length;j++) {
-            if(nums[j] == nums[j-1]) {
+            if(nums[j] == nums[j-1]) {    //notice that we dont compare with goodIndexToOverwrite. because we look for dups
                 count++;
             } else {
                 count = 1;
@@ -40,6 +40,11 @@ class Solution {
                 goodIndexToOverwrite++;
                 nums[goodIndexToOverwrite] = nums[j];     //for right elements, its nums[x] = nums[x]; --> redundant operation, but easier to code by generalizing                           
             }
+            /*
+            else {
+                we dont have good candidate yet to overwrite so look for it in next iteration
+            }
+            */
         }
         return goodIndexToOverwrite+1;
     }
