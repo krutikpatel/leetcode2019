@@ -19,7 +19,7 @@ Everything inside the for loop is O(1) so the total time is O(n). Please comment
 */    
     public int longestConsecutive(int[] num) {
         int res = 0;
-        //<indexOrPosition,itsLongestStreakSoFar>
+        //<num,itsLongestStreakSoFar>
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
         for (int n : num) {
             if (!map.containsKey(n)) {
@@ -36,8 +36,8 @@ Everything inside the for loop is O(1) so the total time is O(n). Please comment
                     // extend the length to the boundary(s)
                     // of the sequence
                     // will do nothing if n has no neighbors
-                map.put(n - left, sum);//update farthest entries
-                map.put(n + right, sum);//update farthest entries
+                map.put(n - left, sum);//update farthest entry/num for n's consecutive seq
+                map.put(n + right, sum);//update farthest entry/num for n's consecutive seq
                 
                 //following does not work!
                     //map.put(n - 1, sum);
