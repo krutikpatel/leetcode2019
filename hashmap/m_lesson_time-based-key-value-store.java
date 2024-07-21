@@ -45,6 +45,81 @@ Note:
     TimeMap.set and TimeMap.get functions will be called a total of 120000 times (combined) per test case.
 */
 class TimeMap {
+    class Pair {
+        int time;
+        String value;
+        Pair(int time, String val) {
+            this.time = time;
+            this.value = val;
+        }
+    }
+    
+    HashMap<String,List<Pair>> map;
+	
+	public TimeMap(){
+		map = new HashMap<>();
+	}
+	
+	public void set(String key, String value, int timestamp){
+		if(!map.containsKey(key)){
+			map.put(key, new ArrayList<>());
+		}
+		List<Pair> list = map.get(key);
+		list.add(new Pair(timestamp,value));
+	}
+	
+	public String get(String key, int timestamp){
+		if(!map.containsKey(key)){
+			return "";
+		}
+		
+		List<Pair> list = map.get(key);
+		if(list.size()==0){
+			return "";
+		}
+        /*
+        safer option for binary search - figuring out edges first
+		if(list.get(0).time > timestamp){
+			return "";
+		}
+        */
+		Pair ret = getPair(timestamp,list);
+        if(ret == null){
+            return "";
+        }
+		return ret.value;
+	}
+	
+	/*
+	-binary search 
+	-if not found, return lesser closest, ie floor
+        -template1 with tracking smaller
+	*/
+	private Pair getPair(int ts, List<Pair> list) {
+		int l = 0;
+		int r = list.size()-1;
+		Pair ret = null;
+		while(l<=r){
+			int m = l+(r-l)/2;
+			Pair p = list.get(m);
+			
+			if(p.time == ts){
+				return p;
+			}
+			if(p.time > ts){
+				//go left
+				r = m-1;
+			} else {
+				//go right
+				l = m+1;
+				ret = p;
+			}
+		}
+		
+		return ret;//ret may be null, not sure when
+	}
+
+    //====================================== older approach of sortedMap not needed since time is strictly increasing
     /*
     key -> timesorted key,val pairs. pair<time,val>
     no need of pair class, we need TreeMap<time,val>
