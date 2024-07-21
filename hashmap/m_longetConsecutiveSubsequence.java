@@ -23,7 +23,7 @@ Everything inside the for loop is O(1) so the total time is O(n). Please comment
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
         for (int n : num) {
             if (!map.containsKey(n)) {
-                int left = (map.containsKey(n - 1)) ? map.get(n - 1) : 0;
+                int left = (map.containsKey(n - 1)) ? map.get(n - 1) : 0;// because we are forming/llokg for "consecutive" seq, we check n-1 and n+1
                 int right = (map.containsKey(n + 1)) ? map.get(n + 1) : 0;
                 // sum: length of the sequence n is in
                 int sum = left + right + 1;
