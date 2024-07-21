@@ -19,7 +19,7 @@ Everything inside the for loop is O(1) so the total time is O(n). Please comment
 */    
     public int longestConsecutive(int[] num) {
         int res = 0;
-        //<num,itsLongestStreakSoFar>
+        //<indexOrPosition,itsLongestStreakSoFar>
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
         for (int n : num) {
             if (!map.containsKey(n)) {
