@@ -36,9 +36,17 @@ class Solution {
             way2 = i-1,i (if that is betn 10 to 26)
             
     way1 = dp[i-1] , just continuiing that string
-    way2 = dp[i-2] , just continuiing that string
+    way2 = dp[i-2] plus 2-digit num , just continuiing that string
     
     so dp[i] = way1 + way2
+
+    212 can be
+    BAB
+    Or
+    BL
+    Or
+    SB
+    
     */    
     public int numDecodings(String s) {
         // DP array to store the subproblem results
@@ -51,12 +59,17 @@ class Solution {
 
         //notice begin index = 2, easier to follow 
         for(int i = 2; i < dp.length; i++) {
-            // Check if successful single digit decode is possible.
+            //Note: the order of these 2 operations does not matter since its addition
+            // option1: Check if successful single digit decode is possible.
             if (s.charAt(i - 1) != '0') {
-               dp[i] = dp[i - 1];  //notice - we just conitue same value, we dont increment because we are forming string
+                //dp[i-1] and curr char
+               dp[i] = dp[i - 1];  //notice - we just conitue same value, we dont increment because we are just forming string as one option
+            } else {
+                //dp[i] is still 0
             }
             
-            // Check if successful two digit decode is possible.
+            // option2: Check if successful two digit decode is possible.
+                //dp[i-2] and 2 digit num
             int twoDigit = Integer.valueOf(s.substring(i - 2, i));
             if (twoDigit >= 10 && twoDigit <= 26) {
                 dp[i] += dp[i - 2];//we add prev dp, because this leads to another way to form string
