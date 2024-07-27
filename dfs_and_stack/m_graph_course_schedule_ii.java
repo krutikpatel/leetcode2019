@@ -26,6 +26,10 @@ Output: [0]
 */
 class Solution {
     /*
+    <>Imp detail to remember:
+      <>the "adj list is created for source courses". because given a course, we want its dependents so that we can reduce their indegree
+      <>another good option might be using set instead of list, if we go other way. adj list for dep/dest courses
+
     Topological sort.
     -add all those nodes who does not have incoming degree/branch, to a queue. Those are like root nodes.
     
@@ -50,9 +54,8 @@ class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
         boolean isPossible = true;
         
-        Map<Integer, List<Integer>> adjList = new HashMap<Integer, List<Integer>>();
-        int[] indegree = new int[numCourses];
-        
+        Map<Integer, List<Integer>> adjList = new HashMap<Integer, List<Integer>>();//<>the "adj list is created for source courses". because given a course, we want its dependents so that we can reduce their indegree
+        int[] indegree = new int[numCourses];// easier to use this to lookp up 0 indegree nodes, and track indegrees rather than thru adjList
         int[] topologicalOrder = new int[numCourses];
 
         // Create the adjacency list representation of the graph. list for nodes with outgoing edges
