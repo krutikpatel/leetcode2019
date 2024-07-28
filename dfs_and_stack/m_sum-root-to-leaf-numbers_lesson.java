@@ -31,6 +31,10 @@ Therefore, sum = 12 + 13 = 25.
  *     TreeNode(int x) { val = x; }
  * }
  */
+/*
+no need of dfs or backtracking.
+just pass around sofarsum
+*/
 class Solution {
     int sum = 0;
     public int sumNumbers(TreeNode root) {
@@ -38,10 +42,32 @@ class Solution {
             return sum;
         //dfs(root, new ArrayList<Integer>());
         
-        sumNumberUtil(root,root.val);
+            //sumNumberUtil(root,root.val);
+        helper(root, 0);
         return sum;
     }
     
+    private void helper(TreeNode root, int sofarSum){
+        if(root == null)
+            return;
+        
+        sofarSum = sofarSum*10 + root.val;
+
+        if(root.left == null && root.right == null){
+            sum += sofarSum;
+            return;
+        }
+        helper(root.left, sofarSum);
+        helper(root.right, sofarSum);
+        
+        //System.out.println("node = "+root.val + " and sum = "+currentSum);
+    }
+
+    //---------- do not use following
+    /*
+no need of dfs or backtracking.
+just pass around sofarsum
+*/
     private void dfs(TreeNode n, ArrayList<Integer> sofar) {
         if(n == null)
             return;
