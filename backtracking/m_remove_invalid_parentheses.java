@@ -67,7 +67,7 @@ class Solution {
           found = true;
         }
       
-        if (found) continue;
+        if (found) continue;//no need to go remove more parantheses, because min num asked. 
       
         // generate all possible states, as next BFS level
         for (int i = 0; i < s.length(); i++) {
