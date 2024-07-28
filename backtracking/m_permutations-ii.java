@@ -35,7 +35,7 @@ class Solution {
         Set<Integer> appeared = new HashSet<>();
         for (int i=index; i<nums.length; ++i) {
             //if not used
-            if (appeared.add(nums[i])) {
+            if (appeared.add(nums[i])) {// eg: 1,1 is same as other 1,1 so dont use 1 again if seen before
                 swap(nums, index, i);
                 permute(ans, nums, index+1);
                 swap(nums, index, i);
