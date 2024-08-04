@@ -49,12 +49,14 @@ class Solution {
         ListNode curr = ret;
         
         while(!pq.isEmpty()){
-            curr.next = pq.remove();
+          
+            ListNode n = pq.remove();
+            curr.next = n;
             curr = curr.next;
             
             //we just add one elem at time form remaining list, because they are sorted, it works, rather than adding everything in pq upfront.
-            if(curr.next!=null){ //there is list here
-                pq.add(curr.next);
+            if(n.next!=null){ //there is list here
+                pq.add(n.next);
             }
         }
         
