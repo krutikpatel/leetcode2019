@@ -54,7 +54,9 @@ class Logger {
             circ_buf[slot] = timestamp;
             
             //we also clear correspondin bucket, because 10 secs have passed, so these all logs are irrevalent
-            sets[slot].clear();            
+            sets[slot].clear();    
+
+            //dont add to set yet
         }                
         
         //need to check all 10 sec data for log message in ANY-case. If not in any bucket, this is new message for this 10 sec window.
@@ -65,7 +67,8 @@ class Logger {
             if(timestamp - circ_buf[i] < 10 && sets[i].contains(message))
                 return false;            
         }            
-        
+
+        //do it afterwards if not found anywhere above
         sets[slot].add(message);
         return true;
     }
