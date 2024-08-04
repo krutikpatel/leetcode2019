@@ -68,13 +68,23 @@ class Solution {
         int[] prev = new int[] {-1,0};
         StringBuilder sb = new StringBuilder();
         while(!q.isEmpty()) {
+            //fetch curr
             int[] cur = q.poll();
-            if(prev[1] > 0) q.offer(prev); // add back last used character
+            
+            //offer prev if valid
+            if(prev[1] > 0) 
+	            q.offer(prev); // add back last used character
 
+	    //update ret
             sb.append((char)(cur[0] + 'a')); // append current character
             cur[1]--; // decrease count of current char since it's used
+
+	    //reset prev
             prev = cur; // set this character as previous used
-            if(q.isEmpty() && prev[1] > 0) return ""; // if we left with anything return ""
+
+	    //check invalid case - q empty and we still have char left
+            if(q.isEmpty() && prev[1] > 0) 
+	        return ""; // if we left with anything return ""
         }
         return sb.toString();
     }
