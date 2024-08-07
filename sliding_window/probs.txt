@@ -1,24 +1,21 @@
 
-https://leetcode.com/problems/longest-repeating-character-replacement/description/ 
 
-https://leetcode.com/problems/longest-palindromic-substring/description/ 
-
-https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/description/ 
-
-https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/ 
-
-https://leetcode.com/problems/minimum-window-substring/description/ 
-
-https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/description/
 
 https://leetcode.com/problems/max-consecutive-ones-iii/description 
-
+https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/description/ 
+[] https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/ 
+https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/description/
 https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/description/ 
 
+[] https://leetcode.com/problems/longest-repeating-character-replacement/description/ - math
+https://leetcode.com/problems/minimum-window-substring/description/ 
+https://leetcode.com/problems/longest-palindromic-substring/description/ 
+https://github.com/krutikpatel/leetcode2019/blob/master/strings/m_longest-substring-without-repeating-characters.java
 
+[]https://leetcode.com/problems/frequency-of-the-most-frequent-element/description/ - math
+[]https://leetcode.com/problems/longest-increasing-subsequence/description/ - sliding + dp1D
 
-
-
+---
 https://leetcode.com/problems/longest-increasing-subsequence/description/ - DP
 
 https://leetcode.com/problems/longest-common-subsequence/description/ - DP
