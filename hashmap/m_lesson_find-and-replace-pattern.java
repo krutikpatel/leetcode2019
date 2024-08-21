@@ -32,7 +32,37 @@ class Solution {
         }
         return ret;
     }
-    
+
+    public boolean isPatternMatch(String s, String t){
+       if(p.length()!=s.length())
+            return false;
+        //int arr as char map
+        //we store char count at ASCII'th index
+        int [] ss = new int[256];
+        int [] tt = new int[256];
+        Arrays.fill(ss,-1);
+        Arrays.fill(tt,-1);
+        for(int i = 0; i< s.length();i++){
+            char c1 = s.charAt(i);
+            char c2 = t.charAt(i);
+            //if same char has diff mapping to other char. think aa, ab
+            if(ss[c1] != tt[c2]){
+                return false;
+            }
+            
+            //add entries in respective maps
+            //we need a var like i to catch case like: bbbaaaba and aaabbbba. same no of letters but not isomorphic.
+            //and need a const rand number , 1 or anything else
+            //The "i + 1" made me a bit confused, then realized "+1" is to exclude 0 from valid index. Why not initialzing the array as -1, and simply keep i in the array. This also avoids the overflow issue. AC code as below:
+            //https://leetcode.com/problems/isomorphic-strings/solutions/57796/my-6-lines-solution/comments/59442
+            //ss[c1] = i+ 1;
+            //tt[c2] = i + 1;
+            ss[c1] = i;//we want to use 0th index, but ss[c1]=0 should mean that its present. if we dont initialize array to -1, we dont know if its present or just not initialized
+            tt[c2] = i;
+        }
+        return true;
+    }
+ 
     /*
     lesson - one map pattern to string map not sufficient
     -we need 2 way map
@@ -44,7 +74,7 @@ class Solution {
     
     so, we need 2 way checking. 
     */
-    private boolean isPatternMatch(String p, String s) {        
+    private boolean isPatternMatch2(String p, String s) {        
         if(p.length()!=s.length())
             return false;
         
