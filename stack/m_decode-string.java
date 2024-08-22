@@ -18,8 +18,35 @@ s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 
 */
 class Solution {
-    
-    class Solution {
+
+    /*
+    More readable
+    */
+    public String decodeString(String s) {
+        if(s==null || s.length()==0)
+            return s;
+        Stack<Integer> intStack = new Stack<>();
+        Stack<StringBuilder> strStack = new Stack<>();
+        
+        StringBuilder cur = new StringBuilder();
+        int k = 0;
+        
+        for (char ch : s.toCharArray()) {
+            if (Character.isDigit(ch)) {
+                k = k * 10 + ch - '0';
+            } else if ( ch == '[') {
+                intStack.push(k);
+                strStack.push(cur);
+                cur = new StringBuilder();
+                k = 0;
+            } else if (ch == ']') {
+                StringBuilder tmp = cur;
+                cur = strStack.pop();
+                for (k = intStack.pop(); k > 0; --k) cur.append(tmp);
+            } else cur.append(ch);
+        }
+        return cur.toString();
+    }    
     
     //Note
     /*
@@ -30,6 +57,7 @@ class Solution {
     
     -consider possiblity of multi-digit count (need multiple chars to make one integer)
     */
+    /*
     public String decodeString(String s) {
         if(s==null || s.length()==0)
             return s;
@@ -82,31 +110,6 @@ class Solution {
         return res;
     }
     
-    /*
-    More readable
-    
-    Stack<Integer> intStack = new Stack<>();
-    Stack<StringBuilder> strStack = new Stack<>();
-    
-    StringBuilder cur = new StringBuilder();
-    int k = 0;
-    
-    for (char ch : s.toCharArray()) {
-        if (Character.isDigit(ch)) {
-            k = k * 10 + ch - '0';
-        } else if ( ch == '[') {
-            intStack.push(k);
-            strStack.push(cur);
-            cur = new StringBuilder();
-            k = 0;
-        } else if (ch == ']') {
-            StringBuilder tmp = cur;
-            cur = strStack.pop();
-            for (k = intStack.pop(); k > 0; --k) cur.append(tmp);
-        } else cur.append(ch);
-    }
-    return cur.toString();
-        
     */
 }
     
