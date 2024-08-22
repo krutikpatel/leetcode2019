@@ -46,8 +46,8 @@ class Solution {
                     OR - prev dp = true (because then we are adding same char on both sides of valid palindrome)
                         -repv dp is substring of (i,j) which is (i+1,j-1)
         */
-        for(int i = n-1;i>=0;i--){
-            for(int j=i;j<n;j++){
+        for(int i = n-1;i>=0;i--){	//end
+            for(int j=i;j<n;j++){	//begin
                 dp[i][j] = s.charAt(i) == s.charAt(j) && (j-i<3 || dp[i+1][j-1]);
                 if(dp[i][j]){
                     //System.out.println("i = "+i + " and j = "+j);
