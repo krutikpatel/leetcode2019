@@ -67,7 +67,11 @@ class Solution {
     
     //to avoid looking for elem in soFar list which is O(n) call, use swap method.
     //basically, for each call, what we want to do is, find all permutations beginnign with that elem at front. So just bring that elem to front by swapping, then put it back by swapping again
-    
+    /*
+    Expected sequence of output:
+    [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,2,1],[3,1,2]]
+    first we computer everythign beginning with 1 (and inside same with second digit and so on..)
+    */
     private void backtrackPermuteSwap(int beginIndex, int[] nums, List<List<Integer>> ret){
         if(beginIndex == nums.length){
             List<Integer> ret1 = new ArrayList<>();
