@@ -65,7 +65,7 @@ class Solution {
         
         if Q is empty ans we still have some char left in prev, no solution possible
         */
-        int[] prev = new int[] {-1,0};
+        int[] prev = new int[] {-1,0};//since only thing we have is PQ, and we putback prev elem back to PQ, we use this to figure out prev elem in iteration.
         StringBuilder sb = new StringBuilder();
         while(!q.isEmpty()) {
             //fetch curr
