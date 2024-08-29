@@ -49,7 +49,7 @@ class Solution {
             int[] curr = points[i];
             if(curr[0] <= prevEnd) {
                 overlaps++;
-                prevEnd = Math.min(prevEnd, curr[1]);
+                prevEnd = Math.min(prevEnd, curr[1]);//we take min end time, because we want to check if we can burst more balloons with SAME arrow
             } else {
                 prevEnd = curr[1];
             }
