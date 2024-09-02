@@ -32,6 +32,43 @@ class Solution {
     public int leastInterval(char[] tasks, int n) {
         if (tasks == null || tasks.length == 0)
             return -1;
+        	int[] freq = new int[26];
+        for(char c: tasks){
+            freq[c-'A']++;
+        }
+
+        Arrays.sort(freq);
+        int ret = 0;
+        
+        while(freq[25]!=0){
+            int interval = n+1;//fill these many slots
+            for(int i=25;i>=0;i--){
+                if(freq[i] > 0 && interval >0){
+                    freq[i]--;
+                    interval--;
+                    ret++;
+                } else {
+                    // either interval ended OR tasks ended. in both case this iteration is done
+                    break;
+                }
+            }
+            
+            Arrays.sort(freq);
+            if(freq[25]==0){
+                //ret--;//remove that tail cooling period    
+                //nothing more can be done/ no need to append anything
+                break;
+            }
+            ret+=interval;//add cooldown period. if interval ==0 there is no cooldown
+        }
+        return ret;
+        
+    }
+
+    //----
+    public int leastInterval(char[] tasks, int n) {
+        if (tasks == null || tasks.length == 0)
+            return -1;
         
         //build map to sum the amount of each task
         HashMap<Character,Integer> map = new HashMap<>();
