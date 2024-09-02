@@ -28,6 +28,11 @@ class Solution {
     A ? ? A ? ? A ..
       B _   B _ 
     1 2 3 4 5 6 7 -> ans  
+
+    The time complexity of the algorithm is 
+    O(26log26+N), where 26log26 is the time complexity of sorting the frequency array, 
+    and N is the length of the input task list, which is the dominating term.
+    
     */
     public int leastInterval(char[] tasks, int n) {
         if (tasks == null || tasks.length == 0)
