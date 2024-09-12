@@ -21,6 +21,27 @@ Then 4 is the first bad version.
       boolean isBadVersion(int version); */
 
 public class Solution extends VersionControl {
+      
+    //template 1
+    public int firstBadVersion(int n) {
+      	int l = 1;
+      	int r = n;
+      	
+      	int ret = -1;
+      	
+      	while(l<=r) {
+      		int mid = l+(r-l)/2;
+      		if(isBadVersion(mid)) {
+      			ret = mid;
+      			r = mid-1;
+      		} else {
+      			l = mid+1;
+      		}
+      	}
+      	
+      	return ret;
+      }
+            
     /*
     better solution - not obvious: navigating right or left based on true or false can lead us to first bad vesion.
         key: end up at valid index and thats our answer
@@ -28,6 +49,7 @@ public class Solution extends VersionControl {
     
     IMP method in binary search - narrow down on the desired node. left ptr can lead to right answer
     */
+      //template 2 : settles on 1 node that changed (floor +1)
     public int firstBadVersion(int n) {
         int l = 1;
         int r = n;
