@@ -78,7 +78,7 @@ class Solution {
                 //we keep elem with smaller endTime, to minimize overlaps
                 //we remove one with bigger endtime, because that may overlap with coming intervals, thus give me min num to remove
                 //we remove one with bogger end time whic hwill help maximize non-overlapping intervals
-                prevEnd = Math.min(intervals[i][1], prevEnd);       //V imp - handles same star-time as well
+                prevEnd = Math.min(intervals[i][1], prevEnd);       //V imp - handles same star-time as well. //we need to minimize overlaps to remove- ones to be removed
             } else {
                 prevEnd = intervals[i][1];
             }
