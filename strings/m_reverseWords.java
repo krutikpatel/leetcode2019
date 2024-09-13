@@ -31,7 +31,32 @@ Note:
 
 */
 class Solution {
+    public String reverseWords2New(String s) {
+        if(s == null || s.length() == 0)
+            return "";
 
+        s = s.trim();
+        s = reverse(s);//our implemenetation
+
+        StringBuilder sb = new StringBuilder();
+        int start=0;
+        int end = 0;
+        while(end<s.length()){
+            if(s.charAt(end) == ' '){// there can be more than 1 spaces between words - so consider that
+                sb.append(' ');
+                while(end<s.length() &&  s.charAt(end) == ' '){
+                    end++;
+                }
+            } else {
+                start = end;//imp
+                while(end<s.length() &&  s.charAt(end) != ' '){
+                    end++;
+                }
+                sb.append(reverse(s.substring(start,end)));
+            }
+        }
+        return sb.toString();
+    }
     //This one is relatively slower
     /*
     may be for faster approach :
