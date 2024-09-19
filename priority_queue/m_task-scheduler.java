@@ -59,12 +59,10 @@ class Solution {
             }
             
             Arrays.sort(freq);
-            if(freq[25]==0){
-                //ret--;//remove that tail cooling period    
-                //nothing more can be done/ no need to append anything
-                break;
+            if(freq[25]!=0){
+                ret+=interval;//add cooldown period. if interval ==0 there is no cooldown. when its 0 we dont need to add cooldown coz its done
             }
-            ret+=interval;//add cooldown period. if interval ==0 there is no cooldown
+            
         }
         return ret;
         
