@@ -50,13 +50,14 @@ class Solution {
         //out only choice is chars for given digit
         for(int j = 0;j<cc.length;j++){
             //make choice
-            soFar = soFar + (cc[j]);
+            //soFar = soFar + (cc[j]);
 
             //take further
-            helper( soFar,n,ret);
+            helper(  soFar + (cc[j]) ,n,ret);
 
             //backtrack last move. remove last char
-            soFar = soFar.substring(0,soFar.length()-1);
+            //soFar = soFar.substring(0,soFar.length()-1);
+            //may use backtrack method if using StringBuilder
         }
         
     }
