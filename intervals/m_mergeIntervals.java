@@ -35,7 +35,8 @@ class Solution {
         for(int i=1;i<intervals.length;i++){
             if(prev[1] >= intervals[i][0]){
                 //merge, whichever endtime bigger,use that
-                prev[1] = prev[1] >= intervals[i][1] ? prev[1] : intervals[i][1];                
+                //prev[1] = prev[1] >= intervals[i][1] ? prev[1] : intervals[i][1];                
+                prev[1] = Math.max(prev[1], intervals[i][1]); // prev is already added to ret list. so we are modifying the result inline
             }else{
                 //add new interval
                 ll.add(intervals[i]);
