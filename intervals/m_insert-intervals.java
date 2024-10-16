@@ -32,7 +32,7 @@ class Solution {
         
         // Step-2 merge all overlapping intervals to one considering newInterval
         while (i < intervals.length && intervals[i][0] <= newInterval[1]) {
-            newInterval = new int[]{
+            newInterval = new int[]{ //IMP : note that we are modifying our newInterval. and we just prepare it. it gets inserted into list after the loop
                     Math.min(newInterval[0], intervals[i][0]),
                     Math.max(newInterval[1], intervals[i][1])
                 };
